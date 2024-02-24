@@ -1,11 +1,17 @@
 from flask import render_template, request
 from app import app
-from app.models import Session
+from app.models import Session, User
 from datetime import datetime, timedelta
 
 # Home Page
 @app.route("/", methods=["GET"])
 def index():
+    user_data=User.query.all()
+    return render_template("users.html", users=user_data)
+
+
+@app.route("/sessions", methods=["GET"])
+def sessions():
     status_filter = request.args.get('statusFilter')
     if status_filter:
         sessions_data = Session.query.filter_by(status=status_filter).all()
@@ -14,10 +20,20 @@ def index():
     return render_template("sessions.html", sessions=sessions_data)
     # return render_template("index.html")
 
+@app.route("/users", methods=["GET"])
+def users():
+    user_data=User.query.all()
+    return render_template("users.html", users=user_data)
+
+@app.route("/load-user-table", methods=["GET"])
+def load_users_table():
+    user_data=User.query.all()
+    return render_template("user_table.html", users=user_data)
+
 @app.route("/load-sessions-table", methods=["GET"])
 def load_sessions_table():
     one_year_ago = datetime.now() - timedelta(days=365)
-    print(request.args.get('sort'))
+
     sort_column = request.args.get('sort', 'date')  # Assuming 'date' is a valid attribute of Session
     if request.args.get('sort'):
         sort_column = request.args.get('sort')

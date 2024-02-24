@@ -1,0 +1,24 @@
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>User Auth ID</th>
+            <th>Name</th>
+            <th>Login Email</th>
+            <th>School</th>
+            <th>Sign Up Role</th>
+            <th>District or Company</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.user_auth_id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.login_email }}</td>
+                <td>{{ user.school }}</td>
+                <td>{{ user.sign_up_role }}</td>
+                <td>{{ user.district_or_company }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
