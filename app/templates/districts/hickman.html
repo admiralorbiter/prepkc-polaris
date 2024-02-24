@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Hickman{% endblock %}
+
+{% block content %}
+    <h1>Hickman</h1>
+    <div id="districtTable" hx-get="/load-district-table?district=hickman" hx-trigger="load">
+        <!-- session_table.html content will be loaded here -->
+        Loading Data Please Wait...
+    </div>
+{% endblock %}

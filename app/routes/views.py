@@ -6,9 +6,45 @@ from datetime import datetime, timedelta
 # Home Page
 @app.route("/", methods=["GET"])
 def index():
-    user_data=User.query.all()
     return render_template("index.html")
 
+@app.route("/districts/kck", methods=["GET"])
+def kck():
+    return render_template("/districts/kck.html")
+
+@app.route("/districts/kcps", methods=["GET"])
+def kcps():
+    return render_template("/districts/kcps.html")
+
+@app.route("/districts/center", methods=["GET"])
+def center():
+    return render_template("/districts/center.html")
+
+@app.route("/districts/hickman", methods=["GET"])
+def hickman():
+    return render_template("/districts/hickman.html")
+
+@app.route("/districts/grandview", methods=["GET"])
+def grandview():
+    return render_template("/districts/grandview.html")
+
+@app.route("/load-district-table", methods=["GET"])
+def load_districts_table():
+    print(request.args.get('district'))
+    district = request.args.get('district')
+    if district=="kck":
+        session_data = Session.query.filter_by(district_or_company="KANSAS CITY USD 500").all()
+    elif district=="kcps":
+        session_data = Session.query.filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT").all()
+    elif district=="center":
+        session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
+    elif district=="hickman":
+        session_data = Session.query.filter_by(district_or_company="HICKMAN MILLS C-1").all()
+    elif district=="grandview":
+        session_data = Session.query.filter_by(district_or_company="GRANDVIEW C-4").all()
+    else:
+        session_data = Session.query.filter_by(district_or_company=district).all()
+    return render_template("session_table.html", sessions=session_data)
 
 @app.route("/sessions", methods=["GET"])
 def sessions():
