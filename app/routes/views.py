@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 @app.route("/", methods=["GET"])
 def index():
     user_data=User.query.all()
-    return render_template("users.html", users=user_data)
+    return render_template("index.html")
 
 
 @app.route("/sessions", methods=["GET"])
