@@ -1,0 +1,26 @@
+<table class="table table-bordered table-hover">
+<thead class="thead-dark">
+    <tr>
+        <th>Session ID</th>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Speaker</th>
+        <th>School</th>
+        <th>District/Company</th>
+    </tr>
+</thead>
+<tbody>
+    {% for session in sessions %}
+        <tr>
+            <td>{{ session.session_id }}</td>
+            <td>{{ session.title }}</td>
+            <td>{{ session.date.strftime('%m/%d/%y') if session.date else 'Date not set' }}</td>
+            <td>{{ session.status }}</td>
+            <td>{{ session.name }}</td>
+            <td>{{ session.school }}</td>
+            <td>{{ session.district_or_company }}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
