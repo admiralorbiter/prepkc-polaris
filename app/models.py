@@ -1,11 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from app import db
 
 class Session(db.Model):
     __tablename__ = 'sessions'
-    
-    session_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.Integer)
     title = db.Column(db.String, nullable=False)
     series_or_event_title = db.Column(db.String)
     career_cluster = db.Column(db.String)
@@ -27,8 +26,8 @@ class Session(db.Model):
 
 class User(db.Model):
     __tablename__ = 'users'
-    
-    user_auth_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    user_auth_id = db.Column(db.Integer)
     sign_up_role = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
     login_email = db.Column(db.String, nullable=False, unique=True)
