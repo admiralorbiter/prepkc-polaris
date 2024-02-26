@@ -3,6 +3,7 @@ from app import app
 from app.models import Session, User
 from datetime import datetime, timedelta
 from flask import session
+from sqlalchemy import func
 
 # Home Page
 @app.route("/", methods=["GET"])
@@ -67,25 +68,55 @@ def load_users_table():
     user_data=User.query.all()
     return render_template("user_table.html", users=user_data)
 
+# @app.route("/load-sessions-table", methods=["GET"])
+# def load_sessions_table():
+#     one_year_ago = datetime.now() - timedelta(days=365)
+
+#     sort_column = request.args.get('sort', 'date')  # Assuming 'date' is a valid attribute of Session
+#     if request.args.get('sort'):
+#         sort_column = request.args.get('sort')
+#     sort_direction = request.args.get('direction', 'asc')  # Default direction
+#     # Build the base query
+#     query = Session.query.filter(Session.date >= one_year_ago)
+
+#     # Apply sorting
+#     if sort_direction == 'asc':
+#         query = query.order_by(getattr(Session, sort_column).asc())
+#     else:
+#         query = query.order_by(getattr(Session, sort_column).desc())
+
+#     sessions_data = query.all()
+#     # print(query)
+#     return render_template("session_table.html", sessions=sessions_data)
+
 @app.route("/load-sessions-table", methods=["GET"])
 def load_sessions_table():
     one_year_ago = datetime.now() - timedelta(days=365)
 
-    sort_column = request.args.get('sort', 'date')  # Assuming 'date' is a valid attribute of Session
-    if request.args.get('sort'):
-        sort_column = request.args.get('sort')
-    sort_direction = request.args.get('direction', 'asc')  # Default direction
-    # Build the base query
-    query = Session.query.filter(Session.date >= one_year_ago)
+    # Get sorting parameters
+    sort_column = request.args.get('sort', 'date')  # Default sort column
+    sort_direction = request.args.get('direction', 'asc')  # Default sort direction
 
-    # Apply sorting
+    # Subquery to select distinct session IDs with the earliest record based on ID
+    subquery = Session.query \
+        .with_entities(Session.session_id, func.min(Session.id).label('min_id')) \
+        .filter(Session.date >= one_year_ago) \
+        .group_by(Session.session_id) \
+        .subquery()
+
+    # Main query that joins the subquery
+    main_query = Session.query \
+        .join(subquery, Session.session_id == subquery.c.session_id) \
+        .filter(Session.id == subquery.c.min_id)
+
+    # Apply sorting to the main query
     if sort_direction == 'asc':
-        query = query.order_by(getattr(Session, sort_column).asc())
+        main_query = main_query.order_by(getattr(Session, sort_column).asc())
     else:
-        query = query.order_by(getattr(Session, sort_column).desc())
+        main_query = main_query.order_by(getattr(Session, sort_column).desc())
 
-    sessions_data = query.all()
-    # print(query)
+    sessions_data = main_query.all()
+
     return render_template("session_table.html", sessions=sessions_data)
 
 @app.route("/filter-sessions", methods=["GET"])
