@@ -119,14 +119,39 @@ def load_sessions_table():
 
     return render_template("session_table.html", sessions=sessions_data)
 
+# @app.route("/filter-sessions", methods=["GET"])
+# def filter_sessions():
+#     one_year_ago = datetime.now() - timedelta(days=365)
+#     status_filter = request.args.get('statusFilter')
+#     if status_filter:
+#         sessions_data = Session.query.filter(Session.date >= one_year_ago, Session.status.ilike(f"%{status_filter}%")).all()
+#     else:
+#         sessions_data = Session.query.filter(Session.date >= one_year_ago).all()
+#     return render_template("session_table.html", sessions=sessions_data)
+
 @app.route("/filter-sessions", methods=["GET"])
 def filter_sessions():
     one_year_ago = datetime.now() - timedelta(days=365)
     status_filter = request.args.get('statusFilter')
+
+    # Subquery to select distinct session IDs with the earliest record based on ID
+    subquery = Session.query \
+        .with_entities(Session.session_id, func.min(Session.id).label('min_id')) \
+        .filter(Session.date >= one_year_ago) \
+        .group_by(Session.session_id) \
+        .subquery()
+
+    # Main query that joins the subquery
+    main_query = Session.query \
+        .join(subquery, Session.session_id == subquery.c.session_id) \
+        .filter(Session.id == subquery.c.min_id)
+
+    # Apply status filter to the main query if a filter is provided
     if status_filter:
-        sessions_data = Session.query.filter(Session.date >= one_year_ago, Session.status.ilike(f"%{status_filter}%")).all()
-    else:
-        sessions_data = Session.query.filter(Session.date >= one_year_ago).all()
+        main_query = main_query.filter(Session.status.ilike(f"%{status_filter}%"))
+
+    sessions_data = main_query.all()
+
     return render_template("session_table.html", sessions=sessions_data)
 
 @app.route("/filter-kcps", methods=["GET"])

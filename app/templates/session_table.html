@@ -46,17 +46,6 @@
                 </div>
             </th>
             <th class="">
-                <div class="">Requester/Teacher</div>
-                <div class="">
-                    <a href="#" hx-get="/load-sessions-table?sort=name&direction=asc" hx-target="#sessionsTable" hx-trigger="click">
-                        <i class="fas fa-sort-up"></i>
-                    </a>
-                    <a href="#" hx-get="/load-sessions-table?sort=name&direction=desc" hx-target="#sessionsTable" hx-trigger="click">
-                        <i class="fas fa-sort-down"></i>
-                    </a>
-                </div>
-            </th>
-            <th class="">
                 <div class="">School</div>
                 <div class="">
                     <a href="#" hx-get="/load-sessions-table?sort=school&direction=asc" hx-target="#sessionsTable" hx-trigger="click">
@@ -87,7 +76,6 @@
                 <td>{{ session.title }}</td>
                 <td>{{ session.date.strftime('%m/%d/%y') if session.date else 'Date not set' }}</td>
                 <td>{{ session.status }}</td>
-                <td>{{ session.name }}</td>
                 <td>{{ session.school }}</td>
                 <td>{{ session.district_or_company }}</td>
             </tr>
