@@ -1,7 +1,8 @@
-from flask import render_template, request
+from flask import redirect, render_template, request, url_for
 from app import app
 from app.models import Session, User
 from datetime import datetime, timedelta
+from flask import session
 
 # Home Page
 @app.route("/", methods=["GET"])
@@ -96,3 +97,39 @@ def filter_sessions():
     else:
         sessions_data = Session.query.filter(Session.date >= one_year_ago).all()
     return render_template("session_table.html", sessions=sessions_data)
+
+@app.route("/filter-kcps", methods=["GET"])
+def filter_kcps():
+    one_year_ago = datetime.now() - timedelta(days=365)
+
+    # Update session with current filters if provided, else use existing session values
+    if 'statusFilter' in request.args:
+        session['statusFilter'] = request.args.get('statusFilter')
+    if 'schoolFilter' in request.args:
+        session['schoolFilter'] = request.args.get('schoolFilter')
+
+    # Use session values for filters if available
+    status_filter = session.get('statusFilter', '')
+    school_filter = session.get('schoolFilter', '')
+
+    # Start with a base query
+    query = Session.query.filter(Session.date >= one_year_ago, Session.district_or_company.ilike("KANSAS CITY PUBLIC SCHOOL DISTRICT"))
+
+    # Apply status filter if present
+    if status_filter:
+        query = query.filter(Session.status.ilike(f"%{status_filter}%"))
+
+    # Apply school filter if present
+    if school_filter:
+        query = query.filter(Session.school.ilike(f"%{school_filter}%"))  # Adjust field name as necessary
+
+    # Execute the query
+    sessions_data = query.all()
+
+    return render_template("session_table.html", sessions=sessions_data)
+
+@app.route("/clear-filters", methods=["GET"])
+def clear_filters():
+    session.pop('statusFilter', None)  # Remove the filter from the session if it exists
+    session.pop('schoolFilter', None)
+    return redirect(url_for('filter_kcps'))  # Redirect back to the filter page or wherever appropriate
