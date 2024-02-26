@@ -73,7 +73,8 @@
         {% for session in sessions %}
             <tr>
                 <td>{{ session.session_id }}</td>
-                <td>{{ session.title }}</td>
+                <!-- <td>{{ session.title }}</td> -->
+                <td><a href="#" hx-get="/session_details?session_id={{ session.session_id }}" hx-target="#details">{{ session.title }}</a></td>
                 <td>{{ session.date.strftime('%m/%d/%y') if session.date else 'Date not set' }}</td>
                 <td>{{ session.status }}</td>
                 <td>{{ session.school }}</td>
