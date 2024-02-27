@@ -10,6 +10,12 @@ from sqlalchemy import func
 def index():
     return render_template("index.html")
 
+@app.route("/districts/kcps_report", methods=["GET"])
+def kcps_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/kcps_report.html", start_date=default_start_date, end_date=default_end_date)
+
 @app.route("/districts/kck", methods=["GET"])
 def kck():
     return render_template("/districts/kck.html")
@@ -47,6 +53,34 @@ def load_districts_table():
     else:
         session_data = Session.query.filter_by(district_or_company=district).all()
     return render_template("session_table.html", sessions=session_data)
+
+@app.route("/load-district-summary", methods=["GET"])
+def load_district_summary():
+    district = request.args.get('district')
+     # Get start_date and end_date from request, use default if not provided
+    start_date = request.args.get('start_date', default=datetime(2023, 7, 1), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+
+    if district=="kck":
+        session_data = Session.query.filter_by(district_or_company="KANSAS CITY USD 500").all()
+    elif district=="kcps":
+        summary_data = Session.query \
+            .filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT") \
+            .filter(Session.status == "Completed") \
+            .filter(Session.date.between(start_date, end_date)) \
+            .group_by(Session.school) \
+            .with_entities(Session.school, func.count(Session.id).label('total_sessions')) \
+            .all()
+    elif district=="center":
+        session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
+    elif district=="hickman":
+        session_data = Session.query.filter_by(district_or_company="HICKMAN MILLS C-1").all()
+    elif district=="grandview":
+        session_data = Session.query.filter_by(district_or_company="GRANDVIEW C-4").all()
+    else:
+        session_data = Session.query.filter_by(district_or_company=district).all()
+    return render_template("district_summary.html", summary_data=summary_data)
+
 
 @app.route("/sessions", methods=["GET"])
 def sessions():

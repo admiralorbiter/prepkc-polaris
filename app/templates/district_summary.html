@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>School</th>
+            <th>Total Sessions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for school, total_sessions in summary_data %}
+            <tr>
+                <td>{{ school }}</td>
+                <td>{{ total_sessions }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
