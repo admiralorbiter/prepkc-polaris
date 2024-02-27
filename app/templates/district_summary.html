@@ -8,7 +8,7 @@
     <tbody>
         {% for school, total_sessions in summary_data %}
             <tr>
-                <td>{{ school }}</td>
+                <td>{{ school if school is not none else 'Unlisted' }}</td>
                 <td>{{ total_sessions }}</td>
             </tr>
         {% endfor %}
