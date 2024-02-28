@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Month</th>
+            <th>Session Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for month_count in sessions_by_month %}
+        <tr>
+            <td>{{ month_count[0] }}</td>  <!-- month -->
+            <td>{{ month_count[1] }}</td>  <!-- count -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

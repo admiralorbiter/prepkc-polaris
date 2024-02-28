@@ -21,4 +21,12 @@
 <div id="districtSummary" hx-get="/load-district-summary?district=kcps" hx-trigger="load">
     <p>Loading...</p>
 </div>
+<select id="yearSelector" hx-get="/get-sessions-by-month" hx-target="#monthlyBreakdown" hx-trigger="change" hx-include="#yearSelector">
+    <option value="2022">22-23</option>
+    <option value="2023">23-24</option>
+    <!-- Add more years as needed -->
+</select>
+<div id="monthlyBreakdown">
+    <!-- Monthly data will be loaded here -->
+</div>
 {% endblock %}

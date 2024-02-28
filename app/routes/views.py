@@ -1,9 +1,9 @@
 from flask import redirect, render_template, request, url_for
-from app import app
+from app import app, db
 from app.models import Session, User
 from datetime import datetime, timedelta
 from flask import session
-from sqlalchemy import func
+from sqlalchemy import func, or_, and_
 
 # Home Page
 @app.route("/", methods=["GET"])
@@ -161,6 +161,27 @@ def filter_sessions():
     sessions_data = main_query.all()
 
     return render_template("session_table.html", sessions=sessions_data)
+
+@app.route('/get-sessions-by-month')
+def monthly_breakdown():
+    # Get the selected year from query parameters, default to current year if not specified
+    year = request.args.get('year', default=2023, type=int)
+    print(year)
+
+    start_year = str(year)  # The starting year of the academic year
+    end_year = str(year + 1)  # The ending year of the academic year
+
+    sessions_by_month = db.session.query(func.strftime('%m', Session.date), func.count(Session.id)) \
+        .filter(or_(
+            and_(func.strftime('%Y', Session.date) == start_year, func.strftime('%m', Session.date) >= '07'),
+            and_(func.strftime('%Y', Session.date) == end_year, func.strftime('%m', Session.date) <= '06')
+        )) \
+        .group_by(func.strftime('%m', Session.date)) \
+        .all()
+    # Convert sessions_by_month to a more usable structure if needed, e.g., a dict with month names as keys
+    print(sessions_by_month)
+    return render_template('monthlybreakdown.html', sessions_by_month=sessions_by_month)
+
 
 @app.route("/filter-kcps", methods=["GET"])
 def filter_kcps():
