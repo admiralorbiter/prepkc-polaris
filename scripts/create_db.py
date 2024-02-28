@@ -61,14 +61,15 @@ c.execute('''CREATE TABLE IF NOT EXISTS users (
 conn.commit()
 
 def insert_sessions():
-    session_df = pd.read_csv('session.csv')
+    session_df = pd.read_csv('fake_session.csv')
     for _, row in session_df.iterrows():
         c.execute('''INSERT INTO sessions (session_id, title, series_or_event_title, career_cluster, date, status, duration, user_auth_id, name, sign_up_role, school, district_or_company, partner, state, registered_student_count, attended_student_count, registered_educator_count, attended_educator_count, work_based_learning) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (
             row['Session ID'],
             row['Title'],
             row['Series or Event Title'],
             row['Career Cluster'],
-            datetime.strptime(row['Date'], '%m/%d/%Y').strftime('%Y-%m-%d') if pd.notnull(row['Date']) else None,
+            # datetime.strptime(row['Date'], '%m/%d/%Y').strftime('%Y-%m-%d') if pd.notnull(row['Date']) else None,
+            datetime.strptime(row['Date'], '%Y-%m-%d').strftime('%Y-%m-%d') if pd.notnull(row['Date']) else None,
             row['Status'],
             row['Duration'],
             row['User Auth Id'],
@@ -87,7 +88,7 @@ def insert_sessions():
     conn.commit()
 
 def insert_users():
-    user_df = pd.read_csv('user.csv')
+    user_df = pd.read_csv('fake_user.csv')
     for _, row in user_df.iterrows():
         c.execute('''INSERT INTO users (user_auth_id, sign_up_role, name, login_email, notification_email, school, district_or_company, job_title, grade_cluster, skills, join_date, last_login_date, login_count, count_of_days_logged_in_last_30_days, city, state, postal_code, active_subscription_type, active_subscription_name, last_session_date, affiliations) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (
             row['UserAuthId'],

@@ -63,6 +63,7 @@ def load_district_summary():
 
     if district=="kck":
         session_data = Session.query.filter_by(district_or_company="KANSAS CITY USD 500").all()
+        # Needs Updated to be Like kcps
     elif district=="kcps":
         summary_data = Session.query \
             .filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT") \
@@ -73,12 +74,16 @@ def load_district_summary():
             .all()
     elif district=="center":
         session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
+        # Needs Updated to be Like kcps
     elif district=="hickman":
         session_data = Session.query.filter_by(district_or_company="HICKMAN MILLS C-1").all()
+        # Needs Updated to be Like kcps
     elif district=="grandview":
         session_data = Session.query.filter_by(district_or_company="GRANDVIEW C-4").all()
+        # Needs Updated to be Like kcps
     else:
         session_data = Session.query.filter_by(district_or_company=district).all()
+        # Needs Updated to be Like kcps
     return render_template("district_summary.html", summary_data=summary_data)
 
 
