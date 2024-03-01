@@ -16,6 +16,12 @@ def kcps_report():
     default_end_date = datetime.now().strftime('%Y-%m-%d')
     return render_template("/districts/kcps_report.html", start_date=default_start_date, end_date=default_end_date)
 
+@app.route("/districts/kcps_teacher_report", methods=["GET"])
+def kcps_teacher_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/kcps_teacher_report.html", start_date=default_start_date, end_date=default_end_date)
+
 @app.route("/districts/kck", methods=["GET"])
 def kck():
     return render_template("/districts/kck.html")
@@ -86,6 +92,38 @@ def load_district_summary():
         # Needs Updated to be Like kcps
     return render_template("district_summary.html", summary_data=summary_data)
 
+
+@app.route("/load-teacher-summary", methods=["GET"])
+def load_teacher_summary():
+    district = request.args.get('district')
+    # Get start_date and end_date from request, use default if not provided
+    start_date = request.args.get('start_date', default=datetime(2023, 7, 1), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+
+    if district=="kck":
+        session_data = Session.query.filter_by(district_or_company="KANSAS CITY USD 500").all()
+        # Needs Updated to be Like kcps
+    elif district=="kcps":
+        teacher_summary_data = Session.query \
+            .filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT") \
+            .filter(Session.status == "Completed") \
+            .filter(Session.date.between(start_date, end_date)) \
+            .group_by(Session.name) \
+            .with_entities(Session.name, func.count(Session.id).label('total_sessions')) \
+            .all()
+    elif district=="center":
+        session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
+        # Needs Updated to be Like kcps
+    elif district=="hickman":
+        session_data = Session.query.filter_by(district_or_company="HICKMAN MILLS C-1").all()
+        # Needs Updated to be Like kcps
+    elif district=="grandview":
+        session_data = Session.query.filter_by(district_or_company="GRANDVIEW C-4").all()
+        # Needs Updated to be Like kcps
+    else:
+        session_data = Session.query.filter_by(district_or_company=district).all()
+        # Needs Updated to be Like kcps
+    return render_template("teacher_summary.html", teacher_summary_data=teacher_summary_data)
 
 @app.route("/sessions", methods=["GET"])
 def sessions():

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}KCPS Teacher Report{% endblock %}
+
+{% block content %}
+<h1>KCPS Teacher Dashboard</h1>
+<div id="teacherSummary" hx-get="/load-teacher-summary?district=kcps" hx-trigger="load">
+    <p>Loading...</p>
+</div>
+{% endblock %}
