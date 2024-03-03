@@ -44,21 +44,43 @@ def grandview():
 
 @app.route("/load-district-table", methods=["GET"])
 def load_districts_table():
-    print(request.args.get('district'))
+    one_year_ago = datetime.now() - timedelta(days=365)
+
+    # Get sorting parameters
+    sort_column = request.args.get('sort', 'date')  # Default sort column
+    sort_direction = request.args.get('direction', 'asc')  # Default sort direction
+
     district = request.args.get('district')
-    if district=="kck":
-        session_data = Session.query.filter_by(district_or_company="KANSAS CITY USD 500").all()
-    elif district=="kcps":
-        session_data = Session.query.filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT").all()
-    elif district=="center":
-        session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
-    elif district=="hickman":
-        session_data = Session.query.filter_by(district_or_company="HICKMAN MILLS C-1").all()
-    elif district=="grandview":
-        session_data = Session.query.filter_by(district_or_company="GRANDVIEW C-4").all()
+    district_map = {
+        "kck": "KANSAS CITY USD 500",
+        "kcps": "KANSAS CITY PUBLIC SCHOOL DISTRICT",
+        "center": "CENTER 58 SCHOOL DISTRICT",
+        "hickman": "HICKMAN MILLS C-1",
+        "grandview": "GRANDVIEW C-4"
+    }
+    district_name = district_map.get(district, district)  # Fallback to using the district arg directly if not found in the map
+
+    # Subquery to select distinct session IDs within the specified district
+    subquery = Session.query \
+        .with_entities(Session.session_id, func.min(Session.id).label('min_id')) \
+        .filter(Session.date >= one_year_ago, Session.district_or_company == district_name) \
+        .group_by(Session.session_id) \
+        .subquery()
+
+    # Main query that joins the subquery and filters by the district
+    main_query = Session.query \
+        .join(subquery, Session.session_id == subquery.c.session_id) \
+        .filter(Session.id == subquery.c.min_id)
+
+    # Apply sorting to the main query
+    if sort_direction == 'asc':
+        main_query = main_query.order_by(getattr(Session, sort_column).asc())
     else:
-        session_data = Session.query.filter_by(district_or_company=district).all()
-    return render_template("session_table.html", sessions=session_data)
+        main_query = main_query.order_by(getattr(Session, sort_column).desc())
+
+    session_data = main_query.all()
+
+    return render_template("district_table.html", sessions=session_data)
 
 @app.route("/load-district-summary", methods=["GET"])
 def load_district_summary():
