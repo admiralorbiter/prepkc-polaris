@@ -179,7 +179,8 @@ def load_sessions_table():
     # Get sorting parameters
     sort_column = request.args.get('sort', 'date')  # Default sort column
     sort_direction = request.args.get('direction', 'asc')  # Default sort direction
-
+    upcoming = request.args.get('status', None)
+    print(upcoming)
     # Subquery to select distinct session IDs with the earliest record based on ID
     subquery = Session.query \
         .with_entities(Session.session_id, func.min(Session.id).label('min_id')) \
@@ -191,6 +192,11 @@ def load_sessions_table():
     main_query = Session.query \
         .join(subquery, Session.session_id == subquery.c.session_id) \
         .filter(Session.id == subquery.c.min_id)
+
+    if upcoming == 'confirmed':
+        main_query = main_query.filter(Session.status == 'Confirmed')
+    elif upcoming == 'request':
+        main_query = main_query.filter(Session.status == 'Requested')
 
     # Apply sorting to the main query
     if sort_direction == 'asc':

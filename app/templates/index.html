@@ -5,4 +5,15 @@
 {% block content %}
     <h1>Polaris: Our North Star</h1>
     <p>Welcome to the home page!</p>
+
+    <!-- Sessions with out Volunteers -->
+    <div id="sessionsWithoutVolunteers" hx-get="/load-sessions-table?status=request" hx-trigger="load">
+        Loading Data Please Wait...
+    </div>
+
+    <!-- Upcoming Sessions -->
+    <div id="sessionsTable" hx-get="/load-sessions-table?status=confirmed" hx-trigger="load">
+        Loading Data Please Wait...
+    </div>
+
 {% endblock %}
