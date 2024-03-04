@@ -4,18 +4,16 @@
 
 {% block content %}
     <h1>KCPS</h1>
+
     {% include '/districts/kcps/kcps_nav.html'%}
-    <div class="mb-3">
-        <label for="statusFilter" class="form-label">Filter by Status:</label>
-        <select id="statusFilter" name="statusFilter" class="form-select" hx-get="/filter-kcps" hx-target="#districtTable" hx-trigger="change">
-            <option value="">All</option>
-            <option value="Completed">Completed</option>
-            <option value="Draft">Draft</option>
-            <option value="Confirmed">Confirmed</option>
-            <option value="Requested">Requested</option>
-            <!-- Add more status options as needed -->
-        </select>
-    </div>
+    
+    {% set filter_id = 'statusFilterKCPS' %}
+    {% set filter_name = 'statusFilter' %}
+    {% set label = 'Filter by Status:' %}
+    {% set hx_get_url = '/filter-kcps' %}
+    {% set hx_target = '#districtTable' %}
+    {% include 'status_filter.html' %}
+
     <div class="mb-3">
         <label for="schoolFilter" class="form-label">Filter by Status:</label>
         <select id="schoolFilter" name="schoolFilter" class="form-select" hx-get="/filter-kcps" hx-target="#districtTable" hx-trigger="change">
@@ -27,8 +25,10 @@
             <!-- Add more status options as needed -->
         </select>
     </div>
+
     <div id="districtTable" hx-get="/load-district-table?district=kcps" hx-trigger="load">
         <!-- session_table.html content will be loaded here -->
         Loading Data Please Wait...
     </div>
+
 {% endblock %}

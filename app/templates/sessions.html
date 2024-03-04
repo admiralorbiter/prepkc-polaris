@@ -7,17 +7,13 @@
     <div id="details">
         <!-- Session details will be loaded here by HTMX -->
     </div>
-    <div class="mb-3">
-        <label for="statusFilter" class="form-label">Filter by Status:</label>
-        <select id="statusFilter" name="statusFilter" class="form-select" hx-get="/filter-sessions" hx-target="#sessionsTable" hx-trigger="change">
-            <option value="">All</option>
-            <option value="Completed">Completed</option>
-            <option value="Draft">Draft</option>
-            <option value="Confirmed">Confirmed</option>
-            <option value="Requested">Requested</option>
-            <!-- Add more status options as needed -->
-        </select>
-    </div>
+    {% set filter_id = 'statusFilter' %}
+    {% set filter_name = 'statusFilter' %}
+    {% set label = 'Filter by Status:' %}
+    {% set hx_get_url = '/filter-sessions' %}
+    {% set hx_target = '#sessionsTable' %}
+    
+    {% include 'status_filter.html' %}
     <div id="sessionsTable" hx-get="/load-sessions-table" hx-trigger="load">
         <!-- session_table.html content will be loaded here -->
         Loading Data Please Wait...
