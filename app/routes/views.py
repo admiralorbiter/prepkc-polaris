@@ -203,7 +203,16 @@ def update_session():
             # Commit the changes to the database
             db.session.commit()
             # Return the updated session row in a non-editable format
-            return render_template('session_row.html', session=session)
+            # return render_template('session_row.html', session=session)
+            updated_row = render_template('session_row.html', session=session)
+            
+            # Script to clear the edit pane
+            clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
+
+            # Combine the updated row and script
+            combined_response = updated_row + clear_script
+
+            return combined_response
         else:
             return 'Session not found', 404
     except Exception as e:

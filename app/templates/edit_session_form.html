@@ -1,4 +1,4 @@
-<form method="POST" action="/update-session" hx-post="/update-session" hx-target="#105849" hx-swap="outerHTML">
+<form method="POST" action="/update-session" hx-post="/update-session" hx-target="#id{{ session.session_id }}" hx-swap="outerHTML">
     <td>
         <input type="text" class="form-control" name="session_id" value="{{ session.session_id }}" readonly>
     </td>
