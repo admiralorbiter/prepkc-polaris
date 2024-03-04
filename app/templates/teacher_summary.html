@@ -2,6 +2,8 @@
     <thead>
       <tr>
         <th>Teacher</th>
+        <th>School</th>
+        <th>District</th>
         <th>Total Completed Sessions</th>
       </tr>
     </thead>
@@ -9,6 +11,8 @@
       {% for record in teacher_summary_data %}
         <tr>
           <td>{{ record.name }}</td>  <!-- Replace 'record.teacher' with the correct attribute -->
+          <td>{{record.school}}</td>
+          <td>{{record.district}}</td>
           <td>{{ record.total_sessions }}</td>
         </tr>
       {% endfor %}

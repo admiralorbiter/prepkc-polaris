@@ -130,8 +130,13 @@ def load_teacher_summary():
             .filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT") \
             .filter(Session.status == "Completed") \
             .filter(Session.date.between(start_date, end_date)) \
-            .group_by(Session.name) \
-            .with_entities(Session.name, func.count(Session.id).label('total_sessions')) \
+            .group_by(Session.name, Session.school, Session.district_or_company) \
+            .with_entities(
+                Session.name,
+                Session.school,
+                Session.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
+                func.count(Session.id).label('total_sessions')
+            ) \
             .all()
     elif district=="center":
         session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()

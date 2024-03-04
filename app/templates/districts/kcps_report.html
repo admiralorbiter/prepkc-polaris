@@ -4,6 +4,7 @@
 
 {% block content %}
 <h1>KCPS Dashboard</h1>
+{% include '/districts/kcps_nav.html'%}
 <h2>Summmary</h2>
 <!-- Date selection form -->
 <form id="dateFilterForm" hx-get="/load-district-summary?district=kcps" hx-target="#districtSummary" hx-trigger="change from:#dateFilterForm">

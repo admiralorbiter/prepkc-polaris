@@ -4,6 +4,7 @@
 
 {% block content %}
 <h1>KCPS Teacher Dashboard</h1>
+{% include '/districts/kcps_nav.html'%}
 <div id="teacherSummary" hx-get="/load-teacher-summary?district=kcps" hx-trigger="load">
     <p>Loading...</p>
 </div>

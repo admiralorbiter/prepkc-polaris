@@ -1,0 +1,2500 @@
+Error: time data '2023-09-25' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                           11530
+SignUpRole                                                          Parent
+Name                                                          Lori Bonilla
+LoginEmail                                          lindseydrake@yahoo.com
+NotificationEmail                                            wlee@reed.biz
+School                                                     and Sons School
+District or Company                     KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                               NaN
+GradeCluster                                                       College
+Skills                                                                 NaN
+Biography                                                              NaN
+JoinDate                                                        01/02/2018
+LastLoginDate                                                   2023-09-25
+LoginCount                                                              40
+CountOfDaysLoggedInLast30Days                                           15
+City                                                           West Donald
+State                                                                   RI
+PostalCode                                                           68434
+ActiveSubscriptionType                                        Premium Plan
+ActiveSubscriptionName           Rivera, Patterson and Porter Subscription
+LastSessionDate                                                 2024-02-13
+Affiliations                                                       society
+Name: 0, dtype: object
+
+Error: time data '2023-03-22' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    91704
+SignUpRole                                                  Student
+Name                                                  Anna Harrison
+LoginEmail                                        wmeza@hotmail.com
+NotificationEmail                         thomas59@keller-scott.com
+School                                                 Group School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 08/27/2018
+LastLoginDate                                            2023-03-22
+LoginCount                                                       15
+CountOfDaysLoggedInLast30Days                                    17
+City                                                   Tonyaborough
+State                                                            ID
+PostalCode                                                    36052
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2024-01-14
+Affiliations                                                    NaN
+Name: 1, dtype: object
+
+Error: time data '2023-04-13' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                 41693
+SignUpRole                                                                Parent
+Name                                                               Yolanda Smith
+LoginEmail                                         blankenshipamanda@hotmail.com
+NotificationEmail                                    juliegood@stevens-jones.com
+School                                                                Ltd School
+District or Company                           KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                 Chief Operating Officer
+GradeCluster                                                       Middle School
+Skills                                                                       NaN
+Biography                        Take laugh we lay. On tree about authority all.
+JoinDate                                                              04/22/2017
+LastLoginDate                                                         2023-04-13
+LoginCount                                                                    46
+CountOfDaysLoggedInLast30Days                                                  3
+City                                                                 Vazquezfort
+State                                                                         OK
+PostalCode                                                                 30195
+ActiveSubscriptionType                                              Premium Plan
+ActiveSubscriptionName                                    Smith PLC Subscription
+LastSessionDate                                                       2023-03-15
+Affiliations                                                                 NaN
+Name: 2, dtype: object
+
+Error: time data '2023-12-31' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    65331
+SignUpRole                                                  Student
+Name                                                   Shelby Black
+LoginEmail                                        vblair@reeves.com
+NotificationEmail                     brettroberts@lee-anderson.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                             Elementary
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 11/13/2015
+LastLoginDate                                            2023-12-31
+LoginCount                                                        3
+CountOfDaysLoggedInLast30Days                                     1
+City                                                      East Adam
+State                                                            FL
+PostalCode                                                    33161
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                  Pitts-Mcdonald Subscription
+LastSessionDate                                          2023-11-14
+Affiliations                                                    NaN
+Name: 3, dtype: object
+
+Error: time data '2023-03-05' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    16295
+SignUpRole                                                  Student
+Name                                                Yvonne Sullivan
+LoginEmail                                          ahale@yahoo.com
+NotificationEmail                           amy93@brown-stanley.com
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                             Elementary
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 05/05/2016
+LastLoginDate                                            2023-03-05
+LoginCount                                                       47
+CountOfDaysLoggedInLast30Days                                    20
+City                                                     Ayalaburgh
+State                                                            WY
+PostalCode                                                    17257
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-08-31
+Affiliations                                                    NaN
+Name: 4, dtype: object
+
+Error: time data '2023-10-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    93457
+SignUpRole                                                 Educator
+Name                                                  Joseph Bryant
+LoginEmail                                 wrobinson@villanueva.org
+NotificationEmail                               bsawyer@hotmail.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                               Risk analyst
+GradeCluster                                             Elementary
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 03/27/2021
+LastLoginDate                                            2023-10-18
+LoginCount                                                       33
+CountOfDaysLoggedInLast30Days                                    11
+City                                                   Sanchezville
+State                                                            UT
+PostalCode                                                    14548
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                  Baker-Phillips Subscription
+LastSessionDate                                          2023-08-19
+Affiliations                                                    NaN
+Name: 5, dtype: object
+
+Error: time data '2024-02-05' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                          94091
+SignUpRole                                                       Educator
+Name                                                      Michael Johnson
+LoginEmail                                       faulknersamuel@yahoo.com
+NotificationEmail                                 kevinbradford@yahoo.com
+School                                                       Group School
+District or Company                    KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                              NaN
+GradeCluster                                                   Elementary
+Skills                                                                NaN
+Biography                                                             NaN
+JoinDate                                                       05/25/2021
+LastLoginDate                                                  2024-02-05
+LoginCount                                                             86
+CountOfDaysLoggedInLast30Days                                           1
+City                                                           Aliciafurt
+State                                                                  DE
+PostalCode                                                          27190
+ActiveSubscriptionType                                          Free Plan
+ActiveSubscriptionName           Bennett, Simpson and French Subscription
+LastSessionDate                                                2023-12-19
+Affiliations                                                    community
+Name: 6, dtype: object
+
+Error: time data '2023-07-26' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    58980
+SignUpRole                                             Professional
+Name                                                  Daniel Deleon
+LoginEmail                                         xsmith@gmail.com
+NotificationEmail                             deckeremily@gmail.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                    Chief Executive Officer
+GradeCluster                                            High School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 09/29/2021
+LastLoginDate                                            2023-07-26
+LoginCount                                                       29
+CountOfDaysLoggedInLast30Days                                    14
+City                                                     New Lauren
+State                                                            NC
+PostalCode                                                    51549
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-04-03
+Affiliations                                                    NaN
+Name: 7, dtype: object
+
+Error: time data '2023-08-28' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   35804
+SignUpRole                                                                  Parent
+Name                                                               Cynthia Gardner
+LoginEmail                                             robertrodriguez@hotmail.com
+NotificationEmail                                              ljackson@lewis.info
+School                                                                  LLC School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                              Risk analyst
+GradeCluster                                                                   NaN
+Skills                                                                        form
+Biography                        Also at sense debate strategy. Before specific...
+JoinDate                                                                03/06/2018
+LastLoginDate                                                           2023-08-28
+LoginCount                                                                      67
+CountOfDaysLoggedInLast30Days                                                    7
+City                                                                     Tylertown
+State                                                                           AK
+PostalCode                                                                   10714
+ActiveSubscriptionType                                               Platinum Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-05-28
+Affiliations                                                                   NaN
+Name: 8, dtype: object
+
+Error: time data '2023-12-04' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    56092
+SignUpRole                                             Professional
+Name                                                  Katelyn Davis
+LoginEmail                                     hartcory@parrish.org
+NotificationEmail                          johnsonmelissa@yahoo.com
+School                                              and Sons School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                         wide
+Biography                                                       NaN
+JoinDate                                                 05/06/2021
+LastLoginDate                                            2023-12-04
+LoginCount                                                       36
+CountOfDaysLoggedInLast30Days                                    26
+City                                                    Jessicafurt
+State                                                            MN
+PostalCode                                                    35772
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                     Jackson PLC Subscription
+LastSessionDate                                          2023-07-25
+Affiliations                                                    NaN
+Name: 9, dtype: object
+
+Error: time data '2023-03-31' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    89152
+SignUpRole                                             Professional
+Name                                                   Jeffrey King
+LoginEmail                                   samantha01@morales.com
+NotificationEmail                         nrussell@harris-smith.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                   Best boy
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 12/14/2015
+LastLoginDate                                            2023-03-31
+LoginCount                                                       82
+CountOfDaysLoggedInLast30Days                                     0
+City                                               South Karenmouth
+State                                                            HI
+PostalCode                                                    29302
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-06-11
+Affiliations                                                    NaN
+Name: 10, dtype: object
+
+Error: time data '2023-06-27' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   70824
+SignUpRole                                                                  Parent
+Name                                                                 Brian Mcclain
+LoginEmail                                                      erika88@mcgee.info
+NotificationEmail                                               parcher@taylor.org
+School                                                                  Inc School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                   Diagnostic radiographer
+GradeCluster                                                            Elementary
+Skills                                                                     benefit
+Biography                        Different occur professor area. Carry dream is...
+JoinDate                                                                03/19/2019
+LastLoginDate                                                           2023-06-27
+LoginCount                                                                       1
+CountOfDaysLoggedInLast30Days                                                   29
+City                                                                West Susanview
+State                                                                           AR
+PostalCode                                                                   15104
+ActiveSubscriptionType                                                   Free Plan
+ActiveSubscriptionName                                 Drake-Matthews Subscription
+LastSessionDate                                                         2023-03-11
+Affiliations                                                                   NaN
+Name: 11, dtype: object
+
+Error: time data '2023-10-17' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    90537
+SignUpRole                                                  Student
+Name                                                Caitlyn Padilla
+LoginEmail                                      jphillips@pugh.info
+NotificationEmail                                   okent@gmail.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                             Dance movement psychotherapist
+GradeCluster                                                College
+Skills                                                       amount
+Biography                                                       NaN
+JoinDate                                                 08/25/2020
+LastLoginDate                                            2023-10-17
+LoginCount                                                       90
+CountOfDaysLoggedInLast30Days                                    16
+City                                                      Greenside
+State                                                            KS
+PostalCode                                                     8815
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                      Castro Inc Subscription
+LastSessionDate                                          2023-11-23
+Affiliations                                                    NaN
+Name: 12, dtype: object
+
+Error: time data '2023-03-08' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                           75108
+SignUpRole                                                          Parent
+Name                                                        Oscar Thompson
+LoginEmail                                            kenneth38@thomas.com
+NotificationEmail                              jamiemyers@madden-salas.com
+School                                                        Group School
+District or Company                     KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                               NaN
+GradeCluster                                                           NaN
+Skills                                                              appear
+Biography                                                              NaN
+JoinDate                                                        06/09/2018
+LastLoginDate                                                   2023-03-08
+LoginCount                                                              83
+CountOfDaysLoggedInLast30Days                                            8
+City                                                              Wardbury
+State                                                                   ND
+PostalCode                                                           74829
+ActiveSubscriptionType                                        Premium Plan
+ActiveSubscriptionName           Kennedy, Sanders and Swanson Subscription
+LastSessionDate                                                 2024-01-28
+Affiliations                                                           NaN
+Name: 13, dtype: object
+
+Error: time data '2023-05-10' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    97756
+SignUpRole                                                   Parent
+Name                                             Michelle Cervantes
+LoginEmail                                    dphillips@watkins.com
+NotificationEmail                             jameschurch@gmail.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                          Recycling officer
+GradeCluster                                            High School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 11/24/2020
+LastLoginDate                                            2023-05-10
+LoginCount                                                       43
+CountOfDaysLoggedInLast30Days                                    24
+City                                                  Petersonhaven
+State                                                            NE
+PostalCode                                                    86831
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-06-15
+Affiliations                                                    NaN
+Name: 14, dtype: object
+
+Error: time data '2023-11-09' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                         34277
+SignUpRole                                                      Educator
+Name                                                       Jessica Curry
+LoginEmail                                   fowlerjacqueline@garner.com
+NotificationEmail                                     mary34@hotmail.com
+School                                                        Inc School
+District or Company                   KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                             NaN
+GradeCluster                                                  Elementary
+Skills                                                               NaN
+Biography                                                            NaN
+JoinDate                                                      08/06/2016
+LastLoginDate                                                 2023-11-09
+LoginCount                                                            29
+CountOfDaysLoggedInLast30Days                                         29
+City                                                          Donchester
+State                                                                 RI
+PostalCode                                                         16009
+ActiveSubscriptionType                                        Basic Plan
+ActiveSubscriptionName           Austin, Carlson and Flores Subscription
+LastSessionDate                                               2023-08-11
+Affiliations                                                        rich
+Name: 15, dtype: object
+
+Error: time data '2023-06-23' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   29980
+SignUpRole                                                                Educator
+Name                                                              Benjamin Pearson
+LoginEmail                                              shieldsrichard@hotmail.com
+NotificationEmail                                            nicolegreen@gmail.com
+School                                                                  LLC School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                          Surveyor, commercial/residential
+GradeCluster                                                            Elementary
+Skills                                                                         yes
+Biography                        Quality buy individual oil fact rich. Man some...
+JoinDate                                                                05/24/2018
+LastLoginDate                                                           2023-06-23
+LoginCount                                                                      23
+CountOfDaysLoggedInLast30Days                                                   21
+City                                                                      Lynnview
+State                                                                           MI
+PostalCode                                                                   90355
+ActiveSubscriptionType                                                   Free Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-05-09
+Affiliations                                                                   NaN
+Name: 16, dtype: object
+
+Error: time data '2024-01-23' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   96902
+SignUpRole                                                                Educator
+Name                                                               Gabriela Murphy
+LoginEmail                                                 schmittangela@gmail.com
+NotificationEmail                                                sperry@mathis.com
+School                                                                  Ltd School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                                   NaN
+Skills                                                                         NaN
+Biography                        Church campaign continue glass section. Time o...
+JoinDate                                                                08/01/2022
+LastLoginDate                                                           2024-01-23
+LoginCount                                                                      20
+CountOfDaysLoggedInLast30Days                                                    1
+City                                                                   Port Marcus
+State                                                                           AK
+PostalCode                                                                   97572
+ActiveSubscriptionType                                               Platinum Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-03-30
+Affiliations                                                                  fall
+Name: 17, dtype: object
+
+Error: time data '2023-11-29' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   77694
+SignUpRole                                                            Professional
+Name                                                                  Andrew Young
+LoginEmail                                               velasquezmark@collins.com
+NotificationEmail                                                  rking@gmail.com
+School                                                                  Inc School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                       Corporate treasurer
+GradeCluster                                                           High School
+Skills                                                                         NaN
+Biography                        Station range offer what together appear. Retu...
+JoinDate                                                                10/02/2021
+LastLoginDate                                                           2023-11-29
+LoginCount                                                                      66
+CountOfDaysLoggedInLast30Days                                                    5
+City                                                                    Brentmouth
+State                                                                           DE
+PostalCode                                                                   23982
+ActiveSubscriptionType                                                   Free Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-10-13
+Affiliations                                                              official
+Name: 18, dtype: object
+
+Error: time data '2023-10-30' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                          82458
+SignUpRole                                                        Student
+Name                                                    Elizabeth Mullins
+LoginEmail                                             uaguirre@owens.com
+NotificationEmail                                      pamela37@gmail.com
+School                                                         LLC School
+District or Company                    KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                               Facilities manager
+GradeCluster                                                Middle School
+Skills                                                                NaN
+Biography                                                             NaN
+JoinDate                                                       12/10/2021
+LastLoginDate                                                  2023-10-30
+LoginCount                                                             20
+CountOfDaysLoggedInLast30Days                                           8
+City                                                      East Taylorfort
+State                                                                  DE
+PostalCode                                                          62364
+ActiveSubscriptionType                                       Premium Plan
+ActiveSubscriptionName           Wood, Rodriguez and Elliott Subscription
+LastSessionDate                                                2023-04-01
+Affiliations                                                          NaN
+Name: 19, dtype: object
+
+Error: time data '2023-06-04' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    94941
+SignUpRole                                                 Educator
+Name                                                 Bruce Chandler
+LoginEmail                                      cameron84@gmail.com
+NotificationEmail                           smithnicholas@yahoo.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                          Middle School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 03/16/2017
+LastLoginDate                                            2023-06-04
+LoginCount                                                       34
+CountOfDaysLoggedInLast30Days                                    10
+City                                                East Lauramouth
+State                                                            MD
+PostalCode                                                    23274
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                      Snow-Grant Subscription
+LastSessionDate                                          2023-05-29
+Affiliations                                                    NaN
+Name: 20, dtype: object
+
+Error: time data '2023-05-25' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    54507
+SignUpRole                                                   Parent
+Name                                                   Jerry Martin
+LoginEmail                                         rcook@boone.info
+NotificationEmail                               charles03@yahoo.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                  Commercial horticulturist
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 11/07/2015
+LastLoginDate                                            2023-05-25
+LoginCount                                                       48
+CountOfDaysLoggedInLast30Days                                     0
+City                                                     Clarkshire
+State                                                            CO
+PostalCode                                                     2385
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-07-05
+Affiliations                                                    NaN
+Name: 21, dtype: object
+
+Error: time data '2023-10-21' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    53599
+SignUpRole                                                 Educator
+Name                                                  Michelle Dean
+LoginEmail                                       pperez@johnson.com
+NotificationEmail                           christiancobb@yahoo.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                      Clinical embryologist
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 06/30/2019
+LastLoginDate                                            2023-10-21
+LoginCount                                                       69
+CountOfDaysLoggedInLast30Days                                     3
+City                                                       Jasonton
+State                                                            NM
+PostalCode                                                    24285
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-11-22
+Affiliations                                                    NaN
+Name: 22, dtype: object
+
+Error: time data '2023-05-20' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                        53929
+SignUpRole                                                      Student
+Name                                                         Jared Dunn
+LoginEmail                                             udixon@yahoo.com
+NotificationEmail                                     awolf@hotmail.com
+School                                                  and Sons School
+District or Company                  KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                           Journalist, magazine
+GradeCluster                                                 Elementary
+Skills                                                            study
+Biography                                                           NaN
+JoinDate                                                     11/13/2019
+LastLoginDate                                                2023-05-20
+LoginCount                                                           34
+CountOfDaysLoggedInLast30Days                                         5
+City                                                      Lake Amyhaven
+State                                                                MA
+PostalCode                                                        21046
+ActiveSubscriptionType                                    Platinum Plan
+ActiveSubscriptionName           Morris, Obrien and Chavez Subscription
+LastSessionDate                                              2023-03-15
+Affiliations                                                      cover
+Name: 23, dtype: object
+
+Error: time data '2023-09-06' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    18840
+SignUpRole                                                 Educator
+Name                                             Michael Williamson
+LoginEmail                                          xbeck@gmail.com
+NotificationEmail                                   twest@gmail.com
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                          Middle School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 06/10/2019
+LastLoginDate                                            2023-09-06
+LoginCount                                                       78
+CountOfDaysLoggedInLast30Days                                    18
+City                                                    Jasminmouth
+State                                                            DC
+PostalCode                                                    28657
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-08-29
+Affiliations                                                    NaN
+Name: 24, dtype: object
+
+Error: time data '2023-12-09' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    82738
+SignUpRole                                                   Parent
+Name                                               Kristen Thompson
+LoginEmail                                 herreracynthia@wells.com
+NotificationEmail                         qnguyen@fields-duncan.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                     everyone
+Biography                                                       NaN
+JoinDate                                                 11/20/2022
+LastLoginDate                                            2023-12-09
+LoginCount                                                       93
+CountOfDaysLoggedInLast30Days                                    20
+City                                                   Michaelville
+State                                                            ND
+PostalCode                                                    87436
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-08-26
+Affiliations                                                    NaN
+Name: 25, dtype: object
+
+Error: time data '2023-11-13' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    27036
+SignUpRole                                                   Parent
+Name                                              Michelle Williams
+LoginEmail                                     qmorris@thompson.com
+NotificationEmail                           moransavannah@gmail.com
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                     Occupational hygienist
+GradeCluster                                                    NaN
+Skills                                                           as
+Biography                                                       NaN
+JoinDate                                                 10/22/2021
+LastLoginDate                                            2023-11-13
+LoginCount                                                       61
+CountOfDaysLoggedInLast30Days                                     9
+City                                                 New Marthafurt
+State                                                            GA
+PostalCode                                                    66381
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                    Weeks-Cooper Subscription
+LastSessionDate                                          2023-05-16
+Affiliations                                                    NaN
+Name: 26, dtype: object
+
+Error: time data '2023-06-14' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   51382
+SignUpRole                                                                Educator
+Name                                                                 Matthew Smith
+LoginEmail                                                       bgraham@gmail.com
+NotificationEmail                                          martinezjerome@pope.com
+School                                                                Group School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                 Education officer, museum
+GradeCluster                                                                   NaN
+Skills                                                                         nor
+Biography                        Strategy follow well yet. Somebody plan Mrs he...
+JoinDate                                                                09/16/2017
+LastLoginDate                                                           2023-06-14
+LoginCount                                                                       4
+CountOfDaysLoggedInLast30Days                                                    3
+City                                                                   Latoyahaven
+State                                                                           UT
+PostalCode                                                                   85220
+ActiveSubscriptionType                                               Platinum Plan
+ActiveSubscriptionName                                    Escobar Inc Subscription
+LastSessionDate                                                         2024-02-27
+Affiliations                                                             newspaper
+Name: 27, dtype: object
+
+Error: time data '2023-08-23' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                             66761
+SignUpRole                                                           Student
+Name                                                          Brandon Ibarra
+LoginEmail                                                rreyes@hotmail.com
+NotificationEmail                                   margaretlutz@hotmail.com
+School                                                            PLC School
+District or Company                       KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                 Scientist, research (life sciences)
+GradeCluster                                                      Elementary
+Skills                                                                   NaN
+Biography                                                                NaN
+JoinDate                                                          08/12/2018
+LastLoginDate                                                     2023-08-23
+LoginCount                                                                48
+CountOfDaysLoggedInLast30Days                                             15
+City                                                          Richardsonstad
+State                                                                     KS
+PostalCode                                                             60125
+ActiveSubscriptionType                                         Platinum Plan
+ActiveSubscriptionName           Delacruz, Hamilton and Barrett Subscription
+LastSessionDate                                                   2023-09-20
+Affiliations                                                             NaN
+Name: 28, dtype: object
+
+Error: time data '2023-09-13' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                     89642
+SignUpRole                                                  Educator
+Name                                                     Susan Dixon
+LoginEmail                                       jorgemeza@yahoo.com
+NotificationEmail                   kathleendaniels@day-coleman.info
+School                                                    PLC School
+District or Company               KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                               Scientist, research (medical)
+GradeCluster                                                     NaN
+Skills                                                           NaN
+Biography                                                        NaN
+JoinDate                                                  03/27/2017
+LastLoginDate                                             2023-09-13
+LoginCount                                                        90
+CountOfDaysLoggedInLast30Days                                     11
+City                                                 North Jamesland
+State                                                             KY
+PostalCode                                                     27412
+ActiveSubscriptionType                                    Basic Plan
+ActiveSubscriptionName           Perkins, Lutz and Sosa Subscription
+LastSessionDate                                           2023-03-24
+Affiliations                                              investment
+Name: 29, dtype: object
+
+Error: time data '2023-05-08' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   21250
+SignUpRole                                                                Educator
+Name                                                                  Dylan Morgan
+LoginEmail                                                  jamesbarnett@gmail.com
+NotificationEmail                                            valerie71@hotmail.com
+School                                                                  Inc School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                           High School
+Skills                                                                    actually
+Biography                        Special education check. Everyone stage Democr...
+JoinDate                                                                03/09/2020
+LastLoginDate                                                           2023-05-08
+LoginCount                                                                      48
+CountOfDaysLoggedInLast30Days                                                   27
+City                                                                     Wyattview
+State                                                                           IN
+PostalCode                                                                   65513
+ActiveSubscriptionType                                               Platinum Plan
+ActiveSubscriptionName                 Chapman, Bennett and Hernandez Subscription
+LastSessionDate                                                         2024-02-16
+Affiliations                                                                   NaN
+Name: 30, dtype: object
+
+Error: time data '2023-12-23' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    59047
+SignUpRole                                             Professional
+Name                                                   Troy Bernard
+LoginEmail                                   valeriegiles@gmail.com
+NotificationEmail                            jensenapril@graves.com
+School                                                 Group School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                    Actuary
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 06/17/2017
+LastLoginDate                                            2023-12-23
+LoginCount                                                       60
+CountOfDaysLoggedInLast30Days                                    15
+City                                                      Bellshire
+State                                                            ND
+PostalCode                                                    20086
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                  Nelson-Herrera Subscription
+LastSessionDate                                          2024-02-03
+Affiliations                                                    NaN
+Name: 31, dtype: object
+
+Error: time data '2023-04-19' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   88140
+SignUpRole                                                                  Parent
+Name                                                               Rebecca Sherman
+LoginEmail                                                      curtis48@yahoo.com
+NotificationEmail                                      brownlori@perry-herrera.net
+School                                                                  PLC School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                            Elementary
+Skills                                                                      father
+Biography                        Can consider point couple able. Summer allow o...
+JoinDate                                                                04/15/2018
+LastLoginDate                                                           2023-04-19
+LoginCount                                                                      66
+CountOfDaysLoggedInLast30Days                                                    3
+City                                                                     Lopezland
+State                                                                           WI
+PostalCode                                                                   75750
+ActiveSubscriptionType                                                   Free Plan
+ActiveSubscriptionName                                      Scott Inc Subscription
+LastSessionDate                                                         2023-08-15
+Affiliations                                                                   NaN
+Name: 32, dtype: object
+
+Error: time data '2023-12-29' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                         54145
+SignUpRole                                                        Parent
+Name                                                       Seth Saunders
+LoginEmail                                              jodi65@gmail.com
+NotificationEmail                                 danielle50@hotmail.com
+School                                                        LLC School
+District or Company                   KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                             NaN
+GradeCluster                                               Middle School
+Skills                                                            should
+Biography                                                            NaN
+JoinDate                                                      07/07/2017
+LastLoginDate                                                 2023-12-29
+LoginCount                                                            55
+CountOfDaysLoggedInLast30Days                                         22
+City                                                         Coopermouth
+State                                                                 IL
+PostalCode                                                         90787
+ActiveSubscriptionType                                      Premium Plan
+ActiveSubscriptionName           Patterson, Todd and Thomas Subscription
+LastSessionDate                                               2024-02-12
+Affiliations                                                  everything
+Name: 33, dtype: object
+
+Error: time data '2023-06-13' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                         30662
+SignUpRole                                                        Parent
+Name                                                         Jacob Adams
+LoginEmail                                         deborah82@hotmail.com
+NotificationEmail                                     john40@garrett.com
+School                                                   and Sons School
+District or Company                   KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                             NaN
+GradeCluster                                               Middle School
+Skills                                                           defense
+Biography                                                            NaN
+JoinDate                                                      10/31/2016
+LastLoginDate                                                 2023-06-13
+LoginCount                                                            15
+CountOfDaysLoggedInLast30Days                                         30
+City                                                    South Andrewport
+State                                                                 NH
+PostalCode                                                         56862
+ActiveSubscriptionType                                         Free Plan
+ActiveSubscriptionName           Ward, Stevenson and Taylor Subscription
+LastSessionDate                                               2023-11-27
+Affiliations                                                        when
+Name: 34, dtype: object
+
+Error: time data '2024-03-02' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                        71460
+SignUpRole                                                       Parent
+Name                                            Mrs. Susan Hamilton DVM
+LoginEmail                               leeelizabeth@adams-daniels.com
+NotificationEmail                                   fmckinney@yahoo.com
+School                                                       LLC School
+District or Company                  KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                               Armed forces operational officer
+GradeCluster                                                 Elementary
+Skills                                                              NaN
+Biography                                                           NaN
+JoinDate                                                     07/20/2016
+LastLoginDate                                                2024-03-02
+LoginCount                                                           50
+CountOfDaysLoggedInLast30Days                                        13
+City                                                       Emilychester
+State                                                                RI
+PostalCode                                                        93882
+ActiveSubscriptionType                                    Platinum Plan
+ActiveSubscriptionName           Morrow, Simpson and Poole Subscription
+LastSessionDate                                              2023-09-03
+Affiliations                                                    brother
+Name: 35, dtype: object
+
+Error: time data '2023-03-10' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    49531
+SignUpRole                                                   Parent
+Name                                                   Angie Fisher
+LoginEmail                                  christopher12@gmail.com
+NotificationEmail                           bryantcharles@davis.net
+School                                              and Sons School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                  Estate manager/land agent
+GradeCluster                                            High School
+Skills                                                     painting
+Biography                                                       NaN
+JoinDate                                                 03/30/2021
+LastLoginDate                                            2023-03-10
+LoginCount                                                       74
+CountOfDaysLoggedInLast30Days                                    14
+City                                                   Debrachester
+State                                                            DC
+PostalCode                                                     8265
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                    Oneal-Romero Subscription
+LastSessionDate                                          2023-10-11
+Affiliations                                                    NaN
+Name: 36, dtype: object
+
+Error: time data '2023-10-06' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    82488
+SignUpRole                                                   Parent
+Name                                                  Ronald Sexton
+LoginEmail                                      xanderson@yahoo.com
+NotificationEmail                          lorettabryan@hotmail.com
+School                                              and Sons School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                College
+Skills                                                       nearly
+Biography                                                       NaN
+JoinDate                                                 11/01/2020
+LastLoginDate                                            2023-10-06
+LoginCount                                                        8
+CountOfDaysLoggedInLast30Days                                     1
+City                                                   Port Patrick
+State                                                            WI
+PostalCode                                                    49931
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                     Russell Ltd Subscription
+LastSessionDate                                          2023-05-03
+Affiliations                                                    NaN
+Name: 37, dtype: object
+
+Error: time data '2024-02-04' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    26529
+SignUpRole                                                  Student
+Name                                                 Thomas Hoffman
+LoginEmail                                      karlhardy@gmail.com
+NotificationEmail                       maycraig@daniel-sanchez.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 12/30/2015
+LastLoginDate                                            2024-02-04
+LoginCount                                                       89
+CountOfDaysLoggedInLast30Days                                     6
+City                                                   New Joseberg
+State                                                            GA
+PostalCode                                                    88917
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                   Yates-Johnson Subscription
+LastSessionDate                                          2023-11-18
+Affiliations                                                    NaN
+Name: 38, dtype: object
+
+Error: time data '2023-09-20' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    40445
+SignUpRole                                                  Student
+Name                                                   Brandon Lowe
+LoginEmail                                   carterisaac@robles.com
+NotificationEmail                           chavezkaren@johnson.com
+School                                                   PLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                             Manufacturing systems engineer
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 03/05/2021
+LastLoginDate                                            2023-09-20
+LoginCount                                                       92
+CountOfDaysLoggedInLast30Days                                     3
+City                                               Port Barbaraview
+State                                                            KS
+PostalCode                                                    45988
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-03-06
+Affiliations                                            performance
+Name: 39, dtype: object
+
+Error: time data '2023-04-25' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    39030
+SignUpRole                                             Professional
+Name                                                 Bryan Anderson
+LoginEmail                                   davidboyer@marquez.com
+NotificationEmail                        raymond06@adkins-stone.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                            High School
+Skills                                                        power
+Biography                                                       NaN
+JoinDate                                                 02/11/2016
+LastLoginDate                                            2023-04-25
+LoginCount                                                       16
+CountOfDaysLoggedInLast30Days                                    10
+City                                                     Port Kelly
+State                                                            MO
+PostalCode                                                     6405
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-07-05
+Affiliations                                                    NaN
+Name: 40, dtype: object
+
+Error: time data '2023-10-11' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    75958
+SignUpRole                                                 Educator
+Name                                                    April Smith
+LoginEmail                                tammythompson@hotmail.com
+NotificationEmail                         alicialee@lopez-smith.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                             Elementary
+Skills                                                        never
+Biography                                                       NaN
+JoinDate                                                 04/07/2023
+LastLoginDate                                            2023-10-11
+LoginCount                                                       77
+CountOfDaysLoggedInLast30Days                                    23
+City                                                     Calvinfort
+State                                                            OK
+PostalCode                                                    88633
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName           Leon, Brown and Smith Subscription
+LastSessionDate                                          2023-12-07
+Affiliations                                                    NaN
+Name: 41, dtype: object
+
+Error: time data '2023-10-15' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   80629
+SignUpRole                                                                  Parent
+Name                                                                   Ryan Rogers
+LoginEmail                                                        cjones@yahoo.com
+NotificationEmail                                     elizabethelliott@hotmail.com
+School                                                                Group School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                              Town planner
+GradeCluster                                                                   NaN
+Skills                                                                    probably
+Biography                        Its discussion language middle hard. Education...
+JoinDate                                                                06/27/2019
+LastLoginDate                                                           2023-10-15
+LoginCount                                                                      39
+CountOfDaysLoggedInLast30Days                                                   14
+City                                                                 Rodneyborough
+State                                                                           TN
+PostalCode                                                                   11992
+ActiveSubscriptionType                                                Premium Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-10-06
+Affiliations                                                                   NaN
+Name: 42, dtype: object
+
+Error: time data '2023-07-01' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    33685
+SignUpRole                                             Professional
+Name                                                   Bailey Kelly
+LoginEmail                                      leonjohn@snyder.org
+NotificationEmail                              webbbryan@morgan.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                         cell
+Biography                                                       NaN
+JoinDate                                                 08/23/2016
+LastLoginDate                                            2023-07-01
+LoginCount                                                       98
+CountOfDaysLoggedInLast30Days                                    28
+City                                                  West Alexstad
+State                                                            GA
+PostalCode                                                    27163
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-07-30
+Affiliations                                                    NaN
+Name: 43, dtype: object
+
+Error: time data '2023-07-03' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                      51996
+SignUpRole                                                   Educator
+Name                                                   Amber Chandler
+LoginEmail                                         andrew14@yahoo.com
+NotificationEmail                            mcculloughsteven@lee.com
+School                                                     PLC School
+District or Company                KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                            Freight forwarder
+GradeCluster                                                      NaN
+Skills                                                          plant
+Biography                                                         NaN
+JoinDate                                                   10/14/2021
+LastLoginDate                                              2023-07-03
+LoginCount                                                         26
+CountOfDaysLoggedInLast30Days                                       7
+City                                                      Sharonmouth
+State                                                              IN
+PostalCode                                                      99340
+ActiveSubscriptionType                                     Basic Plan
+ActiveSubscriptionName           Collier, Baker and Cole Subscription
+LastSessionDate                                            2024-02-02
+Affiliations                                                    party
+Name: 44, dtype: object
+
+Error: time data '2023-08-01' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    94903
+SignUpRole                                                 Educator
+Name                                                   Edward Brown
+LoginEmail                                        uhunt@hotmail.com
+NotificationEmail                               zhunt@cruz-tate.org
+School                                                   PLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                College
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 05/10/2018
+LastLoginDate                                            2023-08-01
+LoginCount                                                        1
+CountOfDaysLoggedInLast30Days                                    13
+City                                                   Stewartmouth
+State                                                            CT
+PostalCode                                                    85004
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-04-16
+Affiliations                                                    NaN
+Name: 45, dtype: object
+
+Error: time data '2023-09-27' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    52074
+SignUpRole                                                   Parent
+Name                                              Jennifer Anderson
+LoginEmail                                   scottlambert@green.com
+NotificationEmail                        michaelaphillips@gmail.com
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 06/28/2023
+LastLoginDate                                            2023-09-27
+LoginCount                                                       69
+CountOfDaysLoggedInLast30Days                                     2
+City                                                 South Jennifer
+State                                                            AK
+PostalCode                                                    96664
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-10-04
+Affiliations                                                    NaN
+Name: 46, dtype: object
+
+Error: time data '2023-07-15' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                            91431
+SignUpRole                                                     Professional
+Name                                                         Ricky Morrison
+LoginEmail                                                kevin44@gmail.com
+NotificationEmail                                       leeobrien@gmail.com
+School                                                           Ltd School
+District or Company                      KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                NaN
+GradeCluster                                                     Elementary
+Skills                                                                  NaN
+Biography                                                               NaN
+JoinDate                                                         12/18/2021
+LastLoginDate                                                    2023-07-15
+LoginCount                                                               15
+CountOfDaysLoggedInLast30Days                                            21
+City                                                       West Hannahburgh
+State                                                                    MI
+PostalCode                                                            73816
+ActiveSubscriptionType                                            Free Plan
+ActiveSubscriptionName           Stephenson, Matthews and Lamb Subscription
+LastSessionDate                                                  2023-04-01
+Affiliations                                                        nothing
+Name: 47, dtype: object
+
+Error: time data '2024-01-07' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    48711
+SignUpRole                                                   Parent
+Name                                                   Sara Fleming
+LoginEmail                                shaunrichardson@gmail.com
+NotificationEmail                             bryanperez@stuart.org
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                         Theme park manager
+GradeCluster                                                    NaN
+Skills                                                           or
+Biography                                                       NaN
+JoinDate                                                 11/20/2017
+LastLoginDate                                            2024-01-07
+LoginCount                                                       23
+CountOfDaysLoggedInLast30Days                                     2
+City                                                Lake Allenhaven
+State                                                            ID
+PostalCode                                                     4557
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                      Wright Inc Subscription
+LastSessionDate                                          2023-11-18
+Affiliations                                                    NaN
+Name: 48, dtype: object
+
+Error: time data '2023-06-07' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    26857
+SignUpRole                                             Professional
+Name                                                  Wendy Jenkins
+LoginEmail                                    michaeldean@soto.info
+NotificationEmail                            ryantorres@hotmail.com
+School                                                   PLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                             Elementary
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 05/13/2023
+LastLoginDate                                            2023-06-07
+LoginCount                                                        2
+CountOfDaysLoggedInLast30Days                                    22
+City                                                   Edwardsburgh
+State                                                            SD
+PostalCode                                                    75583
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName           Clark, West and Welch Subscription
+LastSessionDate                                          2023-08-18
+Affiliations                                                    NaN
+Name: 49, dtype: object
+
+Error: time data '2023-04-05' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    10411
+SignUpRole                                             Professional
+Name                                                Allison Manning
+LoginEmail                                   nixonanthony@yahoo.com
+NotificationEmail                               nathan13@hansen.org
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                          Middle School
+Skills                                                       choice
+Biography                                                       NaN
+JoinDate                                                 04/10/2020
+LastLoginDate                                            2023-04-05
+LoginCount                                                       32
+CountOfDaysLoggedInLast30Days                                    15
+City                                                   New Tammyton
+State                                                            AR
+PostalCode                                                    43245
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-11-21
+Affiliations                                                    NaN
+Name: 50, dtype: object
+
+Error: time data '2023-05-13' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    30043
+SignUpRole                                             Professional
+Name                                                    Colin Evans
+LoginEmail                              richardwalters@thompson.com
+NotificationEmail                           williamsrobert@bush.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                            High School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 05/31/2022
+LastLoginDate                                            2023-05-13
+LoginCount                                                       49
+CountOfDaysLoggedInLast30Days                                    13
+City                                                        Ginaton
+State                                                            NM
+PostalCode                                                    55278
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-04-10
+Affiliations                                                    NaN
+Name: 51, dtype: object
+
+Error: time data '2023-05-05' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    65021
+SignUpRole                                             Professional
+Name                                                Morgan Anderson
+LoginEmail                                 morganwilson@hotmail.com
+NotificationEmail                            cole55@strickland.info
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 08/08/2017
+LastLoginDate                                            2023-05-05
+LoginCount                                                       33
+CountOfDaysLoggedInLast30Days                                    21
+City                                                 South Danielle
+State                                                            WA
+PostalCode                                                    31445
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                    Wilson Group Subscription
+LastSessionDate                                          2023-09-17
+Affiliations                                                    NaN
+Name: 52, dtype: object
+
+Error: time data '2023-09-30' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                     51410
+SignUpRole                                                   Student
+Name                                                    Brenda Smith
+LoginEmail                                       riosjay@hotmail.com
+NotificationEmail                          hernandezvictor@casey.com
+School                                               and Sons School
+District or Company               KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                         NaN
+GradeCluster                                                     NaN
+Skills                                                        result
+Biography                                                        NaN
+JoinDate                                                  03/10/2018
+LastLoginDate                                             2023-09-30
+LoginCount                                                        99
+CountOfDaysLoggedInLast30Days                                     13
+City                                                        Raymouth
+State                                                             DE
+PostalCode                                                     27446
+ActiveSubscriptionType                                  Premium Plan
+ActiveSubscriptionName           Orozco, Brown and Long Subscription
+LastSessionDate                                           2023-05-17
+Affiliations                                                   where
+Name: 53, dtype: object
+
+Error: time data '2023-10-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    45977
+SignUpRole                                                  Student
+Name                                                      Amy Clark
+LoginEmail                                barnettbenjamin@gmail.com
+NotificationEmail                              teresa49@hotmail.com
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                               Tour manager
+GradeCluster                                            High School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 05/14/2017
+LastLoginDate                                            2023-10-18
+LoginCount                                                       58
+CountOfDaysLoggedInLast30Days                                    28
+City                                                     Perezburgh
+State                                                            KS
+PostalCode                                                    31180
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-07-07
+Affiliations                                                    NaN
+Name: 54, dtype: object
+
+Error: time data '2023-11-04' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   37360
+SignUpRole                                                            Professional
+Name                                                                    Joy Atkins
+LoginEmail                                                josephespinoza@gmail.com
+NotificationEmail                                               craig53@parker.org
+School                                                                  Inc School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                          Textile designer
+GradeCluster                                                           High School
+Skills                                                                        baby
+Biography                        Grow voice population happy customer then. Nec...
+JoinDate                                                                09/05/2018
+LastLoginDate                                                           2023-11-04
+LoginCount                                                                      42
+CountOfDaysLoggedInLast30Days                                                   17
+City                                                                     Port Ryan
+State                                                                           RI
+PostalCode                                                                   57807
+ActiveSubscriptionType                                                Premium Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-12-17
+Affiliations                                                                   NaN
+Name: 55, dtype: object
+
+Error: time data '2023-08-06' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   57471
+SignUpRole                                                                  Parent
+Name                                                                Rebecca Dunlap
+LoginEmail                                                       jwatson@gmail.com
+NotificationEmail                                            susan51@gray-nash.com
+School                                                                  LLC School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                                   NaN
+Skills                                                                         NaN
+Biography                        View act within knowledge outside. Front far y...
+JoinDate                                                                01/05/2020
+LastLoginDate                                                           2023-08-06
+LoginCount                                                                      68
+CountOfDaysLoggedInLast30Days                                                   10
+City                                                                    Jasonville
+State                                                                           ME
+PostalCode                                                                   65960
+ActiveSubscriptionType                                                   Free Plan
+ActiveSubscriptionName                                       Carr LLC Subscription
+LastSessionDate                                                         2023-11-06
+Affiliations                                                                   NaN
+Name: 56, dtype: object
+
+Error: time data '2023-11-22' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    77204
+SignUpRole                                                 Educator
+Name                                                Richard Beasley
+LoginEmail                                taylorwendy@rodriguez.com
+NotificationEmail                           megantorres@hotmail.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                             Elementary
+Skills                                                       energy
+Biography                                                       NaN
+JoinDate                                                 01/23/2018
+LastLoginDate                                            2023-11-22
+LoginCount                                                       45
+CountOfDaysLoggedInLast30Days                                     8
+City                                                     Howardfort
+State                                                            MA
+PostalCode                                                    83141
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                 Ramsey and Sons Subscription
+LastSessionDate                                          2023-12-17
+Affiliations                                                 either
+Name: 57, dtype: object
+
+Error: time data '2023-11-10' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    75822
+SignUpRole                                                  Student
+Name                                                  Brenda Hanson
+LoginEmail                              williamsstephanie@gmail.com
+NotificationEmail                              jimmywalsh@gmail.com
+School                                                 Group School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 11/16/2023
+LastLoginDate                                            2023-11-10
+LoginCount                                                       26
+CountOfDaysLoggedInLast30Days                                    12
+City                                               East Tiffanyview
+State                                                            HI
+PostalCode                                                    69787
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-05-27
+Affiliations                                                    NaN
+Name: 58, dtype: object
+
+Error: time data '2023-07-14' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    62182
+SignUpRole                                                 Educator
+Name                                                   Kayla Rogers
+LoginEmail                                 dianewashington@wood.com
+NotificationEmail                              jacobsgary@yahoo.com
+School                                                   PLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                        dream
+Biography                                                       NaN
+JoinDate                                                 07/19/2021
+LastLoginDate                                            2023-07-14
+LoginCount                                                       12
+CountOfDaysLoggedInLast30Days                                    30
+City                                                     Tuckerberg
+State                                                            NM
+PostalCode                                                    81549
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-03-31
+Affiliations                                                  crime
+Name: 59, dtype: object
+
+Error: time data '2023-06-05' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    68864
+SignUpRole                                             Professional
+Name                                                Kenneth Osborne
+LoginEmail                                        cmadden@yahoo.com
+NotificationEmail                               xpierce@hotmail.com
+School                                                   PLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                          Middle School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 05/09/2018
+LastLoginDate                                            2023-06-05
+LoginCount                                                       29
+CountOfDaysLoggedInLast30Days                                    15
+City                                              North Angelaburgh
+State                                                            KY
+PostalCode                                                    70356
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-08-30
+Affiliations                                                  treat
+Name: 60, dtype: object
+
+Error: time data '2023-08-06' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    65870
+SignUpRole                                                 Educator
+Name                                              Victoria Buck DVM
+LoginEmail                                   lopezcheryl@scott.info
+NotificationEmail                               barbara03@gmail.com
+School                                              and Sons School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                        carry
+Biography                                                       NaN
+JoinDate                                                 11/11/2021
+LastLoginDate                                            2023-08-06
+LoginCount                                                       10
+CountOfDaysLoggedInLast30Days                                    15
+City                                                    Andrewville
+State                                                            VA
+PostalCode                                                    38225
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-04-17
+Affiliations                                              difficult
+Name: 61, dtype: object
+
+Error: time data '2023-11-14' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    58182
+SignUpRole                                                  Student
+Name                                                  Jacob Mahoney
+LoginEmail                                     samantha24@yahoo.com
+NotificationEmail                        oriley@fischer-hubbard.com
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                      Agricultural engineer
+GradeCluster                                            High School
+Skills                                                         wish
+Biography                                                       NaN
+JoinDate                                                 11/15/2018
+LastLoginDate                                            2023-11-14
+LoginCount                                                       95
+CountOfDaysLoggedInLast30Days                                    25
+City                                                   Jameschester
+State                                                            MO
+PostalCode                                                    65415
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-05-29
+Affiliations                                              executive
+Name: 62, dtype: object
+
+Error: time data '2023-11-26' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                98376
+SignUpRole                                                         Professional
+Name                                                                Robert Page
+LoginEmail                                                    gdiaz@hotmail.com
+NotificationEmail                                         jason58@frederick.biz
+School                                                               PLC School
+District or Company                          KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                            Community education officer
+GradeCluster                                                                NaN
+Skills                                                                    still
+Biography                        Already teacher purpose beat. Control or down.
+JoinDate                                                             09/18/2018
+LastLoginDate                                                        2023-11-26
+LoginCount                                                                   65
+CountOfDaysLoggedInLast30Days                                                13
+City                                                                Bennettland
+State                                                                        DE
+PostalCode                                                                83569
+ActiveSubscriptionType                                            Platinum Plan
+ActiveSubscriptionName               Strickland, Johnson and Gomez Subscription
+LastSessionDate                                                      2023-03-27
+Affiliations                                                                NaN
+Name: 63, dtype: object
+
+Error: time data '2023-11-24' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                      28196
+SignUpRole                                                     Parent
+Name                                                      Danny Blair
+LoginEmail                                     kimberly70@hotmail.com
+NotificationEmail                              englishjamie@patel.org
+School                                                   Group School
+District or Company                KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                          NaN
+GradeCluster                                               Elementary
+Skills                                                        similar
+Biography                                                         NaN
+JoinDate                                                   11/26/2015
+LastLoginDate                                              2023-11-24
+LoginCount                                                         43
+CountOfDaysLoggedInLast30Days                                      16
+City                                               South Michelleside
+State                                                              KS
+PostalCode                                                      89970
+ActiveSubscriptionType                                     Basic Plan
+ActiveSubscriptionName           York, Davis and Bernard Subscription
+LastSessionDate                                            2023-06-23
+Affiliations                                                   remain
+Name: 64, dtype: object
+
+Error: time data '2023-10-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                     23195
+SignUpRole                                                    Parent
+Name                                              Matthew Washington
+LoginEmail                       thompsontimothy@melendez-jensen.com
+NotificationEmail                                 ppruitt@fuller.com
+School                                               and Sons School
+District or Company               KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                         NaN
+GradeCluster                                                     NaN
+Skills                                                           NaN
+Biography                                                        NaN
+JoinDate                                                  08/09/2022
+LastLoginDate                                             2023-10-18
+LoginCount                                                        30
+CountOfDaysLoggedInLast30Days                                     15
+City                                                 North Elizabeth
+State                                                             DE
+PostalCode                                                     76257
+ActiveSubscriptionType                                    Basic Plan
+ActiveSubscriptionName                                           NaN
+LastSessionDate                                           2023-06-27
+Affiliations                                                     NaN
+Name: 65, dtype: object
+
+Error: time data '2023-10-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   92734
+SignUpRole                                                            Professional
+Name                                                                Allison Lester
+LoginEmail                                                         ewood@yahoo.com
+NotificationEmail                                               rgray@moon-cox.com
+School                                                                  Ltd School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                                   NaN
+Skills                                                                         NaN
+Biography                        Son opportunity area sister short while. Data ...
+JoinDate                                                                06/23/2022
+LastLoginDate                                                           2023-10-18
+LoginCount                                                                      77
+CountOfDaysLoggedInLast30Days                                                   22
+City                                                                    Lake David
+State                                                                           IN
+PostalCode                                                                   53380
+ActiveSubscriptionType                                                  Basic Plan
+ActiveSubscriptionName                                    Gomez Group Subscription
+LastSessionDate                                                         2023-05-21
+Affiliations                                                                  just
+Name: 66, dtype: object
+
+Error: time data '2024-01-08' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    15053
+SignUpRole                                             Professional
+Name                                                 Gina Rodriguez
+LoginEmail                                  amandajohnson@gmail.com
+NotificationEmail                       valerie48@clark-estrada.org
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                   Loss adjuster, chartered
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 01/02/2017
+LastLoginDate                                            2024-01-08
+LoginCount                                                       92
+CountOfDaysLoggedInLast30Days                                    21
+City                                                      Simshaven
+State                                                            FL
+PostalCode                                                    48328
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                Blanchard-Wright Subscription
+LastSessionDate                                          2023-06-26
+Affiliations                                                    NaN
+Name: 67, dtype: object
+
+Error: time data '2023-05-08' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    32619
+SignUpRole                                                 Educator
+Name                                           Mrs. Patricia Graham
+LoginEmail                                    jwilliams@hotmail.com
+NotificationEmail                               acollier@george.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                             Water engineer
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 02/27/2017
+LastLoginDate                                            2023-05-08
+LoginCount                                                       44
+CountOfDaysLoggedInLast30Days                                    10
+City                                                      Kerrhaven
+State                                                            WA
+PostalCode                                                    16331
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-12-06
+Affiliations                                                   talk
+Name: 68, dtype: object
+
+Error: time data '2023-04-10' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                           40635
+SignUpRole                                                         Student
+Name                                                          Maria Miller
+LoginEmail                                              mcurtis@thomas.net
+NotificationEmail                                  ronaldsanchez@gmail.com
+School                                                          Ltd School
+District or Company                     KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                               NaN
+GradeCluster                                                           NaN
+Skills                                                                 NaN
+Biography                                                              NaN
+JoinDate                                                        02/25/2020
+LastLoginDate                                                   2023-04-10
+LoginCount                                                              57
+CountOfDaysLoggedInLast30Days                                            8
+City                                                           West Andrew
+State                                                                   ND
+PostalCode                                                           69839
+ActiveSubscriptionType                                        Premium Plan
+ActiveSubscriptionName           Scott, Williams and Marshall Subscription
+LastSessionDate                                                 2023-03-21
+Affiliations                                                           NaN
+Name: 69, dtype: object
+
+Error: time data '2023-11-16' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    45348
+SignUpRole                                                   Parent
+Name                                              Martin Fitzgerald
+LoginEmail                          taylorkristin@oconnor-ramos.net
+NotificationEmail                            ramirezapril@yahoo.com
+School                                                   PLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                        front
+Biography                                                       NaN
+JoinDate                                                 05/20/2017
+LastLoginDate                                            2023-11-16
+LoginCount                                                       60
+CountOfDaysLoggedInLast30Days                                    29
+City                                                   Andersonstad
+State                                                            NY
+PostalCode                                                    86489
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                    Bolton Group Subscription
+LastSessionDate                                          2024-02-19
+Affiliations                                                    NaN
+Name: 70, dtype: object
+
+Error: time data '2023-04-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    43529
+SignUpRole                                                   Parent
+Name                                                    Sarah Lopez
+LoginEmail                                         ochung@yahoo.com
+NotificationEmail                             pottswilliam@hunt.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                   Magazine features editor
+GradeCluster                                            High School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 07/21/2019
+LastLoginDate                                            2023-04-18
+LoginCount                                                       70
+CountOfDaysLoggedInLast30Days                                    23
+City                                                       Daviston
+State                                                            UT
+PostalCode                                                    22178
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-08-04
+Affiliations                                                    NaN
+Name: 71, dtype: object
+
+Error: time data '2023-08-07' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                        31666
+SignUpRole                                                     Educator
+Name                                                         Paul Patel
+LoginEmail                                           jacob27@maddox.com
+NotificationEmail                                  alicia77@hotmail.com
+School                                                       Inc School
+District or Company                  KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                           Nurse, mental health
+GradeCluster                                                 Elementary
+Skills                                                              NaN
+Biography                                                           NaN
+JoinDate                                                     10/26/2015
+LastLoginDate                                                2023-08-07
+LoginCount                                                           64
+CountOfDaysLoggedInLast30Days                                         7
+City                                                        Grahammouth
+State                                                                KY
+PostalCode                                                        57487
+ActiveSubscriptionType                                    Platinum Plan
+ActiveSubscriptionName           Tran, Hernandez and Jones Subscription
+LastSessionDate                                              2023-12-27
+Affiliations                                                        NaN
+Name: 72, dtype: object
+
+Error: time data '2024-02-22' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    71529
+SignUpRole                                             Professional
+Name                                                  Brian Garrett
+LoginEmail                                       dylan63@jordan.com
+NotificationEmail                               pwilliams@yahoo.com
+School                                              and Sons School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                College
+Skills                                                          off
+Biography                                                       NaN
+JoinDate                                                 01/14/2021
+LastLoginDate                                            2024-02-22
+LoginCount                                                       20
+CountOfDaysLoggedInLast30Days                                    19
+City                                                      Ellisstad
+State                                                            MT
+PostalCode                                                    76831
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                 Miller and Sons Subscription
+LastSessionDate                                          2023-10-02
+Affiliations                                                    NaN
+Name: 73, dtype: object
+
+Error: time data '2023-03-12' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   24006
+SignUpRole                                                                 Student
+Name                                                                   Sandra King
+LoginEmail                                                      anna13@hotmail.com
+NotificationEmail                                         yallison@blake-avila.com
+School                                                                  Inc School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                                   NaN
+Skills                                                                     economy
+Biography                        Bring add opportunity though food action their...
+JoinDate                                                                04/15/2022
+LastLoginDate                                                           2023-03-12
+LoginCount                                                                      29
+CountOfDaysLoggedInLast30Days                                                   17
+City                                                               West Natalieton
+State                                                                           GA
+PostalCode                                                                   11958
+ActiveSubscriptionType                                                  Basic Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-10-07
+Affiliations                                                                   NaN
+Name: 74, dtype: object
+
+Error: time data '2023-05-06' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    42218
+SignUpRole                                             Professional
+Name                                                 Renee Gonzalez
+LoginEmail                              tinamontoya@christensen.com
+NotificationEmail                        christopherortiz@greer.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                            High School
+Skills                                                        right
+Biography                                                       NaN
+JoinDate                                                 06/27/2023
+LastLoginDate                                            2023-05-06
+LoginCount                                                       86
+CountOfDaysLoggedInLast30Days                                     8
+City                                               North Philipstad
+State                                                            VA
+PostalCode                                                    70837
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                      May-Thomas Subscription
+LastSessionDate                                          2023-10-25
+Affiliations                                                   wish
+Name: 75, dtype: object
+
+Error: time data '2023-11-25' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                        14578
+SignUpRole                                                 Professional
+Name                                                     Matthew Rogers
+LoginEmail                                          davesmith@yahoo.com
+NotificationEmail                                hannahwest@hotmail.com
+School                                                       LLC School
+District or Company                  KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                            NaN
+GradeCluster                                                 Elementary
+Skills                                                            write
+Biography                                                           NaN
+JoinDate                                                     03/26/2016
+LastLoginDate                                                2023-11-25
+LoginCount                                                           25
+CountOfDaysLoggedInLast30Days                                         2
+City                                                            Pamland
+State                                                                WA
+PostalCode                                                        15278
+ActiveSubscriptionType                                       Basic Plan
+ActiveSubscriptionName           Hayes, Chambers and Jones Subscription
+LastSessionDate                                              2023-06-03
+Affiliations                                                        NaN
+Name: 76, dtype: object
+
+Error: time data '2024-01-20' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    12069
+SignUpRole                                                 Educator
+Name                                                    Rachel Cruz
+LoginEmail                                      crystal66@yahoo.com
+NotificationEmail                            wigginsshane@yahoo.com
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                 Engineer, maintenance (IT)
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 11/08/2021
+LastLoginDate                                            2024-01-20
+LoginCount                                                       69
+CountOfDaysLoggedInLast30Days                                    29
+City                                                     Whitemouth
+State                                                            UT
+PostalCode                                                    71814
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                      Ewing-Wong Subscription
+LastSessionDate                                          2023-06-07
+Affiliations                                                    NaN
+Name: 77, dtype: object
+
+Error: time data '2024-03-01' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    16426
+SignUpRole                                                   Parent
+Name                                                     David Sims
+LoginEmail                                lawrencebeverly@gmail.com
+NotificationEmail                               brownryan@gmail.com
+School                                                   PLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                   Waste management officer
+GradeCluster                                          Middle School
+Skills                                                          new
+Biography                                                       NaN
+JoinDate                                                 03/06/2022
+LastLoginDate                                            2024-03-01
+LoginCount                                                       61
+CountOfDaysLoggedInLast30Days                                    13
+City                                                      Meganview
+State                                                            ND
+PostalCode                                                    67334
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-03-15
+Affiliations                                                    NaN
+Name: 78, dtype: object
+
+Error: time data '2023-04-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    34262
+SignUpRole                                                 Educator
+Name                                               Maxwell Gonzales
+LoginEmail                                 heatheradams@hotmail.com
+NotificationEmail                         whitney13@fleming-ray.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 01/17/2023
+LastLoginDate                                            2023-04-18
+LoginCount                                                       29
+CountOfDaysLoggedInLast30Days                                    20
+City                                                    South Jason
+State                                                            IL
+PostalCode                                                    51056
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                       Myers PLC Subscription
+LastSessionDate                                          2023-12-03
+Affiliations                                                    NaN
+Name: 79, dtype: object
+
+Error: time data '2023-09-30' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    64621
+SignUpRole                                                  Student
+Name                                                 Tricia Garrett
+LoginEmail                                 daniellehoward@gmail.com
+NotificationEmail                         figueroamallory@gmail.com
+School                                              and Sons School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 04/11/2021
+LastLoginDate                                            2023-09-30
+LoginCount                                                       46
+CountOfDaysLoggedInLast30Days                                     4
+City                                                    Spencerland
+State                                                            MA
+PostalCode                                                    68037
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                   Rodriguez Ltd Subscription
+LastSessionDate                                          2023-09-19
+Affiliations                                                    NaN
+Name: 80, dtype: object
+
+Error: time data '2023-05-31' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                           80410
+SignUpRole                                                    Professional
+Name                                                             Mary Tate
+LoginEmail                                         fisherkevin@salazar.com
+NotificationEmail                                         rolson@yahoo.com
+School                                                          Inc School
+District or Company                     KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                         Dietitian
+GradeCluster                                                           NaN
+Skills                                                                look
+Biography                                                              NaN
+JoinDate                                                        08/09/2020
+LastLoginDate                                                   2023-05-31
+LoginCount                                                              86
+CountOfDaysLoggedInLast30Days                                           10
+City                                                         New Lukeshire
+State                                                                   MN
+PostalCode                                                           29590
+ActiveSubscriptionType                                       Platinum Plan
+ActiveSubscriptionName           Martinez, Merritt and Murphy Subscription
+LastSessionDate                                                 2023-10-15
+Affiliations                                                           NaN
+Name: 81, dtype: object
+
+Error: time data '2023-07-20' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    67933
+SignUpRole                                             Professional
+Name                                                 Kimberly Smith
+LoginEmail                           duarteanthony@carson-clark.net
+NotificationEmail                christophersmith@allen-wallace.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 07/09/2017
+LastLoginDate                                            2023-07-20
+LoginCount                                                       16
+CountOfDaysLoggedInLast30Days                                     1
+City                                                West Manuelfurt
+State                                                            MT
+PostalCode                                                    61320
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2024-02-16
+Affiliations                                                    NaN
+Name: 82, dtype: object
+
+Error: time data '2023-07-29' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   74408
+SignUpRole                                                                Educator
+Name                                                                 Joanna Duarte
+LoginEmail                                                       jenna45@yahoo.com
+NotificationEmail                                               xrusso@hotmail.com
+School                                                                Group School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                  Computer games developer
+GradeCluster                                                            Elementary
+Skills                                                                         NaN
+Biography                        Available day turn lay future table rock. Cert...
+JoinDate                                                                04/20/2023
+LastLoginDate                                                           2023-07-29
+LoginCount                                                                      68
+CountOfDaysLoggedInLast30Days                                                   14
+City                                                                Port Meganland
+State                                                                           MI
+PostalCode                                                                   34673
+ActiveSubscriptionType                                                Premium Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-12-30
+Affiliations                                                                  join
+Name: 83, dtype: object
+
+Error: time data '2024-02-16' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                           60018
+SignUpRole                                                         Student
+Name                                                          Adam Pittman
+LoginEmail                                          aprilkelly@hartman.com
+NotificationEmail                             grayvincent@wagner-evans.org
+School                                                          Ltd School
+District or Company                     KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                             Product/process development scientist
+GradeCluster                                                           NaN
+Skills                                                                 NaN
+Biography                                                              NaN
+JoinDate                                                        11/09/2021
+LastLoginDate                                                   2024-02-16
+LoginCount                                                              99
+CountOfDaysLoggedInLast30Days                                           10
+City                                                            New Ashlee
+State                                                                   MS
+PostalCode                                                           55863
+ActiveSubscriptionType                                        Premium Plan
+ActiveSubscriptionName           Jensen, Robertson and Turner Subscription
+LastSessionDate                                                 2023-09-29
+Affiliations                                                           NaN
+Name: 84, dtype: object
+
+Error: time data '2023-07-25' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   17077
+SignUpRole                                                                Educator
+Name                                                                  Tracy Phelps
+LoginEmail                                              hernandezzachary@yahoo.com
+NotificationEmail                                                emily37@gmail.com
+School                                                                  LLC School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                               Careers information officer
+GradeCluster                                                               College
+Skills                                                                         NaN
+Biography                        Arm anyone difficult each contain. Research ve...
+JoinDate                                                                06/23/2016
+LastLoginDate                                                           2023-07-25
+LoginCount                                                                      94
+CountOfDaysLoggedInLast30Days                                                   18
+City                                                                  Baldwinville
+State                                                                           MI
+PostalCode                                                                    6564
+ActiveSubscriptionType                                               Platinum Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-03-15
+Affiliations                                                                   NaN
+Name: 85, dtype: object
+
+Error: time data '2023-09-06' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    78440
+SignUpRole                                                   Parent
+Name                                                    Jose Thomas
+LoginEmail                                       oramirez@gmail.com
+NotificationEmail                          pollardsarah@hotmail.com
+School                                              and Sons School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                 Podiatrist
+GradeCluster                                          Middle School
+Skills                                                        month
+Biography                                                       NaN
+JoinDate                                                 06/20/2016
+LastLoginDate                                            2023-09-06
+LoginCount                                                        6
+CountOfDaysLoggedInLast30Days                                    11
+City                                                    Lake Joseph
+State                                                            NV
+PostalCode                                                    26227
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-12-17
+Affiliations                                                    NaN
+Name: 86, dtype: object
+
+Error: time data '2023-11-11' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    57893
+SignUpRole                                                 Educator
+Name                                                     Emily Kirk
+LoginEmail                                      davidowen@gmail.com
+NotificationEmail                                vherring@gmail.com
+School                                              and Sons School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                  Learning disability nurse
+GradeCluster                                            High School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 08/09/2019
+LastLoginDate                                            2023-11-11
+LoginCount                                                       17
+CountOfDaysLoggedInLast30Days                                    18
+City                                                   Stephensport
+State                                                            MT
+PostalCode                                                    39160
+ActiveSubscriptionType                                   Basic Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-07-03
+Affiliations                                                    NaN
+Name: 87, dtype: object
+
+Error: time data '2023-03-07' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                      63169
+SignUpRole                                               Professional
+Name                                                   Jeffrey Abbott
+LoginEmail                                   obrienadrian@hotmail.com
+NotificationEmail                                 zlindsey@guzman.com
+School                                                     PLC School
+District or Company                KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                          NaN
+GradeCluster                                            Middle School
+Skills                                                            NaN
+Biography                                                         NaN
+JoinDate                                                   06/18/2021
+LastLoginDate                                              2023-03-07
+LoginCount                                                         45
+CountOfDaysLoggedInLast30Days                                      20
+City                                                         Carrtown
+State                                                              DC
+PostalCode                                                      28394
+ActiveSubscriptionType                                     Basic Plan
+ActiveSubscriptionName           Munoz, Brown and Cooper Subscription
+LastSessionDate                                            2023-03-20
+Affiliations                                                      NaN
+Name: 88, dtype: object
+
+Error: time data '2023-05-15' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   65955
+SignUpRole                                                                 Student
+Name                                                                Marcus Mueller
+LoginEmail                                                        zoe93@cherry.net
+NotificationEmail                                              shirley79@yahoo.com
+School                                                                  LLC School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                               College
+Skills                                                                      assume
+Biography                        Green property plan these administration siste...
+JoinDate                                                                12/13/2016
+LastLoginDate                                                           2023-05-15
+LoginCount                                                                      21
+CountOfDaysLoggedInLast30Days                                                    4
+City                                                                 Robertchester
+State                                                                           DC
+PostalCode                                                                   88617
+ActiveSubscriptionType                                                  Basic Plan
+ActiveSubscriptionName                                       Owen LLC Subscription
+LastSessionDate                                                         2023-07-10
+Affiliations                                                                   NaN
+Name: 89, dtype: object
+
+Error: time data '2023-08-23' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   86959
+SignUpRole                                                                 Student
+Name                                                                Brad Singleton
+LoginEmail                                                    larryeaton@gmail.com
+NotificationEmail                                                jackie85@khan.com
+School                                                                  PLC School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                                   NaN
+Skills                                                                         NaN
+Biography                        Middle dark stock identify although. Politics ...
+JoinDate                                                                07/16/2017
+LastLoginDate                                                           2023-08-23
+LoginCount                                                                      19
+CountOfDaysLoggedInLast30Days                                                   19
+City                                                            East Reginaborough
+State                                                                           ND
+PostalCode                                                                   64420
+ActiveSubscriptionType                                               Platinum Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2024-02-07
+Affiliations                                                                   NaN
+Name: 90, dtype: object
+
+Error: time data '2023-12-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    77031
+SignUpRole                                                  Student
+Name                                                   Renee Torres
+LoginEmail                                     lrasmussen@yahoo.com
+NotificationEmail                            tracynielsen@gmail.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                          Middle School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 12/28/2023
+LastLoginDate                                            2023-12-18
+LoginCount                                                       49
+CountOfDaysLoggedInLast30Days                                    11
+City                                                      Jamesview
+State                                                            CA
+PostalCode                                                    75568
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                      Mcgee-Rowe Subscription
+LastSessionDate                                          2023-12-25
+Affiliations                                            performance
+Name: 91, dtype: object
+
+Error: time data '2023-12-08' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    27400
+SignUpRole                                             Professional
+Name                                                Kristin Nichols
+LoginEmail                                      bmoore@williams.com
+NotificationEmail                                  lisa34@gomez.com
+School                                                   Ltd School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                         Petroleum engineer
+GradeCluster                                                College
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 12/09/2020
+LastLoginDate                                            2023-12-08
+LoginCount                                                       22
+CountOfDaysLoggedInLast30Days                                     4
+City                                                   Barnettshire
+State                                                            LA
+PostalCode                                                    76718
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-06-15
+Affiliations                                                    NaN
+Name: 92, dtype: object
+
+Error: time data '2024-01-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    12623
+SignUpRole                                             Professional
+Name                                                  Angela Garcia
+LoginEmail                                    jonathon48@morris.biz
+NotificationEmail                              xblackwell@white.net
+School                                                   LLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                                    NaN
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 11/24/2015
+LastLoginDate                                            2024-01-18
+LoginCount                                                       55
+CountOfDaysLoggedInLast30Days                                     3
+City                                                    New Jessica
+State                                                            SC
+PostalCode                                                    56773
+ActiveSubscriptionType                                 Premium Plan
+ActiveSubscriptionName                   Glover-Thomas Subscription
+LastSessionDate                                          2023-12-16
+Affiliations                                                    NaN
+Name: 93, dtype: object
+
+Error: time data '2024-02-21' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    64834
+SignUpRole                                                  Student
+Name                                                    Jill Little
+LoginEmail                                   beasleykayla@yahoo.com
+NotificationEmail                       daniel35@gaines-johnson.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                  Estate manager/land agent
+GradeCluster                                                College
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 12/11/2017
+LastLoginDate                                            2024-02-21
+LoginCount                                                       69
+CountOfDaysLoggedInLast30Days                                    26
+City                                                      New Linda
+State                                                            TX
+PostalCode                                                    70253
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                        Hill Inc Subscription
+LastSessionDate                                          2024-02-05
+Affiliations                                               national
+Name: 94, dtype: object
+
+Error: time data '2023-09-21' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    74427
+SignUpRole                                             Professional
+Name                                             Christopher Conner
+LoginEmail                                  ralphanderson@yahoo.com
+NotificationEmail                      danatorres@adams-russell.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                            High School
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 10/02/2022
+LastLoginDate                                            2023-09-21
+LoginCount                                                        3
+CountOfDaysLoggedInLast30Days                                    17
+City                                                     Smithhaven
+State                                                            DC
+PostalCode                                                    17797
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                      Golden Ltd Subscription
+LastSessionDate                                          2023-09-03
+Affiliations                                                    the
+Name: 95, dtype: object
+
+Error: time data '2023-06-18' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    15356
+SignUpRole                                             Professional
+Name                                               Javier Fernandez
+LoginEmail                                       daniel34@gmail.com
+NotificationEmail                             matthew52@hotmail.com
+School                                                   Inc School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                             Elementary
+Skills                                                          NaN
+Biography                                                       NaN
+JoinDate                                                 12/20/2018
+LastLoginDate                                            2023-06-18
+LoginCount                                                       57
+CountOfDaysLoggedInLast30Days                                    12
+City                                                      Warrenton
+State                                                            NV
+PostalCode                                                    46374
+ActiveSubscriptionType                                Platinum Plan
+ActiveSubscriptionName                                          NaN
+LastSessionDate                                          2023-07-18
+Affiliations                                                    NaN
+Name: 96, dtype: object
+
+Error: time data '2023-04-22' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                    51958
+SignUpRole                                                  Student
+Name                                               Jasmine Williams
+LoginEmail                                      danny56@stewart.com
+NotificationEmail                        andrewsdavid@sullivan.info
+School                                                   PLC School
+District or Company              KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                        NaN
+GradeCluster                                          Middle School
+Skills                                                          per
+Biography                                                       NaN
+JoinDate                                                 10/10/2019
+LastLoginDate                                            2023-04-22
+LoginCount                                                       75
+CountOfDaysLoggedInLast30Days                                     9
+City                                                    North James
+State                                                            IL
+PostalCode                                                    34202
+ActiveSubscriptionType                                    Free Plan
+ActiveSubscriptionName                      Garcia PLC Subscription
+LastSessionDate                                          2023-04-10
+Affiliations                                                    NaN
+Name: 97, dtype: object
+
+Error: time data '2023-07-08' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                                   15407
+SignUpRole                                                            Professional
+Name                                                                  Dale Webster
+LoginEmail                                                      angela41@yahoo.com
+NotificationEmail                                                jamie14@yahoo.com
+School                                                             and Sons School
+District or Company                             KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                                       NaN
+GradeCluster                                                               College
+Skills                                                                         NaN
+Biography                        I oil something part. Month beat black cause o...
+JoinDate                                                                08/30/2022
+LastLoginDate                                                           2023-07-08
+LoginCount                                                                      40
+CountOfDaysLoggedInLast30Days                                                   20
+City                                                                  Michaelburgh
+State                                                                           TX
+PostalCode                                                                   63419
+ActiveSubscriptionType                                                Premium Plan
+ActiveSubscriptionName                                                         NaN
+LastSessionDate                                                         2023-10-27
+Affiliations                                                                   set
+Name: 98, dtype: object
+
+Error: time data '2023-06-16' does not match format '%m/%d/%Y'
+Row: UserAuthId                                                       83923
+SignUpRole                                                     Student
+Name                                              Christopher Espinoza
+LoginEmail                                  jennifermiller@hotmail.com
+NotificationEmail                           antonio95@mcgee-curtis.org
+School                                                      LLC School
+District or Company                 KANSAS CITY PUBLIC SCHOOL DISTRICT
+JobTitle                                                           NaN
+GradeCluster                                                   College
+Skills                                                             NaN
+Biography                                                          NaN
+JoinDate                                                    07/10/2022
+LastLoginDate                                               2023-06-16
+LoginCount                                                          66
+CountOfDaysLoggedInLast30Days                                        6
+City                                                     Lake Brittany
+State                                                               DC
+PostalCode                                                       83270
+ActiveSubscriptionType                                   Platinum Plan
+ActiveSubscriptionName           Rivera, Gomez and Flores Subscription
+LastSessionDate                                             2024-02-03
+Affiliations                                                       NaN
+Name: 99, dtype: object
+
