@@ -4,6 +4,9 @@
 
 {% block content %}
     <h1>User List</h1>
+    <div id="details">
+        <!-- User details will be loaded here by HTMX -->
+    </div>
     <div id="userTable" hx-get="/load-user-table" hx-trigger="load">
         <!-- session_table.html content will be loaded here -->
         Loading Data Please Wait...

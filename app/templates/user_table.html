@@ -13,6 +13,7 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.user_auth_id }}</td>
+                <td><a href="#" hx-get="/user_details?user_auth_id={{ user.user_auth_id }}" hx-target="#details">{{ user.name }}</a></td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.login_email }}</td>
                 <td>{{ user.school }}</td>
