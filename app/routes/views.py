@@ -162,6 +162,24 @@ def sessions():
     return render_template("sessions.html", sessions=sessions_data)
     # return render_template("index.html")
 
+@app.route('/edit-session', methods=['GET'])
+def edit_session():
+    session_id = request.args.get('session_id')
+    # Fetch the session details from your database
+    # Render a form for editing the session details
+    return render_template('edit_session_form.html', session=session)
+
+@app.route('/delete-session', methods=['DELETE'])
+def delete_session():
+    session_id = request.args.get('session_id')
+    session = Session.query.filter_by(session_id=session_id).first()
+    if session:
+        db.session.delete(session)
+        db.session.commit()
+        return '', 200  # Return an empty response with a 200 OK status
+    else:
+        return 'Session not found', 404  # Return a 404 if the session doesn't exist
+
 @app.route("/users", methods=["GET"])
 def users():
     user_data=User.query.all()
