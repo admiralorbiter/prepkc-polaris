@@ -10,37 +10,37 @@ from sqlalchemy import func, or_, and_
 def index():
     return render_template("index.html")
 
-@app.route("/districts/kcps_report", methods=["GET"])
+@app.route("/kcps", methods=["GET"])
+def kcps():
+    return render_template("/districts/kcps/kcps.html")
+
+@app.route("/kcps/report", methods=["GET"])
 def kcps_report():
     default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
     default_end_date = datetime.now().strftime('%Y-%m-%d')
-    return render_template("/districts/kcps_report.html", start_date=default_start_date, end_date=default_end_date)
+    return render_template("/districts/kcps/kcps_report.html", start_date=default_start_date, end_date=default_end_date)
 
-@app.route("/districts/kcps_teacher_report", methods=["GET"])
+@app.route("/kcps/teacher_report", methods=["GET"])
 def kcps_teacher_report():
     default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
     default_end_date = datetime.now().strftime('%Y-%m-%d')
-    return render_template("/districts/kcps_teacher_report.html", start_date=default_start_date, end_date=default_end_date)
+    return render_template("/districts/kcps/kcps_teacher_report.html", start_date=default_start_date, end_date=default_end_date)
 
-@app.route("/districts/kck", methods=["GET"])
+@app.route("/kck", methods=["GET"])
 def kck():
-    return render_template("/districts/kck.html")
+    return render_template("/districts/kck/kck.html")
 
-@app.route("/districts/kcps", methods=["GET"])
-def kcps():
-    return render_template("/districts/kcps.html")
-
-@app.route("/districts/center", methods=["GET"])
+@app.route("/center", methods=["GET"])
 def center():
-    return render_template("/districts/center.html")
+    return render_template("/districts/center/center.html")
 
-@app.route("/districts/hickman", methods=["GET"])
+@app.route("/hickman", methods=["GET"])
 def hickman():
-    return render_template("/districts/hickman.html")
+    return render_template("/districts/hickman/hickman.html")
 
-@app.route("/districts/grandview", methods=["GET"])
+@app.route("/grandview", methods=["GET"])
 def grandview():
-    return render_template("/districts/grandview.html")
+    return render_template("/districts/grandview/grandview.html")
 
 @app.route("/load-district-table", methods=["GET"])
 def load_districts_table():

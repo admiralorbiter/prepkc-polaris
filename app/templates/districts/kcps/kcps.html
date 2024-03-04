@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>KCPS</h1>
-    {% include '/districts/kcps_nav.html'%}
+    {% include '/districts/kcps/kcps_nav.html'%}
     <div class="mb-3">
         <label for="statusFilter" class="form-label">Filter by Status:</label>
         <select id="statusFilter" name="statusFilter" class="form-select" hx-get="/filter-kcps" hx-target="#districtTable" hx-trigger="change">
