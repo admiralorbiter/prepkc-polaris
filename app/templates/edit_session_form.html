@@ -1,0 +1,28 @@
+<form method="POST" action="/update-session" hx-post="/update-session" hx-target="#105849" hx-swap="outerHTML">
+    <td>
+        <input type="text" class="form-control" name="session_id" value="{{ session.session_id }}" readonly>
+    </td>
+    <td>
+        <input type="text" class="form-control" name="title" value="{{ session.title }}">
+    </td>
+    <td>
+        <input type="date" class="form-control" name="date" value="{{ session.date.strftime('%Y-%m-%d') }}">
+    </td>
+    <td>
+        <input type="text" class="form-control" name="status" value="{{ session.status }}">
+    </td>
+    <td>
+        <input type="text" class="form-control" name="school" value="{{ session.school }}">
+    </td>
+    <td>
+        <input type="text" class="form-control" name="district_or_company" value="{{ session.district_or_company }}">
+    </td>
+    <td>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </td>
+    <td>
+        <button type="button" class="btn btn-secondary" hx-get="/clear-edit-pane" hx-target="#editPane" hx-swap="outerHTML">Cancel</button>
+    </td>
+</form>
+
+

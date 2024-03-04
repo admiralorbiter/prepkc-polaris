@@ -165,9 +165,11 @@ def sessions():
 @app.route('/edit-session', methods=['GET'])
 def edit_session():
     session_id = request.args.get('session_id')
-    # Fetch the session details from your database
-    # Render a form for editing the session details
-    return render_template('edit_session_form.html', session=session)
+    session = Session.query.filter_by(session_id=session_id).first()
+    if session:
+        return render_template('edit_session_form.html', session=session)
+    else:
+        return 'Session not found', 404
 
 @app.route('/delete-session', methods=['DELETE'])
 def delete_session():
@@ -179,6 +181,34 @@ def delete_session():
         return '', 200  # Return an empty response with a 200 OK status
     else:
         return 'Session not found', 404  # Return a 404 if the session doesn't exist
+
+@app.route('/clear-edit-pane', methods=['GET'])
+def clear_edit_pane():
+    return '<div id="editPane" class="edit-pane"></div>'  # Returns an empty response to clear the pane
+
+@app.route('/update-session', methods=['POST'])
+def update_session():
+    print(request.form)
+    session_id = request.form['session_id']
+    # Fetch the session object using session_id
+    session = Session.query.filter_by(session_id=session_id).first()
+    try:
+        if session:
+            # Update session with the new data
+            session.title = request.form['title']
+            session.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+            session.status = request.form['status']
+            session.school = request.form['school']
+            session.district_or_company = request.form['district_or_company']
+            # Commit the changes to the database
+            db.session.commit()
+            # Return the updated session row in a non-editable format
+            return render_template('session_row.html', session=session)
+        else:
+            return 'Session not found', 404
+    except Exception as e:
+        print(e)  # Log the error for debugging
+        return 'Error processing request', 400
 
 @app.route("/users", methods=["GET"])
 def users():
