@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Center Teacher Report{% endblock %}
+
+{% block content %}
+<h1>Center Teacher Dashboard</h1>
+{% include '/districts/center/center_nav.html'%}
+<div id="teacherSummary" hx-get="/load-teacher-summary?district=center" hx-trigger="load">
+    <p>Loading...</p>
+</div>
+{% endblock %}
