@@ -4,8 +4,31 @@
 
 {% block content %}
     <h1>Center</h1>
+
+    {% include '/districts/center/center_nav.html'%}
+
+    {% set filter_id = 'statusFilterCenter' %}
+    {% set filter_name = 'statusFilter' %}
+    {% set label = 'Filter by Status:' %}
+    {% set hx_get_url = '/filter-center' %}
+    {% set hx_target = '#districtTable' %}
+    {% include 'status_filter.html' %}
+
+    <div class="mb-3">
+        <label for="schoolFilter" class="form-label">Filter by Status:</label>
+        <select id="schoolFilter" name="schoolFilter" class="form-select" hx-get="/filter-center" hx-target="#districtTable" hx-trigger="change">
+            <option value="">All</option>
+            <option value="EAST HIGH SCHOOL">East High</option>
+            <option value="FOREIGN LANGUAGE ACADEMY">FLA</option>
+            <option value="MANUAL CAREER & TECH. CTR.">Manual</option>
+            <option value="NORTHEAST HIGH SCHOOL">Northeast</option>
+            <!-- Add more status options as needed -->
+        </select>
+    </div>
+
     <div id="districtTable" hx-get="/load-district-table?district=center" hx-trigger="load">
         <!-- session_table.html content will be loaded here -->
         Loading Data Please Wait...
     </div>
+
 {% endblock %}

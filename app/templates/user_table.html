@@ -1,25 +1,90 @@
 <table class="table table-bordered table-hover">
-    <thead class="thead-dark">
+<thead class="thead-dark">
+    <tr>
+       
+      <th class="">
+          <div class="">User Auth ID</div>
+          <div class="">
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=asc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-up mb-1"></i> <!-- mb-1 adds a small margin at the bottom -->
+              </a>
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=desc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-down"></i>
+              </a>
+          </div>
+      </th>
+
+      
+      <th class="">
+          <div class="">Name</div>
+          <div class="">
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=asc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-up mb-1"></i> <!-- mb-1 adds a small margin at the bottom -->
+              </a>
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=desc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-down"></i>
+              </a>
+          </div>
+      </th>
+        
+      <th class="">
+          <div class="">Login Email</div>
+          <div class="">
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=asc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-up mb-1"></i> <!-- mb-1 adds a small margin at the bottom -->
+              </a>
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=desc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-down"></i>
+              </a>
+          </div>
+      </th>
+        <th class="">
+          <div class="">School</div>
+          <div class="">
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=asc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-up mb-1"></i> <!-- mb-1 adds a small margin at the bottom -->
+              </a>
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=desc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-down"></i>
+              </a>
+          </div>
+      </th>
+       
+      <th class="">
+          <div class="">Sign Up Role</div>
+          <div class="">
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=asc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-up mb-1"></i> <!-- mb-1 adds a small margin at the bottom -->
+              </a>
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=desc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-down"></i>
+              </a>
+          </div>
+      </th>
+        
+      <th class="">
+          <div class="">District or Company</div>
+          <div class="">
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=asc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-up mb-1"></i> <!-- mb-1 adds a small margin at the bottom -->
+              </a>
+              <a href="#" hx-get="/load-user-table?sort=user_id&direction=desc" hx-target="#userTable" hx-trigger="click">
+                  <i class="fas fa-sort-down"></i>
+              </a>
+          </div>
+      </th>
+    </tr>
+</thead>
+<tbody>
+    {% for user in users %}
         <tr>
-            <th>User Auth ID</th>
-            <th>Name</th>
-            <th>Login Email</th>
-            <th>School</th>
-            <th>Sign Up Role</th>
-            <th>District or Company</th>
+            <td>{{ user.user_auth_id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.login_email }}</td>
+            <td>{{ user.school }}</td>
+            <td>{{ user.sign_up_role }}</td>
+            <td>{{ user.district_or_company }}</td>
         </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.user_auth_id }}</td>
-                <td><a href="#" hx-get="/user_details?user_auth_id={{ user.user_auth_id }}" hx-target="#details">{{ user.name }}</a></td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.login_email }}</td>
-                <td>{{ user.school }}</td>
-                <td>{{ user.sign_up_role }}</td>
-                <td>{{ user.district_or_company }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
+    {% endfor %}
+</tbody>
 </table>

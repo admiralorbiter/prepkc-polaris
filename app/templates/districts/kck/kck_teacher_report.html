@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}kck Teacher Report{% endblock %}
+
+{% block content %}
+<h1>KCK Teacher Dashboard</h1>
+{% include '/districts/kck/kck_nav.html'%}
+<div id="teacherSummary" hx-get="/load-teacher-summary?district=kck" hx-trigger="load">
+    <p>Loading...</p>
+</div>
+{% endblock %}
