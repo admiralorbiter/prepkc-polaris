@@ -162,6 +162,63 @@ def sessions():
     return render_template("sessions.html", sessions=sessions_data)
     # return render_template("index.html")
 
+@app.route('/edit-session', methods=['GET'])
+def edit_session():
+    session_id = request.args.get('session_id')
+    session = Session.query.filter_by(session_id=session_id).first()
+    if session:
+        return render_template('edit_session_form.html', session=session)
+    else:
+        return 'Session not found', 404
+
+@app.route('/delete-session', methods=['DELETE'])
+def delete_session():
+    session_id = request.args.get('session_id')
+    session = Session.query.filter_by(session_id=session_id).first()
+    if session:
+        db.session.delete(session)
+        db.session.commit()
+        return '', 200  # Return an empty response with a 200 OK status
+    else:
+        return 'Session not found', 404  # Return a 404 if the session doesn't exist
+
+@app.route('/clear-edit-pane', methods=['GET'])
+def clear_edit_pane():
+    return '<div id="editPane" class="edit-pane"></div>'  # Returns an empty response to clear the pane
+
+@app.route('/update-session', methods=['POST'])
+def update_session():
+    print(request.form)
+    session_id = request.form['session_id']
+    # Fetch the session object using session_id
+    session = Session.query.filter_by(session_id=session_id).first()
+    try:
+        if session:
+            # Update session with the new data
+            session.title = request.form['title']
+            session.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+            session.status = request.form['status']
+            session.school = request.form['school']
+            session.district_or_company = request.form['district_or_company']
+            # Commit the changes to the database
+            db.session.commit()
+            # Return the updated session row in a non-editable format
+            # return render_template('session_row.html', session=session)
+            updated_row = render_template('session_row.html', session=session)
+            
+            # Script to clear the edit pane
+            clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
+
+            # Combine the updated row and script
+            combined_response = updated_row + clear_script
+
+            return combined_response
+        else:
+            return 'Session not found', 404
+    except Exception as e:
+        print(e)  # Log the error for debugging
+        return 'Error processing request', 400
+
 @app.route("/users", methods=["GET"])
 def users():
     user_data=User.query.all()
@@ -179,7 +236,8 @@ def load_sessions_table():
     # Get sorting parameters
     sort_column = request.args.get('sort', 'date')  # Default sort column
     sort_direction = request.args.get('direction', 'asc')  # Default sort direction
-
+    upcoming = request.args.get('status', None)
+    print(upcoming)
     # Subquery to select distinct session IDs with the earliest record based on ID
     subquery = Session.query \
         .with_entities(Session.session_id, func.min(Session.id).label('min_id')) \
@@ -191,6 +249,11 @@ def load_sessions_table():
     main_query = Session.query \
         .join(subquery, Session.session_id == subquery.c.session_id) \
         .filter(Session.id == subquery.c.min_id)
+
+    if upcoming == 'confirmed':
+        main_query = main_query.filter(Session.status == 'Confirmed')
+    elif upcoming == 'request':
+        main_query = main_query.filter(Session.status == 'Requested')
 
     # Apply sorting to the main query
     if sort_direction == 'asc':
