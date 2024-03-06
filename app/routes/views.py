@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import Session, User
+from app.models import Session, User, Schools
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_
@@ -93,13 +93,19 @@ def load_district_summary():
         session_data = Session.query.filter_by(district_or_company="KANSAS CITY USD 500").all()
         # Needs Updated to be Like kcps
     elif district=="kcps":
-        summary_data = Session.query \
-            .filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT") \
-            .filter(Session.status == "Completed") \
-            .filter(Session.date.between(start_date, end_date)) \
-            .group_by(Session.school) \
-            .with_entities(Session.school, func.count(Session.id).label('total_sessions')) \
-            .all()
+        summary_data = db.session.query(
+            Session.school, 
+            Schools.level,  # Assuming the School model has a 'level' field
+            func.count(Session.id).label('total_sessions')
+            ).join(
+                Schools, Session.school == Schools.name  # This joins the Session and School models on the school name
+            ).filter(
+                Session.district_or_company == "KANSAS CITY PUBLIC SCHOOL DISTRICT",
+                Session.status == "Completed",
+                Session.date.between(start_date, end_date)
+            ).group_by(
+                Session.school, Schools.level  # Group by both the school name and the school level
+            ).all()
     elif district=="center":
         session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
         # Needs Updated to be Like kcps

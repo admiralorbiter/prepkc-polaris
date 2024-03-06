@@ -48,3 +48,9 @@ class User(db.Model):
     active_subscription_name = db.Column(db.String)
     last_session_date = db.Column(db.Date)
     affiliations = db.Column(db.String)
+
+class Schools(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    district_or_company = db.Column(db.String(255), nullable=False)
+    level = db.Column(db.String(50), nullable=False)
