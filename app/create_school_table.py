@@ -3,7 +3,7 @@ import pandas as pd
 
 # Data for the schools table
 data = {
-    "School": [
+    "school": [
         "CENTER HIGH SCHOOL", "CENTER ALTERNATIVE", "GRANDVIEW MIDDLE", "GRANDVIEW SR. HIGH",
         "COMPASS ELEMENTARY", "DOBBS ELEM.", "EARLY CHILDHOOD CTR.", "ERVIN ELEMENTARY",
         "INGELS ELEM.", "MILLENNIUM AT SANTA FE", "RUSKIN HIGH SCHOOL", "SMITH-HALE MIDDLE",
@@ -19,7 +19,7 @@ data = {
         "THOMAS A EDISON ELEM", "WASHINGTON HIGH", "WEST PARK ELEMENTARY SCHOOL", "WHITTIER ELEM",
         "WYANDOTTE HIGH"
     ],
-    "District_or_Company": [
+    "district": [
         "CENTER 58 SCHOOL DISTRICT", "CENTER SCHOOL DISTRICT", "GRANDVIEW C-4", "GRANDVIEW C-4",
         "HICKMAN MILLS C-1", "HICKMAN MILLS C-1", "HICKMAN MILLS C-1", "HICKMAN MILLS C-1",
         "HICKMAN MILLS C-1", "HICKMAN MILLS C-1", "HICKMAN MILLS C-1", "HICKMAN MILLS C-1",
@@ -35,7 +35,7 @@ data = {
         "KANSAS CITY USD 500", "KANSAS CITY USD 500", "KANSAS CITY USD 500", "KANSAS CITY USD 500",
         "KANSAS CITY USD 500"
     ],
-    "Level": [
+    "level": [
         "High", "High", "Middle", "High",
         "Elem", "Elem", "Elem", "Elem",
         "Elem", "Elem", "High", "Middle",

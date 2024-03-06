@@ -98,7 +98,7 @@ def load_district_summary():
             Schools.level,  # Assuming the School model has a 'level' field
             func.count(Session.id).label('total_sessions')
             ).join(
-                Schools, Session.school == Schools.name  # This joins the Session and School models on the school name
+                Schools, Session.school == Schools.school  # This joins the Session and School models on the school name
             ).filter(
                 Session.district_or_company == "KANSAS CITY PUBLIC SCHOOL DISTRICT",
                 Session.status == "Completed",
