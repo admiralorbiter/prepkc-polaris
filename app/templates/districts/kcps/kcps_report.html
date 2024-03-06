@@ -27,7 +27,7 @@
     <option value="2023">23-24</option>
     <!-- Add more years as needed -->
 </select>
-<div id="monthlyBreakdown">
+<div id="monthlyBreakdown" hx-get="/get-sessions-by-month" hx-trigger="load">
     <!-- Monthly data will be loaded here -->
 </div>
 {% endblock %}

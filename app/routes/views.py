@@ -249,8 +249,7 @@ def load_sessions_table():
     # Get sorting parameters
     sort_column = request.args.get('sort', 'date')  # Default sort column
     sort_direction = request.args.get('direction', 'asc')  # Default sort direction
-    upcoming = request.args.get('status', None)
-    print(upcoming)
+    upcoming = request.args.get('status', 'confirmed')
     # Subquery to select distinct session IDs with the earliest record based on ID
     subquery = Session.query \
         .with_entities(Session.session_id, func.min(Session.id).label('min_id')) \
@@ -307,21 +306,23 @@ def filter_sessions():
 def monthly_breakdown():
     # Get the selected year from query parameters, default to current year if not specified
     year = request.args.get('year', default=2023, type=int)
-    print(year)
 
     start_year = str(year)  # The starting year of the academic year
     end_year = str(year + 1)  # The ending year of the academic year
+    print(start_year, end_year)
 
     sessions_by_month = db.session.query(func.strftime('%m', Session.date), func.count(Session.id)) \
         .filter(or_(
             and_(func.strftime('%Y', Session.date) == start_year, func.strftime('%m', Session.date) >= '07'),
             and_(func.strftime('%Y', Session.date) == end_year, func.strftime('%m', Session.date) <= '06')
         )) \
+        .filter(Session.status == 'Confirmed') \
         .group_by(func.strftime('%m', Session.date)) \
         .all()
     # Convert sessions_by_month to a more usable structure if needed, e.g., a dict with month names as keys
-    print(sessions_by_month)
-    return render_template('monthlybreakdown.html', sessions_by_month=sessions_by_month)
+    sorted_sessions_by_month = sorted(sessions_by_month, key=lambda x: (x[0] < '07', x[0]))
+
+    return render_template('monthlybreakdown.html', sessions_by_month=sorted_sessions_by_month)
 
 
 @app.route("/filter-kcps", methods=["GET"])
