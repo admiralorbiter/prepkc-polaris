@@ -3,7 +3,7 @@ from app import app, db
 from app.models import Session, User, Schools
 from datetime import datetime, timedelta
 from flask import session
-from sqlalchemy import func, or_, and_
+from sqlalchemy import func, or_, and_, case
 
 # Home Page
 @app.route("/", methods=["GET"])
@@ -82,6 +82,13 @@ def load_districts_table():
 
     return render_template("district_table.html", sessions=session_data)
 
+sort_order = case(
+    (Schools.level == 'Elem', 0),
+    (Schools.level == 'Middle', 1),
+    (Schools.level == 'High', 2),
+    else_=3
+)
+
 @app.route("/load-district-summary", methods=["GET"])
 def load_district_summary():
     district = request.args.get('district')
@@ -105,7 +112,7 @@ def load_district_summary():
                 Session.date.between(start_date, end_date)
             ).group_by(
                 Session.school, Schools.level  # Group by both the school name and the school level
-            ).all()
+            ).order_by(sort_order).all()
     elif district=="center":
         session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
         # Needs Updated to be Like kcps
