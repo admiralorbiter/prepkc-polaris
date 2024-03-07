@@ -250,9 +250,14 @@ def load_sessions_table():
     sort_column = request.args.get('sort', 'date')  # Default sort column
     sort_direction = request.args.get('direction', 'asc')  # Default sort direction
     upcoming = request.args.get('status', 'confirmed')
+
+    start_date = request.args.get('start_date', default=datetime(2023, 7, 1), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+
     # Subquery to select distinct session IDs with the earliest record based on ID
     subquery = Session.query \
         .with_entities(Session.session_id, func.min(Session.id).label('min_id')) \
+        .filter(Session.date >= start_date, Session.date <= end_date) \
         .filter(Session.date >= one_year_ago) \
         .group_by(Session.session_id) \
         .subquery()

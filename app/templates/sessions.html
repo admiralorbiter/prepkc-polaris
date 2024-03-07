@@ -14,6 +14,20 @@
     {% set hx_target = '#sessionsTable' %}
     
     {% include 'status_filter.html' %}
+
+    <form id="dateFilterForm" hx-get="/load-sessions-table" hx-target="#sessionsTable" hx-trigger="change from:#dateFilterForm">
+        <div class="row">
+            <div class="col-6">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="start_date" class="form-control" value="{{ start_date }}">
+            </div>
+            <div class="col-6">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="end_date" class="form-control" value="{{ end_date }}">
+            </div>
+        </div>
+    </form>
+
     <div id="sessionsTable" hx-get="/load-sessions-table" hx-trigger="load">
         <!-- session_table.html content will be loaded here -->
         Loading Data Please Wait...
