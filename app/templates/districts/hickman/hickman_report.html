@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>HICKMAN Dashboard</h1>
-{% include '/districts/hickmanf/hickman_nav.html'%}
+{% include '/districts/hickman/hickman_nav.html'%}
 <h2>Summmary</h2>
 <!-- Date selection form -->
 <form id="dateFilterForm" hx-get="/load-district-summary?district=hickman" hx-target="#districtSummary" hx-trigger="change from:#dateFilterForm">
@@ -27,7 +27,7 @@
     <option value="2023">23-24</option>
     <!-- Add more years as needed -->
 </select>
-<div id="monthlyBreakdown">
+<div id="monthlyBreakdown" hx-get="/get-sessions-by-month" hx-trigger="load">
     <!-- Monthly data will be loaded here -->
 </div>
 {% endblock %}

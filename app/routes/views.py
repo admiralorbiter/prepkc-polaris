@@ -30,6 +30,18 @@ def kcps_teacher_report():
 def kck():
     return render_template("/districts/kck/kck.html")
 
+@app.route("/kck/report", methods=["GET"])
+def kck_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/kck/kck_report.html", start_date=default_start_date, end_date=default_end_date)
+
+@app.route("/kck/teacher_report", methods=["GET"])
+def kck_teacher_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/kck/kck_teacher_report.html", start_date=default_start_date, end_date=default_end_date)
+
 @app.route("/center", methods=["GET"])
 def center():
     return render_template("/districts/center/center.html")
@@ -38,9 +50,45 @@ def center():
 def hickman():
     return render_template("/districts/hickman/hickman.html")
 
+@app.route("/hickman/report", methods=["GET"])
+def hickman_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/hickman/hickman_report.html", start_date=default_start_date, end_date=default_end_date)
+
+@app.route("/hickman/teacher_report", methods=["GET"])
+def hickman_teacher_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/hickman/hickman_teacher_report.html", start_date=default_start_date, end_date=default_end_date)
+
+@app.route("/center/report", methods=["GET"])
+def center_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/center/center_report.html", start_date=default_start_date, end_date=default_end_date)
+
+@app.route("/center/teacher_report", methods=["GET"])
+def center_teacher_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/center/center_teacher_report.html", start_date=default_start_date, end_date=default_end_date)
+
 @app.route("/grandview", methods=["GET"])
 def grandview():
     return render_template("/districts/grandview/grandview.html")
+
+@app.route("/grandview/report", methods=["GET"])
+def grandview_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/grandview/grandview_report.html", start_date=default_start_date, end_date=default_end_date)
+
+@app.route("/grandview/teacher_report", methods=["GET"])
+def grandview_teacher_report():
+    default_start_date = datetime(2023, 7, 1).strftime('%Y-%m-%d')
+    default_end_date = datetime.now().strftime('%Y-%m-%d')
+    return render_template("/districts/grandview/grandview_teacher_report.html", start_date=default_start_date, end_date=default_end_date)
 
 @app.route("/load-district-table", methods=["GET"])
 def load_districts_table():
@@ -78,6 +126,9 @@ def load_districts_table():
     else:
         main_query = main_query.order_by(getattr(Session, sort_column).desc())
 
+    #Default Confirmed Status
+    main_query = main_query.filter(Session.status == 'Confirmed')
+
     session_data = main_query.all()
 
     return render_template("district_table.html", sessions=session_data)
@@ -97,8 +148,19 @@ def load_district_summary():
     end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
 
     if district=="kck":
-        session_data = Session.query.filter_by(district_or_company="KANSAS CITY USD 500").all()
-        # Needs Updated to be Like kcps
+        summary_data = db.session.query(
+        Session.school, 
+        Schools.level,  # Assuming the School model has a 'level' field
+        func.count(Session.id).label('total_sessions')
+        ).join(
+            Schools, Session.school == Schools.school  # This joins the Session and School models on the school name
+        ).filter(
+            Session.district_or_company == "KANSAS CITY USD 500",
+            Session.status == "Completed",
+            Session.date.between(start_date, end_date)
+        ).group_by(
+            Session.school, Schools.level  # Group by both the school name and the school level
+        ).order_by(sort_order).all()
     elif district=="kcps":
         summary_data = db.session.query(
             Session.school, 
@@ -114,17 +176,62 @@ def load_district_summary():
                 Session.school, Schools.level  # Group by both the school name and the school level
             ).order_by(sort_order).all()
     elif district=="center":
-        session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
         # Needs Updated to be Like kcps
+        summary_data = db.session.query(
+            Session.school, 
+            Schools.level,  # Assuming the School model has a 'level' field
+            func.count(Session.id).label('total_sessions')
+            ).join(
+                Schools, Session.school == Schools.school  # This joins the Session and School models on the school name
+            ).filter(
+                Session.district_or_company == "CENTER 58 SCHOOL DISTRICT",
+                Session.status == "Completed",
+                Session.date.between(start_date, end_date)
+            ).group_by(
+                Session.school, Schools.level  # Group by both the school name and the school level
+            ).order_by(sort_order).all()
     elif district=="hickman":
-        session_data = Session.query.filter_by(district_or_company="HICKMAN MILLS C-1").all()
-        # Needs Updated to be Like kcps
+        summary_data = db.session.query(
+            Session.school, 
+            Schools.level,  # Assuming the School model has a 'level' field
+            func.count(Session.id).label('total_sessions')
+            ).join(
+                Schools, Session.school == Schools.school  # This joins the Session and School models on the school name
+            ).filter(
+                Session.district_or_company == "HICKMAN MILLS C-1",
+                Session.status == "Completed",
+                Session.date.between(start_date, end_date)
+            ).group_by(
+                Session.school, Schools.level  # Group by both the school name and the school level
+            ).order_by(sort_order).all()
     elif district=="grandview":
-        session_data = Session.query.filter_by(district_or_company="GRANDVIEW C-4").all()
-        # Needs Updated to be Like kcps
+        summary_data = db.session.query(
+            Session.school, 
+            Schools.level,  # Assuming the School model has a 'level' field
+            func.count(Session.id).label('total_sessions')
+            ).join(
+                Schools, Session.school == Schools.school  # This joins the Session and School models on the school name
+            ).filter(
+                Session.district_or_company == "GRANDVIEW C-4",
+                Session.status == "Completed",
+                Session.date.between(start_date, end_date)
+            ).group_by(
+                Session.school, Schools.level  # Group by both the school name and the school level
+            ).order_by(sort_order).all()
     else:
-        session_data = Session.query.filter_by(district_or_company=district).all()
-        # Needs Updated to be Like kcps
+        summary_data = db.session.query(
+            Session.school, 
+            Schools.level,  # Assuming the School model has a 'level' field
+            func.count(Session.id).label('total_sessions')
+            ).join(
+                Schools, Session.school == Schools.school  # This joins the Session and School models on the school name
+            ).filter(
+                Session.district_or_company == district,
+                Session.status == "Completed",
+                Session.date.between(start_date, end_date)
+            ).group_by(
+                Session.school, Schools.level  # Group by both the school name and the school level
+            ).order_by(sort_order).all()
     return render_template("district_summary.html", summary_data=summary_data)
 
 
@@ -136,8 +243,18 @@ def load_teacher_summary():
     end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
 
     if district=="kck":
-        session_data = Session.query.filter_by(district_or_company="KANSAS CITY USD 500").all()
-        # Needs Updated to be Like kcps
+        teacher_summary_data = Session.query \
+            .filter_by(district_or_company="KANSAS CITY USD 500") \
+            .filter(Session.status == "Completed") \
+            .filter(Session.date.between(start_date, end_date)) \
+            .group_by(Session.name, Session.school, Session.district_or_company) \
+            .with_entities(
+                Session.name,
+                Session.school,
+                Session.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
+                func.count(Session.id).label('total_sessions')
+            ) \
+            .all()
     elif district=="kcps":
         teacher_summary_data = Session.query \
             .filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT") \
@@ -152,17 +269,57 @@ def load_teacher_summary():
             ) \
             .all()
     elif district=="center":
-        session_data = Session.query.filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT").all()
-        # Needs Updated to be Like kcps
+        teacher_summary_data = Session.query \
+            .filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT") \
+            .filter(Session.status == "Completed") \
+            .filter(Session.date.between(start_date, end_date)) \
+            .group_by(Session.name, Session.school, Session.district_or_company) \
+            .with_entities(
+                Session.name,
+                Session.school,
+                Session.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
+                func.count(Session.id).label('total_sessions')
+            ) \
+            .all()
     elif district=="hickman":
-        session_data = Session.query.filter_by(district_or_company="HICKMAN MILLS C-1").all()
-        # Needs Updated to be Like kcps
+        teacher_summary_data = Session.query \
+            .filter_by(district_or_company="HICKMAN MILLS C-1") \
+            .filter(Session.status == "Completed") \
+            .filter(Session.date.between(start_date, end_date)) \
+            .group_by(Session.name, Session.school, Session.district_or_company) \
+            .with_entities(
+                Session.name,
+                Session.school,
+                Session.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
+                func.count(Session.id).label('total_sessions')
+            ) \
+            .all()
     elif district=="grandview":
-        session_data = Session.query.filter_by(district_or_company="GRANDVIEW C-4").all()
-        # Needs Updated to be Like kcps
+        teacher_summary_data = Session.query \
+            .filter_by(district_or_company="GRANDVIEW C-4") \
+            .filter(Session.status == "Completed") \
+            .filter(Session.date.between(start_date, end_date)) \
+            .group_by(Session.name, Session.school, Session.district_or_company) \
+            .with_entities(
+                Session.name,
+                Session.school,
+                Session.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
+                func.count(Session.id).label('total_sessions')
+            ) \
+            .all()
     else:
-        session_data = Session.query.filter_by(district_or_company=district).all()
-        # Needs Updated to be Like kcps
+        teacher_summary_data = Session.query \
+            .filter_by(district_or_company=district) \
+            .filter(Session.status == "Completed") \
+            .filter(Session.date.between(start_date, end_date)) \
+            .group_by(Session.name, Session.school, Session.district_or_company) \
+            .with_entities(
+                Session.name,
+                Session.school,
+                Session.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
+                func.count(Session.id).label('total_sessions')
+            ) \
+            .all()
     return render_template("teacher_summary.html", teacher_summary_data=teacher_summary_data)
 
 @app.route("/sessions", methods=["GET"])
