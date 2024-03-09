@@ -1,8 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from app import db
 
-class Session(db.Model):
-    __tablename__ = 'sessions'
+class SessionRow(db.Model):
+    __tablename__ = 'session_rows'
     id = db.Column(db.Integer, primary_key=True)
     session_id = db.Column(db.Integer)
     title = db.Column(db.String, nullable=False)

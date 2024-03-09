@@ -9,7 +9,7 @@ c = conn.cursor()
 
 # Create tables
 # Assuming simplified structures based on the Flask models and provided CSV headers
-c.execute('''CREATE TABLE IF NOT EXISTS sessions (
+c.execute('''CREATE TABLE IF NOT EXISTS session_rows (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     session_id INTEGER,
     title TEXT,
@@ -65,7 +65,7 @@ def insert_sessions():
     with open('skipped_sessions_log.txt', 'w') as log_file:  # Open a log file to write skipped rows
         for _, row in session_df.iterrows():
             try:
-                c.execute('''INSERT INTO sessions (session_id, title, series_or_event_title, career_cluster, date, status, duration, user_auth_id, name, sign_up_role, school, district_or_company, partner, state, registered_student_count, attended_student_count, registered_educator_count, attended_educator_count, work_based_learning) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (
+                c.execute('''INSERT INTO session_rows (session_id, title, series_or_event_title, career_cluster, date, status, duration, user_auth_id, name, sign_up_role, school, district_or_company, partner, state, registered_student_count, attended_student_count, registered_educator_count, attended_educator_count, work_based_learning) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (
                     row['Session ID'],
                     row['Title'],
                     row['Series or Event Title'],
@@ -125,7 +125,7 @@ def insert_users():
 
 if __name__ == '__main__':
     insert_sessions()
-    insert_users()
+    # insert_users()
 
     # Close the connection to the database
     conn.close()
