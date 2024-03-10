@@ -1,9 +1,17 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, School
+from app.models import SessionRow, User, School, Session
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
+
+def add_school_to_session(session_id, school_id):
+    session = Session.query.get(session_id)
+    school = School.query.get(school_id)
+    
+    # Assuming that the 'schools' relationship in the Session model is set up correctly
+    session.schools.append(school)
+    db.session.commit()
 
 # Home Page
 @app.route("/", methods=["GET"])
@@ -331,6 +339,47 @@ def sessions():
         sessions_data = SessionRow.query.all()
     return render_template("sessions.html", sessions=sessions_data)
     # return render_template("index.html")
+
+@app.route("/session_page", methods=["GET"])
+def sessions_page():
+    sessions = Session.query.all()
+    return render_template("session_page.html", sessions=sessions)
+
+@app.route("/sessions_list")
+def sessions_list():
+    sessions = Session.query.all()
+    return render_template("partials/sessions_list.html", sessions=sessions)
+
+@app.route('/add-session', methods=['POST'])
+def add_session():
+    # Get form data
+    session_date_str = request.form.get('sessionDate')
+    session_time_str = request.form.get('sessionTime')
+    session_school_name = request.form.get('sessionSchool')  # This should ideally be an identifier like an ID
+    session_title = request.form.get('sessionTitle')
+
+     # Convert date and time strings to datetime objects
+    session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()  # Adjust the format if needed
+    session_time = datetime.strptime(session_time_str, '%H:%M').time()  # Adjust the format if needed
+
+    # Find or create the School entity
+    school = School.query.filter_by(name=session_school_name).first()  # Assuming you are searching by name
+    if not school:
+        # If the school doesn't exist, create a new one (optional)
+        school = School(name=session_school_name)
+        db.session.add(school)
+        db.session.commit()
+
+    # Create a new session object and add to the database
+    new_session = Session(title=session_title, date=session_date, start_time=session_time)
+    # new_session.schools.append(school)  # Add the school to the session
+    db.session.add(new_session)
+    db.session.commit()
+
+    # Redirect to the 'sessions_page' or return an appropriate response
+    # return redirect(url_for('sessions_page'))
+    return "<script>$('#addSessionModal').modal('hide');</script>"
+
 
 @app.route('/edit-session', methods=['GET'])
 def edit_session():

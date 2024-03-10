@@ -1,0 +1,20 @@
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>Session Type</th>
+        <th>Topic</th>
+        <!-- Add more headers as needed -->
+    </tr>
+    {% for session in sessions %}
+        <tr>
+            <td>{{ session.title }}</td>
+            <td>{{ session.date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ session.start_time.strftime('%H:%M') }}</td>
+            <td>{{ session.session_type }}</td>
+            <td>{{ session.topic }}</td>
+            <!-- Add more session details as needed -->
+        </tr>
+    {% endfor %}
+</table>

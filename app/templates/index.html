@@ -5,6 +5,46 @@
 {% block content %}
     <h1>Polaris: Our North Star</h1>
     <p>Welcome to the home page!</p>
+    <a href="/session_page" class="btn btn-primary">New Session Page</a>
+    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addSessionModal">
+      Add Session
+    </button>
+    <div class="modal fade" id="addSessionModal" tabindex="-1" aria-labelledby="addSessionModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addSessionModalLabel">Add Session</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body
+          ">
+            <form hx-post="/add-session" hx-trigger="sessionAdded from:body">
+              <div class="mb-3">
+                <label for="sessionTitle" class="form-label
+                ">Session Title</label>
+                <input type="text" class="form-control" id="sessionTitle" name="sessionTitle" required>
+              </div>
+              <div class="mb-3">
+                <label for="sessionDate" class="form-label
+                ">Session Date</label>
+                <input type="date" class="form-control" id="sessionDate" name="sessionDate" required>
+              </div>
+              <div class="mb-3">
+                <label for="sessionTime" class="form-label
+                ">Session Time</label>
+                <input type="time" class="form-control" id="sessionTime" name="sessionTime" required>
+              </div>
+              <div class="mb-3">
+                <label for="sessionSchool" class="form-label
+                ">Session School</label>
+                <input type="text" class="form-control" id="sessionSchool" name="sessionSchool" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Add Session</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
         <h2 class="accordion-header">
