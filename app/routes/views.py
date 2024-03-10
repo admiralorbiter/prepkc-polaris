@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, School, Session
+from app.models import SessionRow, User, School, Session, District, Teacher, SessionTeacher, session_schools
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
@@ -116,26 +116,22 @@ def load_districts_table():
     }
     district_name = district_map.get(district, district)  # Fallback to using the district arg directly if not found in the map
 
-    # Subquery to select distinct session IDs within the specified district
-    subquery = SessionRow.query \
-        .with_entities(SessionRow.session_id, func.min(SessionRow.id).label('min_id')) \
-        .filter(SessionRow.date >= one_year_ago, SessionRow.district_or_company == district_name) \
-        .group_by(SessionRow.session_id) \
-        .subquery()
-
-    # Main query that joins the subquery and filters by the district
-    main_query = SessionRow.query \
-        .join(subquery, SessionRow.session_id == subquery.c.session_id) \
-        .filter(SessionRow.id == subquery.c.min_id)
+    # Main query that joins Session to School, and School to District
+    main_query = Session.query \
+        .join(Session.schools) \
+        .join(School.district) \
+        .filter(District.name == district_name) \
+        .filter(Session.date >= one_year_ago) \
+        .filter(Session.status == 'Confirmed')  # Default Confirmed Status
 
     # Apply sorting to the main query
     if sort_direction == 'asc':
-        main_query = main_query.order_by(getattr(SessionRow, sort_column).asc())
+        main_query = main_query.order_by(getattr(Session, sort_column).asc())
     else:
-        main_query = main_query.order_by(getattr(SessionRow, sort_column).desc())
+        main_query = main_query.order_by(getattr(Session, sort_column).desc())
 
     #Default Confirmed Status
-    main_query = main_query.filter(SessionRow.status == 'Confirmed')
+    main_query = main_query.filter(Session.status == 'Confirmed')
 
     session_data = main_query.all()
 
@@ -150,195 +146,83 @@ sort_order = case(
 
 @app.route("/load-district-summary", methods=["GET"])
 def load_district_summary():
-    district = request.args.get('district')
-     # Get start_date and end_date from request, use default if not provided
+    district = request.args.get('district').lower()
+
     start_date = request.args.get('start_date', default=datetime(2023, 7, 1), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
     end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
 
-    if district=="kck":
-        summary_data = db.SessionRow.query(
-        SessionRow.school, 
-        School.level,  # Assuming the School model has a 'level' field
-        func.count(SessionRow.id).label('total_sessions')
-        ).join(
-            School, SessionRow.school == School.school  # This joins the Session and School models on the school name
-        ).filter(
-            SessionRow.district_or_company == "KANSAS CITY USD 500",
-            SessionRow.status == "Completed",
-            SessionRow.date.between(start_date, end_date)
-        ).group_by(
-            SessionRow.school, School.level  # Group by both the school name and the school level
-        ).order_by(sort_order).all()
-    elif district=="kcps":
-        summary_data = db.SessionRow.query(
-            SessionRow.school, 
-            School.level,  # Assuming the School model has a 'level' field
-            func.count(SessionRow.id).label('total_sessions')
-            ).join(
-                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
-            ).filter(
-                SessionRow.district_or_company == "KANSAS CITY PUBLIC SCHOOL DISTRICT",
-                SessionRow.status == "Completed",
-                SessionRow.date.between(start_date, end_date)
-            ).group_by(
-                SessionRow.school, School.level  # Group by both the school name and the school level
-            ).order_by(sort_order).all()
-    elif district=="center":
-        # Needs Updated to be Like kcps
-        summary_data = db.SessionRow.query(
-            SessionRow.school, 
-            School.level,  # Assuming the School model has a 'level' field
-            func.count(SessionRow.id).label('total_sessions')
-            ).join(
-                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
-            ).filter(
-                SessionRow.district_or_company == "CENTER 58 SCHOOL DISTRICT",
-                SessionRow.status == "Completed",
-                SessionRow.date.between(start_date, end_date)
-            ).group_by(
-                SessionRow.school, School.level  # Group by both the school name and the school level
-            ).order_by(sort_order).all()
-    elif district=="hickman":
-        summary_data = db.SessionRow.query(
-            SessionRow.school, 
-            School.level,  # Assuming the School model has a 'level' field
-            func.count(SessionRow.id).label('total_sessions')
-            ).join(
-                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
-            ).filter(
-                SessionRow.district_or_company == "HICKMAN MILLS C-1",
-                SessionRow.status == "Completed",
-                SessionRow.date.between(start_date, end_date)
-            ).group_by(
-                SessionRow.school, School.level  # Group by both the school name and the school level
-            ).order_by(sort_order).all()
-    elif district=="grandview":
-        summary_data = db.SessionRow.query(
-            SessionRow.school, 
-            School.level,  # Assuming the School model has a 'level' field
-            func.count(SessionRow.id).label('total_sessions')
-            ).join(
-                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
-            ).filter(
-                SessionRow.district_or_company == "GRANDVIEW C-4",
-                SessionRow.status == "Completed",
-                SessionRow.date.between(start_date, end_date)
-            ).group_by(
-                SessionRow.school, School.level  # Group by both the school name and the school level
-            ).order_by(sort_order).all()
-    else:
-        summary_data = db.SessionRow.query(
-            SessionRow.school, 
-            School.level,  # Assuming the School model has a 'level' field
-            func.count(SessionRow.id).label('total_sessions')
-            ).join(
-                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
-            ).filter(
-                SessionRow.district_or_company == district,
-                SessionRow.status == "Completed",
-                SessionRow.date.between(start_date, end_date)
-            ).group_by(
-                SessionRow.school, School.level  # Group by both the school name and the school level
-            ).order_by(sort_order).all()
+    district_map = {
+        "kck": "KANSAS CITY USD 500",
+        "kcps": "KANSAS CITY PUBLIC SCHOOL DISTRICT",
+        "center": "CENTER 58 SCHOOL DISTRICT",
+        "hickman": "HICKMAN MILLS C-1",
+        "grandview": "GRANDVIEW C-4"
+    }
+    district_name = district_map.get(district, district)
+
+    summary_data = db.session.query(
+        School.name.label('school_name'),
+        School.level.label('school_level'),
+        func.count(Session.id).label('total_sessions')
+    ).select_from(Session) \
+    .join(session_schools, Session.id == session_schools.c.session_id) \
+    .join(School, session_schools.c.school_id == School.id) \
+    .join(District, School.district_id == District.id) \
+    .filter(
+        District.name == district_name,
+        Session.status == "Completed",
+        Session.date.between(start_date, end_date)
+    ).group_by(
+        School.name, School.level
+    ).order_by(School.name).all()
+
     return render_template("district_summary.html", summary_data=summary_data)
+
 
 
 @app.route("/load-teacher-summary", methods=["GET"])
 def load_teacher_summary():
-    district = request.args.get('district')
-    # Get start_date and end_date from request, use default if not provided
+    district = request.args.get('district').lower()  # Ensure case-insensitive matching
     start_date = request.args.get('start_date', default=datetime(2023, 7, 1), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
     end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
 
-    if district=="kck":
-        teacher_summary_data = SessionRow.query \
-            .filter_by(district_or_company="KANSAS CITY USD 500") \
-            .filter(SessionRow.status == "Completed") \
-            .filter(SessionRow.date.between(start_date, end_date)) \
-            .group_by(SessionRow.name, SessionRow.school, SessionRow.district_or_company) \
-            .with_entities(
-                SessionRow.name,
-                SessionRow.school,
-                SessionRow.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
-                func.count(SessionRow.id).label('total_sessions')
-            ) \
-            .all()
-    elif district=="kcps":
-        teacher_summary_data = SessionRow.query \
-            .filter_by(district_or_company="KANSAS CITY PUBLIC SCHOOL DISTRICT") \
-            .filter(SessionRow.status == "Completed") \
-            .filter(SessionRow.date.between(start_date, end_date)) \
-            .group_by(SessionRow.name, SessionRow.school, SessionRow.district_or_company) \
-            .with_entities(
-                SessionRow.name,
-                SessionRow.school,
-                SessionRow.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
-                func.count(SessionRow.id).label('total_sessions')
-            ) \
-            .all()
-    elif district=="center":
-        teacher_summary_data = SessionRow.query \
-            .filter_by(district_or_company="CENTER 58 SCHOOL DISTRICT") \
-            .filter(SessionRow.status == "Completed") \
-            .filter(SessionRow.date.between(start_date, end_date)) \
-            .group_by(SessionRow.name, SessionRow.school, SessionRow.district_or_company) \
-            .with_entities(
-                SessionRow.name,
-                SessionRow.school,
-                SessionRow.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
-                func.count(SessionRow.id).label('total_sessions')
-            ) \
-            .all()
-    elif district=="hickman":
-        teacher_summary_data = SessionRow.query \
-            .filter_by(district_or_company="HICKMAN MILLS C-1") \
-            .filter(SessionRow.status == "Completed") \
-            .filter(SessionRow.date.between(start_date, end_date)) \
-            .group_by(SessionRow.name, SessionRow.school, SessionRow.district_or_company) \
-            .with_entities(
-                SessionRow.name,
-                SessionRow.school,
-                SessionRow.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
-                func.count(SessionRow.id).label('total_sessions')
-            ) \
-            .all()
-    elif district=="grandview":
-        teacher_summary_data = SessionRow.query \
-            .filter_by(district_or_company="GRANDVIEW C-4") \
-            .filter(SessionRow.status == "Completed") \
-            .filter(SessionRow.date.between(start_date, end_date)) \
-            .group_by(SessionRow.name, SessionRow.school, SessionRow.district_or_company) \
-            .with_entities(
-                SessionRow.name,
-                SessionRow.school,
-                SessionRow.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
-                func.count(SessionRow.id).label('total_sessions')
-            ) \
-            .all()
-    else:
-        teacher_summary_data = SessionRow.query \
-            .filter_by(district_or_company=district) \
-            .filter(SessionRow.status == "Completed") \
-            .filter(SessionRow.date.between(start_date, end_date)) \
-            .group_by(SessionRow.name, SessionRow.school, SessionRow.district_or_company) \
-            .with_entities(
-                SessionRow.name,
-                SessionRow.school,
-                SessionRow.district_or_company.label('district'),  # Assuming 'district_or_company' is the field for district
-                func.count(SessionRow.id).label('total_sessions')
-            ) \
-            .all()
+    district_map = {
+        "kck": "KANSAS CITY USD 500",
+        "kcps": "KANSAS CITY PUBLIC SCHOOL DISTRICT",
+        "center": "CENTER 58 SCHOOL DISTRICT",
+        "hickman": "HICKMAN MILLS C-1",
+        "grandview": "GRANDVIEW C-4"
+    }
+    district_name = district_map.get(district, district)  # Default to using the district arg if not found in the map
+
+    teacher_summary_data = Teacher.query \
+        .join(SessionTeacher, Teacher.id == SessionTeacher.teacher_id) \
+        .join(Session, SessionTeacher.session_id == Session.id) \
+        .join(Session.schools) \
+        .join(School.district) \
+        .filter(District.name == district_name) \
+        .filter(Session.status == "Completed") \
+        .filter(Session.date.between(start_date, end_date)) \
+        .group_by(Teacher.name, Teacher.school_name, District.name) \
+        .with_entities(
+            Teacher.name.label('teacher_name'),
+            Teacher.school_name.label('school_name'),
+            District.name.label('district_name'),
+            func.count(Session.id).label('total_sessions')
+        ) \
+        .all()
+
     return render_template("teacher_summary.html", teacher_summary_data=teacher_summary_data)
 
 @app.route("/sessions", methods=["GET"])
 def sessions():
     status_filter = request.args.get('statusFilter')
     if status_filter:
-        sessions_data = SessionRow.query.filter_by(status=status_filter).all()
+        sessions_data = Session.query.filter_by(status=status_filter).all()
     else:
-        sessions_data = SessionRow.query.all()
+        sessions_data = Session.query.all()
+    print(sessions_data)
     return render_template("sessions.html", sessions=sessions_data)
-    # return render_template("index.html")
 
 @app.route("/session_page", methods=["GET"])
 def sessions_page():
@@ -369,22 +253,21 @@ def add_session():
         school = School(name=session_school_name)
         db.session.add(school)
         db.session.commit()
-
+    status = "Confirmed"
     # Create a new session object and add to the database
-    new_session = Session(title=session_title, date=session_date, start_time=session_time)
+    new_session = Session(title=session_title, date=session_date, start_time=session_time, status=status)
     # new_session.schools.append(school)  # Add the school to the session
     db.session.add(new_session)
     db.session.commit()
     print(new_session.id)
     # Redirect to the 'sessions_page' or return an appropriate response
     return redirect(url_for('sessions_list'))
-    # return "<script>$('#addSessionModal').modal('hide');</script>"
 
 
 @app.route('/edit-session', methods=['GET'])
 def edit_session():
     session_id = request.args.get('session_id')
-    session = SessionRow.query.filter_by(session_id=session_id).first()
+    session = Session.query.filter_by(id=session_id).first()
     if session:
         return render_template('edit_session_form.html', session=session)
     else:
@@ -393,10 +276,10 @@ def edit_session():
 @app.route('/delete-session', methods=['DELETE'])
 def delete_session():
     session_id = request.args.get('session_id')
-    session = SessionRow.query.filter_by(session_id=session_id).first()
+    session = Session.query.filter_by(id=session_id).first()
     if session:
-        db.SessionRow.delete(session)
-        db.SessionRow.commit()
+        db.Session.delete(session)
+        db.Session.commit()
         return '', 200  # Return an empty response with a 200 OK status
     else:
         return 'Session not found', 404  # Return a 404 if the session doesn't exist
@@ -410,17 +293,17 @@ def update_session():
     print(request.form)
     session_id = request.form['session_id']
     # Fetch the session object using session_id
-    session = SessionRow.query.filter_by(session_id=session_id).first()
+    session = Session.query.filter_by(session_id=session_id).first()
     try:
         if session:
             # Update session with the new data
-            SessionRow.title = request.form['title']
-            SessionRow.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
-            SessionRow.status = request.form['status']
-            SessionRow.school = request.form['school']
-            SessionRow.district_or_company = request.form['district_or_company']
+            Session.title = request.form['title']
+            Session.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
+            Session.status = request.form['status']
+            Session.schools = request.form['schools']
+            # Session.district_or_company = request.form['district_or_company']
             # Commit the changes to the database
-            db.SessionRow.commit()
+            db.Session.commit()
             # Return the updated session row in a non-editable format
             # return render_template('session_row.html', session=session)
             updated_row = render_template('session_row.html', session=session)
@@ -450,43 +333,21 @@ def load_users_table():
 
 @app.route("/load-sessions-table", methods=["GET"])
 def load_sessions_table():
-    one_year_ago = datetime.now() - timedelta(days=365)
+    # one_year_ago = datetime.now() - timedelta(days=365)
 
-    # Get sorting parameters
-    sort_column = request.args.get('sort', 'date')  # Default sort column
-    sort_direction = request.args.get('direction', 'asc')  # Default sort direction
-    upcoming = request.args.get('status', 'confirmed')
+    # # Get sorting parameters
+    # sort_column = request.args.get('sort', 'date')  # Default sort column
+    # sort_direction = request.args.get('direction', 'asc')  # Default sort direction
+    # status = request.args.get('status', 'confirmed')
 
-    start_date = request.args.get('start_date', default=datetime(2023, 7, 1), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
-    end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    # start_date = request.args.get('start_date', default=datetime(2023, 7, 1), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
+    # end_date = request.args.get('end_date', default=datetime.now(), type=lambda s: datetime.strptime(s, '%Y-%m-%d'))
 
-    # Subquery to select distinct session IDs with the earliest record based on ID
-    subquery = SessionRow.query \
-        .with_entities(SessionRow.session_id, func.min(SessionRow.id).label('min_id')) \
-        .filter(SessionRow.date >= start_date, SessionRow.date <= end_date) \
-        .filter(SessionRow.date >= one_year_ago) \
-        .group_by(SessionRow.session_id) \
-        .subquery()
+    sessions = Session.query.all()
 
-    # Main query that joins the subquery
-    main_query = SessionRow.query \
-        .join(subquery, SessionRow.session_id == subquery.c.session_id) \
-        .filter(SessionRow.id == subquery.c.min_id)
+    print(sessions)  # For debugging
 
-    if upcoming == 'confirmed':
-        main_query = main_query.filter(SessionRow.status == 'Confirmed')
-    elif upcoming == 'request':
-        main_query = main_query.filter(SessionRow.status == 'Requested')
-
-    # Apply sorting to the main query
-    if sort_direction == 'asc':
-        main_query = main_query.order_by(getattr(SessionRow, sort_column).asc())
-    else:
-        main_query = main_query.order_by(getattr(SessionRow, sort_column).desc())
-
-    sessions_data = main_query.all()
-
-    return render_template("session_table.html", sessions=sessions_data)
+    return render_template("session_table.html", sessions=sessions)
 
 @app.route("/filter-sessions", methods=["GET"])
 def filter_sessions():
@@ -494,20 +355,20 @@ def filter_sessions():
     status_filter = request.args.get('statusFilter')
 
     # Subquery to select distinct session IDs with the earliest record based on ID
-    subquery = SessionRow.query \
-        .with_entities(SessionRow.session_id, func.min(SessionRow.id).label('min_id')) \
-        .filter(SessionRow.date >= one_year_ago) \
-        .group_by(SessionRow.session_id) \
+    subquery = Session.query \
+        .with_entities(Session.id, func.min(Session.id).label('min_id')) \
+        .filter(Session.date >= one_year_ago) \
+        .group_by(Session.id) \
         .subquery()
 
     # Main query that joins the subquery
-    main_query = SessionRow.query \
-        .join(subquery, SessionRow.session_id == subquery.c.session_id) \
-        .filter(SessionRow.id == subquery.c.min_id)
+    main_query = Session.query \
+        .join(subquery, Session.session_id == subquery.c.session_id) \
+        .filter(Session.id == subquery.c.min_id)
 
     # Apply status filter to the main query if a filter is provided
     if status_filter:
-        main_query = main_query.filter(SessionRow.status.ilike(f"%{status_filter}%"))
+        main_query = main_query.filter(Session.status.ilike(f"%{status_filter}%"))
 
     sessions_data = main_query.all()
 
@@ -515,25 +376,28 @@ def filter_sessions():
 
 @app.route('/get-sessions-by-month')
 def monthly_breakdown():
-    # Get the selected year from query parameters, default to current year if not specified
-    year = request.args.get('year', default=2023, type=int)
+    year = request.args.get('year', default=datetime.now().year, type=int)
 
-    start_year = str(year)  # The starting year of the academic year
-    end_year = str(year + 1)  # The ending year of the academic year
-    print(start_year, end_year)
+    # Define the start and end dates for the academic year
+    start_date = datetime(year, 7, 1)  # Starting from July of the selected year
+    end_date = datetime(year + 1, 6, 30)  # Ending in June of the following year
 
-    sessions_by_month = db.SessionRow.query(func.strftime('%m', SessionRow.date), func.count(SessionRow.id)) \
-        .filter(or_(
-            and_(func.strftime('%Y', SessionRow.date) == start_year, func.strftime('%m', SessionRow.date) >= '07'),
-            and_(func.strftime('%Y', SessionRow.date) == end_year, func.strftime('%m', SessionRow.date) <= '06')
-        )) \
-        .filter(SessionRow.status == 'Confirmed') \
-        .group_by(func.strftime('%m', SessionRow.date)) \
-        .all()
-    # Convert sessions_by_month to a more usable structure if needed, e.g., a dict with month names as keys
+    # Query to group sessions by month and count them
+    sessions_by_month = db.session.query(
+        func.strftime('%m', Session.date).label('month'), 
+        func.count(Session.id).label('total_sessions')
+    ).filter(
+        Session.date.between(start_date, end_date),
+        Session.status == 'Confirmed'
+    ).group_by(
+        'month'
+    ).all()
+
+    # Sort the results by month, taking into account the academic year spanning two calendar years
     sorted_sessions_by_month = sorted(sessions_by_month, key=lambda x: (x[0] < '07', x[0]))
 
     return render_template('monthlybreakdown.html', sessions_by_month=sorted_sessions_by_month)
+
 
 
 @app.route("/filter-kcps", methods=["GET"])
@@ -547,19 +411,19 @@ def filter_kcps():
         session['schoolFilter'] = request.args.get('schoolFilter')
 
     # Use session values for filters if available
-    status_filter = SessionRow.get('statusFilter', '')
-    school_filter = SessionRow.get('schoolFilter', '')
+    status_filter = Session.get('statusFilter', '')
+    school_filter = Session.get('schoolFilter', '')
 
     # Start with a base query
-    query = SessionRow.query.filter(SessionRow.date >= one_year_ago, SessionRow.district_or_company.ilike("KANSAS CITY PUBLIC SCHOOL DISTRICT"))
+    query = Session.query.filter(Session.date >= one_year_ago, Session.district.ilike("KANSAS CITY PUBLIC SCHOOL DISTRICT"))
 
     # Apply status filter if present
     if status_filter:
-        query = query.filter(SessionRow.status.ilike(f"%{status_filter}%"))
+        query = query.filter(Session.status.ilike(f"%{status_filter}%"))
 
     # Apply school filter if present
     if school_filter:
-        query = query.filter(SessionRow.school.ilike(f"%{school_filter}%"))  # Adjust field name as necessary
+        query = query.filter(Session.school.ilike(f"%{school_filter}%"))  # Adjust field name as necessary
 
     # Execute the query
     sessions_data = query.all()
@@ -568,13 +432,13 @@ def filter_kcps():
 
 @app.route("/clear-filters", methods=["GET"])
 def clear_filters():
-    SessionRow.pop('statusFilter', None)  # Remove the filter from the session if it exists
-    SessionRow.pop('schoolFilter', None)
+    Session.pop('statusFilter', None)  # Remove the filter from the session if it exists
+    Session.pop('schoolFilter', None)
     return redirect(url_for('filter_kcps'))  # Redirect back to the filter page or wherever appropriate
 
 @app.route("/session_details", methods=["GET"])
 def session_details():
     session_id = request.args.get('session_id')
-    session_data = SessionRow.query.filter_by(session_id=session_id).all()
+    session_data = Session.query.filter_by(id=session_id).all()
     print(session_data)
     return render_template("session_details.html", sessions=session_data)
