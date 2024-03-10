@@ -1,6 +1,71 @@
 from flask_sqlalchemy import SQLAlchemy
 from app import db
 
+# Association table for the many-to-many relationship between sessions and schools
+session_schools = db.Table('session_schools',
+    db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
+    db.Column('school_id', db.Integer, db.ForeignKey('schools.id'), primary_key=True)
+)
+
+class Session(db.Model):
+    __tablename__ = 'sessions'
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.String)  # Status updated by user
+    date = db.Column(db.Date)
+    start_time = db.Column(db.Time)  # Renamed from start_name for clarity
+    session_type = db.Column(db.String)  # User input
+    external_session_id = db.Column(db.Integer)  # Renamed from session_id for clarity
+    session_teachers = db.relationship('SessionTeacher', back_populates='session', lazy='dynamic')  # Renamed for clarity
+    schools = db.relationship('School', secondary=session_schools, back_populates='sessions')
+    title = db.Column(db.String)  # From CSV
+    topic = db.Column(db.String)  # User input
+    session_link = db.Column(db.String)  # User input
+    presenters = db.relationship('Presenter', back_populates='session')  # Corrected to 'Presenter'
+
+class Presenter(db.Model):  # Renamed for consistency
+    __tablename__ = 'presenters'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    email = db.Column(db.String)
+    phone = db.Column(db.String)
+    organization = db.Column(db.String)
+    local = db.Column(db.Boolean)
+    ethnicity = db.Column(db.String)
+    session_id = db.Column(db.Integer, db.ForeignKey('sessions.id'))
+    session = db.relationship('Session', back_populates='presenters')
+
+class Teacher(db.Model):
+    __tablename__ = 'teachers'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    school_name = db.Column(db.String)
+    session_teachers = db.relationship('SessionTeacher', back_populates='teacher', lazy='dynamic')  # Renamed for clarity
+
+class SessionTeacher(db.Model):
+    __tablename__ = 'session_teachers'
+    id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.Integer, db.ForeignKey('sessions.id'))
+    teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.id'))
+    status = db.Column(db.String)  # Status updated by the user
+    session = db.relationship('Session', back_populates='session_teachers')
+    teacher = db.relationship('Teacher', back_populates='session_teachers')
+
+class District(db.Model):
+    __tablename__ = 'districts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    schools = db.relationship('School', back_populates='district')
+
+class School(db.Model):
+    __tablename__ = 'schools'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    district_id = db.Column(db.Integer, db.ForeignKey('districts.id'))
+    district = db.relationship('District', back_populates='schools')
+    level = db.Column(db.String)
+    sessions = db.relationship('Session', secondary=session_schools, back_populates='schools')
+
+### Tables from the original CSVs ### Tables from the original CSVs ### Tables from the original CSVs ###
 class SessionRow(db.Model):
     __tablename__ = 'session_rows'
     id = db.Column(db.Integer, primary_key=True)
@@ -48,9 +113,3 @@ class User(db.Model):
     active_subscription_name = db.Column(db.String)
     last_session_date = db.Column(db.Date)
     affiliations = db.Column(db.String)
-
-class Schools(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    school = db.Column(db.String(255), nullable=False)
-    district = db.Column(db.String(255), nullable=False)
-    level = db.Column(db.String(50), nullable=False)

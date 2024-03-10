@@ -3,7 +3,7 @@ import pandas as pd
 
 # Data for the schools table
 data = {
-    "school": [
+    "name": [
         "CENTER HIGH SCHOOL", "CENTER ALTERNATIVE", "GRANDVIEW MIDDLE", "GRANDVIEW SR. HIGH",
         "COMPASS ELEMENTARY", "DOBBS ELEM.", "EARLY CHILDHOOD CTR.", "ERVIN ELEMENTARY",
         "INGELS ELEM.", "MILLENNIUM AT SANTA FE", "RUSKIN HIGH SCHOOL", "SMITH-HALE MIDDLE",
@@ -60,7 +60,7 @@ df = pd.DataFrame(data)
 conn = sqlite3.connect('polaris.db')
 
 # Create the 'schools' table if it doesn't exist
-df.to_sql('schools', conn, if_exists='replace', index=False)
+df.to_sql('school', conn, if_exists='replace', index=False)
 
 # Close the connection
 conn.close()

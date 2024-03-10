@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, Schools
+from app.models import SessionRow, User, School
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
@@ -134,9 +134,9 @@ def load_districts_table():
     return render_template("district_table.html", sessions=session_data)
 
 sort_order = case(
-    (Schools.level == 'Elem', 0),
-    (Schools.level == 'Middle', 1),
-    (Schools.level == 'High', 2),
+    (School.level == 'Elem', 0),
+    (School.level == 'Middle', 1),
+    (School.level == 'High', 2),
     else_=3
 )
 
@@ -150,87 +150,87 @@ def load_district_summary():
     if district=="kck":
         summary_data = db.SessionRow.query(
         SessionRow.school, 
-        Schools.level,  # Assuming the School model has a 'level' field
+        School.level,  # Assuming the School model has a 'level' field
         func.count(SessionRow.id).label('total_sessions')
         ).join(
-            Schools, SessionRow.school == Schools.school  # This joins the Session and School models on the school name
+            School, SessionRow.school == School.school  # This joins the Session and School models on the school name
         ).filter(
             SessionRow.district_or_company == "KANSAS CITY USD 500",
             SessionRow.status == "Completed",
             SessionRow.date.between(start_date, end_date)
         ).group_by(
-            SessionRow.school, Schools.level  # Group by both the school name and the school level
+            SessionRow.school, School.level  # Group by both the school name and the school level
         ).order_by(sort_order).all()
     elif district=="kcps":
         summary_data = db.SessionRow.query(
             SessionRow.school, 
-            Schools.level,  # Assuming the School model has a 'level' field
+            School.level,  # Assuming the School model has a 'level' field
             func.count(SessionRow.id).label('total_sessions')
             ).join(
-                Schools, SessionRow.school == Schools.school  # This joins the Session and School models on the school name
+                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
             ).filter(
                 SessionRow.district_or_company == "KANSAS CITY PUBLIC SCHOOL DISTRICT",
                 SessionRow.status == "Completed",
                 SessionRow.date.between(start_date, end_date)
             ).group_by(
-                SessionRow.school, Schools.level  # Group by both the school name and the school level
+                SessionRow.school, School.level  # Group by both the school name and the school level
             ).order_by(sort_order).all()
     elif district=="center":
         # Needs Updated to be Like kcps
         summary_data = db.SessionRow.query(
             SessionRow.school, 
-            Schools.level,  # Assuming the School model has a 'level' field
+            School.level,  # Assuming the School model has a 'level' field
             func.count(SessionRow.id).label('total_sessions')
             ).join(
-                Schools, SessionRow.school == Schools.school  # This joins the Session and School models on the school name
+                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
             ).filter(
                 SessionRow.district_or_company == "CENTER 58 SCHOOL DISTRICT",
                 SessionRow.status == "Completed",
                 SessionRow.date.between(start_date, end_date)
             ).group_by(
-                SessionRow.school, Schools.level  # Group by both the school name and the school level
+                SessionRow.school, School.level  # Group by both the school name and the school level
             ).order_by(sort_order).all()
     elif district=="hickman":
         summary_data = db.SessionRow.query(
             SessionRow.school, 
-            Schools.level,  # Assuming the School model has a 'level' field
+            School.level,  # Assuming the School model has a 'level' field
             func.count(SessionRow.id).label('total_sessions')
             ).join(
-                Schools, SessionRow.school == Schools.school  # This joins the Session and School models on the school name
+                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
             ).filter(
                 SessionRow.district_or_company == "HICKMAN MILLS C-1",
                 SessionRow.status == "Completed",
                 SessionRow.date.between(start_date, end_date)
             ).group_by(
-                SessionRow.school, Schools.level  # Group by both the school name and the school level
+                SessionRow.school, School.level  # Group by both the school name and the school level
             ).order_by(sort_order).all()
     elif district=="grandview":
         summary_data = db.SessionRow.query(
             SessionRow.school, 
-            Schools.level,  # Assuming the School model has a 'level' field
+            School.level,  # Assuming the School model has a 'level' field
             func.count(SessionRow.id).label('total_sessions')
             ).join(
-                Schools, SessionRow.school == Schools.school  # This joins the Session and School models on the school name
+                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
             ).filter(
                 SessionRow.district_or_company == "GRANDVIEW C-4",
                 SessionRow.status == "Completed",
                 SessionRow.date.between(start_date, end_date)
             ).group_by(
-                SessionRow.school, Schools.level  # Group by both the school name and the school level
+                SessionRow.school, School.level  # Group by both the school name and the school level
             ).order_by(sort_order).all()
     else:
         summary_data = db.SessionRow.query(
             SessionRow.school, 
-            Schools.level,  # Assuming the School model has a 'level' field
+            School.level,  # Assuming the School model has a 'level' field
             func.count(SessionRow.id).label('total_sessions')
             ).join(
-                Schools, SessionRow.school == Schools.school  # This joins the Session and School models on the school name
+                School, SessionRow.school == School.school  # This joins the Session and School models on the school name
             ).filter(
                 SessionRow.district_or_company == district,
                 SessionRow.status == "Completed",
                 SessionRow.date.between(start_date, end_date)
             ).group_by(
-                SessionRow.school, Schools.level  # Group by both the school name and the school level
+                SessionRow.school, School.level  # Group by both the school name and the school level
             ).order_by(sort_order).all()
     return render_template("district_summary.html", summary_data=summary_data)
 
