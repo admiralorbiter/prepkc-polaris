@@ -375,10 +375,10 @@ def add_session():
     # new_session.schools.append(school)  # Add the school to the session
     db.session.add(new_session)
     db.session.commit()
-
+    print(new_session.id)
     # Redirect to the 'sessions_page' or return an appropriate response
-    # return redirect(url_for('sessions_page'))
-    return "<script>$('#addSessionModal').modal('hide');</script>"
+    return redirect(url_for('sessions_list'))
+    # return "<script>$('#addSessionModal').modal('hide');</script>"
 
 
 @app.route('/edit-session', methods=['GET'])
