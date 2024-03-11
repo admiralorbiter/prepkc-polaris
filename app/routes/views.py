@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, School, Session, District, Teacher, SessionTeacher, session_schools
+from app.models import SessionRow, User, School, Session, District, Teacher, SessionTeacher, session_schools, Presenter
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
@@ -318,6 +318,20 @@ def update_session():
                     school = School(name=school_name)
                     db.session.add(school)
                 session.schools.append(school)
+
+        # Handle multiple presenters
+        presenters_input = request.form.get('presenters')
+        if presenters_input:
+            presenter_names = [name.strip() for name in presenters_input.split(';')]
+            session.presenters = []  # Clear existing presenters
+
+            for presenter_name in presenter_names:
+                presenter = Presenter.query.filter_by(name=presenter_name).first()
+                if not presenter:
+                    presenter = Presenter(name=presenter_name)
+                    db.session.add(presenter)
+                session.presenters.append(presenter)
+
 
         db.session.commit()
 
