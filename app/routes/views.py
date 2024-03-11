@@ -291,22 +291,37 @@ def clear_edit_pane():
 
 @app.route('/update-session', methods=['POST'])
 def update_session():
-    print(request.form)
-    session_id = request.form.get('session_id')  # It's safer to use .get() to avoid KeyError
+    session_id = request.form.get('session_id')
 
     # Fetch the session object using session_id
     session = Session.query.filter_by(id=session_id).first()
 
     if not session:
-        return redirect(url_for('sessions_list')), 404  # Assuming 'sessions_list' is your session listing route
+        return redirect(url_for('sessions_list'))
 
     try:
         # Update session with the new data
-        session.title = request.form.get('title')
-        session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d') if request.form.get('date') else session.date
+        session.title = request.form.get('title', session.title)
+        if request.form.get('date'):
+            session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d')
         session.status = request.form.get('status', session.status)
 
-        # Commit the changes to the database
+        # Handling the School entity for many-to-many relationship
+        school_name = request.form.get('school')
+        if school_name:
+            # Clear current schools and add the new one
+            session.schools = []  # Clear existing associations
+
+            # Query or create the new school
+            school = School.query.filter_by(name=school_name).first()
+            if not school:
+                # Optionally, create a new school if it doesn't exist
+                school = School(name=school_name)
+                db.session.add(school)
+                db.session.flush()  # This will assign an ID to the new school without committing the transaction
+
+            session.schools.append(school)  # Add the new association
+
         db.session.commit()
 
         # return render_template('session_row.html', session=session)
@@ -321,8 +336,8 @@ def update_session():
         return combined_response
 
     except Exception as e:
-        print(e)  # Log the error for debugging
-        return redirect(url_for('edit_session', session_id=session_id)), 400  # Redirect back to the edit form
+        db.session.rollback()
+        return redirect(url_for('edit_session', session_id=session_id))
 
 @app.route("/users", methods=["GET"])
 def users():

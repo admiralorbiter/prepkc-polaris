@@ -2,9 +2,11 @@
     <td>{{ session.id }}</td>
     <td><a href="#" hx-get="/session_details?session_id={{ session.id }}" hx-target="#details">{{ session.title }}</a></td>
     <td>{{ session.date.strftime('%m/%d/%y') if session.date else 'Date not set' }}</td>
+    <td>{{ session.start_time.strftime('%H:%M') if session.start_time else 'Time not set' }}</td> <!-- Updated to use strftime for consistency -->
     <td>{{ session.status }}</td>
-    <td>{{ session.school }}</td>
-    <td>{{ session.district_or_company }}</td>
+    <td>{{ session.schools[0].name if session.schools else 'School not set' }}</td> <!-- Assuming session.schools is a list -->
+    <td>{{ session.presenters[0].name if session.presenters else 'Presenter not set' }}</td> <!-- Assuming session.presenters is a list -->
+    <td>{{ session.presenters[0].organization if session.presenters else 'Organization not set' }}</td> <!-- Assuming presenter has an organization field -->
     <td>
         <a href="#" hx-get="/edit-session?session_id={{ session.id }}" hx-target="#editPane" class="btn btn-primary">Edit</a>
     </td>                             
