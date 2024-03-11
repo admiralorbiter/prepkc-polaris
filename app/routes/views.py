@@ -292,7 +292,6 @@ def clear_edit_pane():
 @app.route('/update-session', methods=['POST'])
 def update_session():
     session_id = request.form.get('session_id')
-
     # Fetch the session object using session_id
     session = Session.query.filter_by(id=session_id).first()
 
@@ -306,21 +305,19 @@ def update_session():
             session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d')
         session.status = request.form.get('status', session.status)
 
-        # Handling the School entity for many-to-many relationship
-        school_name = request.form.get('school')
-        if school_name:
-            # Clear current schools and add the new one
-            session.schools = []  # Clear existing associations
+        # Handle multiple schools
+        schools_input = request.form.get('schools')
+        if schools_input:
+            school_names = [name.strip() for name in schools_input.split(',')]
+            print(school_names)
+            session.schools = []  # Clear existing schools
 
-            # Query or create the new school
-            school = School.query.filter_by(name=school_name).first()
-            if not school:
-                # Optionally, create a new school if it doesn't exist
-                school = School(name=school_name)
-                db.session.add(school)
-                db.session.flush()  # This will assign an ID to the new school without committing the transaction
-
-            session.schools.append(school)  # Add the new association
+            for school_name in school_names:
+                school = School.query.filter_by(name=school_name).first()
+                if not school:
+                    school = School(name=school_name)
+                    db.session.add(school)
+                session.schools.append(school)
 
         db.session.commit()
 

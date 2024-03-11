@@ -59,7 +59,7 @@
                 </div>
             </th>
             <th class="">
-                <div class="">School</div>
+                <div class="">Schools</div>
                 <div class="">
                     <a href="#" hx-get="/load-sessions-table?sort=school&direction=asc" hx-target="#sessionsTable" hx-trigger="click">
                         <i class="fas fa-sort-up"></i>
@@ -103,7 +103,17 @@
                 <td>{{ '{:02d}/{:02d}/{}'.format(session.date.month, session.date.day, session.date.year % 100) if session.date else 'Date not set' }}</td>
                 <td>{{ '{:02d}:{:02d}'.format(session.start_time.hour, session.start_time.minute) if session.start_time else 'Time not set' }}</td>
                 <td>{{ session.status }}</td>
-                <td>{{ session.schools[0].name if session.schools else 'School not set' }}</td> <!-- Assuming session.schools is a list -->
+                <td>
+                    {% if session.schools %}
+                        {% set school_names = [] %}
+                        {% for school in session.schools %}
+                            {% set _ = school_names.append(school.name) %}
+                        {% endfor %}
+                        {{ school_names|join(', ') }}
+                    {% else %}
+                        School not set
+                    {% endif %}
+                </td>                
                 <td>{{ session.presenter }}</td>
                 <td>{{ session.organization }}</td>
                 <td>
