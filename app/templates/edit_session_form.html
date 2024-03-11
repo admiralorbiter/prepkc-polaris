@@ -8,6 +8,10 @@
         <input type="date" class="form-control" id="sessionDate" name="date" value="{{ session.date.strftime('%Y-%m-%d') }}">
     </div>
     <div class="mb-3">
+        <label for="sessionTime" class="form-label">Session Time</label>
+        <input type="time" class="form-control" id="sessionTime" name="start_time" value="{{ session.start_time.strftime('%H:%M') if session.start_time else '' }}">
+    </div>
+    <div class="mb-3">
         <label for="sessionStatus" class="form-label">Session Status</label>
         <input type="text" class="form-control" id="sessionStatus" name="status" value="{{ session.status }}">
     </div>
