@@ -1,23 +1,23 @@
 <form method="POST" hx-post="/update-session" hx-target="#id{{ session.id }}" hx-swap="outerHTML">
     <div class="mb-3">
         <label for="sessionTitle" class="form-label">Session Title</label>
-        <input type="text" class="form-control" id="sessionTitle" name="title" value="{{ session.title }}" required>
+        <input type="text" class="form-control" id="sessionTitle" name="title" value="{{ session.title }}">
     </div>
     <div class="mb-3">
         <label for="sessionDate" class="form-label">Session Date</label>
-        <input type="date" class="form-control" id="sessionDate" name="date" value="{{ session.date.strftime('%Y-%m-%d') }}" required>
+        <input type="date" class="form-control" id="sessionDate" name="date" value="{{ session.date.strftime('%Y-%m-%d') }}">
     </div>
     <div class="mb-3">
         <label for="sessionStatus" class="form-label">Session Status</label>
-        <input type="text" class="form-control" id="sessionStatus" name="status" value="{{ session.status }}" required>
+        <input type="text" class="form-control" id="sessionStatus" name="status" value="{{ session.status }}">
     </div>
     <div class="mb-3">
         <label for="sessionSchool" class="form-label">Session School</label>
-        <input type="text" class="form-control" id="sessionSchool" name="school" value="{{ session.school }}" required>
+        <input type="text" class="form-control" id="sessionSchool" name="school" value="{{ session.school }}">
     </div>
     <div class="mb-3">
         <label for="districtOrCompany" class="form-label">District/Company</label>
-        <input type="text" class="form-control" id="districtOrCompany" name="district_or_company" value="{{ session.district_or_company }}" required>
+        <input type="text" class="form-control" id="districtOrCompany" name="district_or_company" value="{{ session.district_or_company }}">
     </div>
     <input type="hidden" name="session_id" value="{{ session.id }}">
     <div class="mb-3 d-flex justify-content-between">

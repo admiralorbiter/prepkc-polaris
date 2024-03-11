@@ -292,35 +292,37 @@ def clear_edit_pane():
 @app.route('/update-session', methods=['POST'])
 def update_session():
     print(request.form)
-    session_id = request.form['session_id']
+    session_id = request.form.get('session_id')  # It's safer to use .get() to avoid KeyError
+
     # Fetch the session object using session_id
-    session = Session.query.filter_by(session_id=session_id).first()
+    session = Session.query.filter_by(id=session_id).first()
+
+    if not session:
+        return redirect(url_for('sessions_list')), 404  # Assuming 'sessions_list' is your session listing route
+
     try:
-        if session:
-            # Update session with the new data
-            Session.title = request.form['title']
-            Session.date = datetime.strptime(request.form['date'], '%Y-%m-%d')
-            Session.status = request.form['status']
-            Session.schools = request.form['schools']
-            # Session.district_or_company = request.form['district_or_company']
-            # Commit the changes to the database
-            db.Session.commit()
-            # Return the updated session row in a non-editable format
-            # return render_template('session_row.html', session=session)
-            updated_row = render_template('session_row.html', session=session)
-            
-            # Script to clear the edit pane
-            clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
+        # Update session with the new data
+        session.title = request.form.get('title')
+        session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d') if request.form.get('date') else session.date
+        session.status = request.form.get('status', session.status)
 
-            # Combine the updated row and script
-            combined_response = updated_row + clear_script
+        # Commit the changes to the database
+        db.session.commit()
 
-            return combined_response
-        else:
-            return 'Session not found', 404
+        # return render_template('session_row.html', session=session)
+        updated_row = render_template('session_row.html', session=session)
+        
+        # Script to clear the edit pane
+        clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
+
+        # Combine the updated row and script
+        combined_response = updated_row + clear_script
+
+        return combined_response
+
     except Exception as e:
         print(e)  # Log the error for debugging
-        return 'Error processing request', 400
+        return redirect(url_for('edit_session', session_id=session_id)), 400  # Redirect back to the edit form
 
 @app.route("/users", methods=["GET"])
 def users():
