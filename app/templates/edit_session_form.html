@@ -16,8 +16,12 @@
         <input type="text" class="form-control" id="sessionSchool" name="school" value="{{ session.school }}">
     </div>
     <div class="mb-3">
-        <label for="districtOrCompany" class="form-label">District/Company</label>
-        <input type="text" class="form-control" id="districtOrCompany" name="district_or_company" value="{{ session.district_or_company }}">
+        <label for="sessionPresenter" class="form-label">Session Presenter</label>
+        <input type="text" class="form-control" id="sessionPresenter" name="presenter" value="{{ session.presenter }}">
+    </div>
+    <div class="mb-3">
+        <label for="sessionOrganization" class="form-label">Session Organization</label>
+        <input type="text" class="form-control" id="sessionOrganization" name="organization" value="{{ session.organization }}">
     </div>
     <input type="hidden" name="session_id" value="{{ session.id }}">
     <div class="mb-3 d-flex justify-content-between">

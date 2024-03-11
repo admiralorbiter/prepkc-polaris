@@ -69,6 +69,28 @@
                     </a>
                 </div>
             </th>
+            <th class="">
+                <div class="">Presenter</div>
+                <div class="">
+                    <a href="#" hx-get="/load-sessions-table?sort=presenter&direction=asc" hx-target="#sessionsTable" hx-trigger="click">
+                        <i class="fas fa-sort-up"></i>
+                    </a>
+                    <a href="#" hx-get="/load-sessions-table?sort=presenter&direction=desc" hx-target="#sessionsTable" hx-trigger="click">
+                        <i class="fas fa-sort-down"></i>
+                    </a>
+                </div>
+            </th>
+            <th class="">
+                <div class="">Organization</div>
+                <div class="">
+                    <a href="#" hx-get="/load-sessions-table?sort=organization&direction=asc" hx-target="#sessionsTable" hx-trigger="click">
+                        <i class="fas fa-sort-up"></i>
+                    </a>
+                    <a href="#" hx-get="/load-sessions-table?sort=organization&direction=desc" hx-target="#sessionsTable" hx-trigger="click">
+                        <i class="fas fa-sort-down"></i>
+                    </a>
+                </div>
+            </th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -82,6 +104,8 @@
                 <td>{{ session.status }}</td>
                 <td>{{ session.school }}</td>
                 <td>{{ session.district }}</td>
+                <td>{{ session.presenter }}</td>
+                <td>{{ session.organization }}</td>
                 <td>
                     <a href="#" hx-get="/edit-session?session_id={{ session.id }}" hx-target="#editPane" class="btn btn-primary">Edit</a>
                 </td>                             
