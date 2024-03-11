@@ -276,10 +276,11 @@ def edit_session():
 @app.route('/delete-session', methods=['DELETE'])
 def delete_session():
     session_id = request.args.get('session_id')
+    print(session_id)
     session = Session.query.filter_by(id=session_id).first()
     if session:
-        db.Session.delete(session)
-        db.Session.commit()
+        db.session.delete(session)
+        db.session.commit()
         return '', 200  # Return an empty response with a 200 OK status
     else:
         return 'Session not found', 404  # Return a 404 if the session doesn't exist
@@ -363,7 +364,7 @@ def filter_sessions():
 
     # Main query that joins the subquery
     main_query = Session.query \
-        .join(subquery, Session.session_id == subquery.c.session_id) \
+        .join(subquery, Session.id == subquery.c.session_id) \
         .filter(Session.id == subquery.c.min_id)
 
     # Apply status filter to the main query if a filter is provided
