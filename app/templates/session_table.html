@@ -97,32 +97,7 @@
     </thead>
     <tbody>
         {% for session in sessions %}
-            <tr id="id{{session.id}}">
-                <td>{{ session.id }}</td>
-                <td><a href="#" hx-get="/session_details?session_id={{ session.id }}" hx-target="#details">{{ session.title }}</a></td>
-                <td>{{ '{:02d}/{:02d}/{}'.format(session.date.month, session.date.day, session.date.year % 100) if session.date else 'Date not set' }}</td>
-                <td>{{ '{:02d}:{:02d}'.format(session.start_time.hour, session.start_time.minute) if session.start_time else 'Time not set' }}</td>
-                <td>{{ session.status }}</td>
-                <td>
-                    {% if session.schools %}
-                        {% set school_names = [] %}
-                        {% for school in session.schools %}
-                            {% set _ = school_names.append(school.name) %}
-                        {% endfor %}
-                        {{ school_names|join(', ') }}
-                    {% else %}
-                        School not set
-                    {% endif %}
-                </td>                
-                <td>{{ session.presenter }}</td>
-                <td>{{ session.organization }}</td>
-                <td>
-                    <a href="#" hx-get="/edit-session?session_id={{ session.id }}" hx-target="#editPane" class="btn btn-primary">Edit</a>
-                </td>                             
-                <td>
-                    <a href="#" hx-delete="/delete-session?session_id={{ session.id }}" hx-target="closest tr" hx-swap="outerHTML delete" hx-confirm="Are you sure you want to delete this session?" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
+            {% include 'session_row.html' %}
         {% endfor %}
     </tbody>
 </table>
