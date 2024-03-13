@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Polaris: Our North Star{% endblock %}
+
+{% block content %}
+    <h1>Teachers</h1>
+    <div class="m-3">
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
+          Add Teacher
+        </button>
+    </div>
+    <div class ="modal fade" id="addTeacherModal" tabindex="-1" aria-labelledby="addTeacherModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTeacherModalLabel">Add Teacher</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTeacherForm" hx-post="/add-teacher">
+                        <div class="mb-3">
+                            <label for="teacherName" class="form-label">Teacher Name</label>
+                            <input type="text" class="form-control" id="teacherName" name="teacherName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="teacherSchool" class="form-label">Teacher School</label>
+                            <input type="text" class="form-control" id="teacherSchool" name="schoolName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="addTeacherForm">Add Teacher</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="teacherTable" hx-get="/load-teacher-table" hx-trigger="load">
+        <!-- session_table.html content will be loaded here -->
+        Loading Data Please Wait...
+    </div>
+</div>
+{% endblock %}
+
