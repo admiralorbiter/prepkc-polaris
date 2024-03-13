@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, School, Session, District, Teacher, SessionTeacher, session_schools, Presenter
+from app.models import SessionRow, User, School, Session, Teacher, session_schools, Presenter
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
@@ -12,6 +12,10 @@ def add_school_to_session(session_id, school_id):
     # Assuming that the 'schools' relationship in the Session model is set up correctly
     session.schools.append(school)
     db.session.commit()
+
+def soft_delete(self):
+    self.deleted_at = datetime.utcnow()
+    db.session.add(self)
 
 # Home Page
 @app.route("/", methods=["GET"])

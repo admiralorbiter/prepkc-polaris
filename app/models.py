@@ -1,5 +1,12 @@
 from flask_sqlalchemy import SQLAlchemy
 from app import db
+from datetime import datetime
+
+# New association table for the many-to-many relationship between sessions and teachers
+session_teachers_association = db.Table('session_teachers_association',
+    db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
+    db.Column('teacher_id', db.Integer, db.ForeignKey('teachers.id'), primary_key=True)
+)
 
 # Association table for the many-to-many relationship between sessions and schools
 session_schools = db.Table('session_schools',
@@ -7,31 +14,42 @@ session_schools = db.Table('session_schools',
     db.Column('school_id', db.Integer, db.ForeignKey('schools.id'), primary_key=True)
 )
 
+class Base(db.Model):
+    __abstract__ = True  # Indicates that this class should not be created as a table
+
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    deleted_at = db.Column(db.DateTime, nullable=True, index=True)  # Soft delete column
+
 class Session(db.Model):
     __tablename__ = 'sessions'
     id = db.Column(db.Integer, primary_key=True)
-    status = db.Column(db.String)  # Status updated by user
-    date = db.Column(db.Date)
-    start_time = db.Column(db.Time)  # Renamed from start_name for clarity
-    session_type = db.Column(db.String)  # User input
-    external_session_id = db.Column(db.Integer)  # Renamed from session_id for clarity
-    session_teachers = db.relationship('SessionTeacher', back_populates='session', lazy='dynamic')  # Renamed for clarity
+    status = db.Column(db.String, index=True)
+    date = db.Column(db.Date, index=True)
+    start_time = db.Column(db.Time, index=True) 
+    session_type = db.Column(db.String) 
+    external_session_id = db.Column(db.Integer)  
+    teachers = db.relationship('Teacher', secondary=session_teachers_association, back_populates='sessions')
     schools = db.relationship('School', secondary=session_schools, back_populates='sessions')
-    title = db.Column(db.String)  # From CSV
-    topic = db.Column(db.String)  # User input
-    session_link = db.Column(db.String)  # User input
-    presenters = db.relationship('Presenter', back_populates='session')  # Corrected to 'Presenter'
+    title = db.Column(db.String) 
+    topic = db.Column(db.String)  
+    session_link = db.Column(db.String) 
+    presenters = db.relationship('Presenter', back_populates='session')
 
-class Presenter(db.Model):  # Renamed for consistency
+class Presenter(db.Model):
     __tablename__ = 'presenters'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    email = db.Column(db.String)
+    email = db.Column(db.String, index=True)
     phone = db.Column(db.String)
     organization = db.Column(db.String)
     local = db.Column(db.Boolean)
     ethnicity = db.Column(db.String)
-    session_id = db.Column(db.Integer, db.ForeignKey('sessions.id'))
+    job_title = db.Column(db.String)
+    city = db.Column(db.String)
+    state = db.Column(db.String(2))
+    postal_code = db.Column(db.String)
+    session_id = db.Column(db.Integer, db.ForeignKey('sessions.id'), index=True)
     session = db.relationship('Session', back_populates='presenters')
 
 class Teacher(db.Model):
@@ -39,30 +57,16 @@ class Teacher(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     school_name = db.Column(db.String)
-    session_teachers = db.relationship('SessionTeacher', back_populates='teacher', lazy='dynamic')  # Renamed for clarity
+    sessions = db.relationship('Session', secondary=session_teachers_association, back_populates='teachers')
 
-class SessionTeacher(db.Model):
-    __tablename__ = 'session_teachers'
-    id = db.Column(db.Integer, primary_key=True)
-    session_id = db.Column(db.Integer, db.ForeignKey('sessions.id'))
-    teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.id'))
-    status = db.Column(db.String)  # Status updated by the user
-    session = db.relationship('Session', back_populates='session_teachers')
-    teacher = db.relationship('Teacher', back_populates='session_teachers')
-
-class District(db.Model):
-    __tablename__ = 'districts'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    schools = db.relationship('School', back_populates='district')
 
 class School(db.Model):
     __tablename__ = 'schools'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    district_id = db.Column(db.Integer, db.ForeignKey('districts.id'))
-    district = db.relationship('District', back_populates='schools')
+    district = db.Column(db.String)
     level = db.Column(db.String)
+    state = db.Column(db.String(2))
     sessions = db.relationship('Session', secondary=session_schools, back_populates='schools')
 
 ### Tables from the original CSVs ### Tables from the original CSVs ### Tables from the original CSVs ###
@@ -72,7 +76,7 @@ class SessionRow(db.Model):
     session_id = db.Column(db.Integer)
     title = db.Column(db.String, nullable=False)
     series_or_event_title = db.Column(db.String)
-    career_cluster = db.Column(db.String)
+    career_cluster = db.Column(db.String) #Missing
     date = db.Column(db.Date)
     status = db.Column(db.String)
     duration = db.Column(db.Integer)
@@ -82,12 +86,12 @@ class SessionRow(db.Model):
     school = db.Column(db.String)
     district_or_company = db.Column(db.String)
     partner = db.Column(db.String)
-    state = db.Column(db.String(2))
-    registered_student_count = db.Column(db.Integer)
-    attended_student_count = db.Column(db.Integer)
-    registered_educator_count = db.Column(db.Integer)
-    attended_educator_count = db.Column(db.Integer)
-    work_based_learning = db.Column(db.String)
+    state = db.Column(db.String(2)) #missing add to sschool
+    registered_student_count = db.Column(db.Integer) #Missing
+    attended_student_count = db.Column(db.Integer) #Missing
+    registered_educator_count = db.Column(db.Integer) #Missing
+    attended_educator_count = db.Column(db.Integer) #Missing
+    work_based_learning = db.Column(db.String) #Missing
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -101,15 +105,15 @@ class User(db.Model):
     district_or_company = db.Column(db.String)
     job_title = db.Column(db.String)
     grade_cluster = db.Column(db.String)
-    skills = db.Column(db.String)
-    join_date = db.Column(db.Date)
-    last_login_date = db.Column(db.Date)
-    login_count = db.Column(db.Integer)
-    count_of_days_logged_in_last_30_days = db.Column(db.Integer)
+    skills = db.Column(db.String) #missing
+    join_date = db.Column(db.Date) #missing
+    last_login_date = db.Column(db.Date) #missing
+    login_count = db.Column(db.Integer) #missing
+    count_of_days_logged_in_last_30_days = db.Column(db.Integer) #missing
     city = db.Column(db.String)
     state = db.Column(db.String(2))
     postal_code = db.Column(db.String)
-    active_subscription_type = db.Column(db.String)
-    active_subscription_name = db.Column(db.String)
+    active_subscription_type = db.Column(db.String) #missing
+    active_subscription_name = db.Column(db.String) #missing
     last_session_date = db.Column(db.Date)
-    affiliations = db.Column(db.String)
+    affiliations = db.Column(db.String) #missing
