@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Polaris: Our North Star{% endblock %}
+
+{% block content %}
+<h1>Presenters</h1>
+    <div class="m-3">
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addPresenterModal">
+        Add School
+        </button>
+    </div>
+    <div class="modal fade" id="addPresenterModal" tabindex="-1" aria-labelledby="addPresenterModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPresenterModalLabel">Add Presenter</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addPresenterForm" hx-post="/add-presenter">
+                        <div class="mb-3">
+                            <label for="presenterName" class="form-label">Presenter Name</label>
+                            <input type="text" class="form-control" id="presenterName" name="presenterName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="presenterEmail" class="form-label">Presenter Email</label>
+                            <input type="email" class="form-control" id="presenterEmail" name="presenterEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="presenterPhone" class="form-label">Presenter Phone</label>
+                            <input type="text" class="form-control" id="presenterPhone" name="presenterPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="presenterOrganization" class="form-label">Presenter Organization</label>
+                            <input type="text" class="form-control" id="presenterOrganization" name="presenterOrganization" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" form="addTeacherForm">Add Teacher</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="presenterTable" hx-get="/load-presenter-table" hx-trigger="load">
+        Loading Data Please Wait...
+    </div>
+{% endblock %}

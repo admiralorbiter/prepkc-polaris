@@ -1,0 +1,24 @@
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>District</th>
+            <th>Level</th>
+            <th>State</th>
+            <th>Sessions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for school in schools %}
+        <tr>
+            <td>{{ school.id }}</td>
+            <td>{{ school.name }}</td>
+            <td>{{ school.district }}</td>
+            <td>{{ school.level }}</td>
+            <td>{{ school.state }}</td>
+            <td>{{ school.sessions }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
