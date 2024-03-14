@@ -125,7 +125,7 @@ def sessions_page():
 @app.route("/sessions_list")
 def sessions_list():
     sessions = Session.query.all()
-    return render_template("partials/sessions_list.html", sessions=sessions)
+    return render_template("/partials/session_list.html", sessions=sessions)
 
 @app.route("/add-teacher", methods=["POST"])
 def add_teacher():
@@ -145,6 +145,8 @@ def add_session():
     session_time_str = request.form.get('sessionTime')
     session_school_name = request.form.get('sessionSchool')  # This should ideally be an identifier like an ID
     session_title = request.form.get('sessionTitle')
+    session_presenter = request.form.get('sessionPresenter')
+    session_organization = request.form.get('sessionOrganization')
 
      # Convert date and time strings to datetime objects
     session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()  # Adjust the format if needed
@@ -158,6 +160,11 @@ def add_session():
         db.session.add(school)
         db.session.commit()
     status = "Confirmed"
+    presenter = Presenter.query.filter_by(name=session_presenter).first()
+    if not presenter:
+        presenter = Presenter(name=session_presenter, organization=session_organization)
+        db.session.add(presenter)
+        db.session.commit()
     # Create a new session object and add to the database
     new_session = Session(title=session_title, date=session_date, start_time=session_time, status=status)
     # new_session.schools.append(school)  # Add the school to the session
@@ -235,6 +242,8 @@ def update_session():
                     presenter = Presenter(name=presenter_name)
                     db.session.add(presenter)
                 session.presenters.append(presenter)
+
+        
 
 
         db.session.commit()

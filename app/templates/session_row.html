@@ -27,7 +27,13 @@
             Presenter not set
         {% endif %}
     </td>
-    <td>{{session.organization }}</td>
+    <td>
+        {% if session.presenters %}
+            {{ session.presenters[0].organization if session.presenters[0].organization else 'Organization not set' }}
+        {% else %}
+            No Presenter
+        {% endif %}
+    </td>
     <td>
         <a href="#" hx-get="/edit-session?session_id={{ session.id }}" hx-target="#editPane" class="btn btn-primary">Edit</a>
     </td>
