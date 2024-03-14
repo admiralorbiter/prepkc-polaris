@@ -152,26 +152,31 @@ def add_session():
     session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()  # Adjust the format if needed
     session_time = datetime.strptime(session_time_str, '%H:%M').time()  # Adjust the format if needed
 
-    # Find or create the School entity
-    school = School.query.filter_by(name=session_school_name).first()  # Assuming you are searching by name
+   # Find or create the School entity
+    school = School.query.filter_by(name=session_school_name).first()
     if not school:
-        # If the school doesn't exist, create a new one (optional)
         school = School(name=session_school_name)
         db.session.add(school)
-        db.session.commit()
-    status = "Confirmed"
+        # Don't commit yet, as we might need to roll back if something fails later
+
+    # Find or create the Presenter entity
     presenter = Presenter.query.filter_by(name=session_presenter).first()
     if not presenter:
         presenter = Presenter(name=session_presenter, organization=session_organization)
         db.session.add(presenter)
-        db.session.commit()
-    # Create a new session object and add to the database
+        # Don't commit yet for the same reason as above
+    status="Pending"
+    # Create a new session object
     new_session = Session(title=session_title, date=session_date, start_time=session_time, status=status)
-    # new_session.schools.append(school)  # Add the school to the session
+    
+    # Associate the school and presenter with the session
+    new_session.schools.append(school)  # Assuming 'schools' is a many-to-many relationship
+    new_session.presenters.append(presenter)  # Assuming 'presenters' is a one-to-many relationship
+
     db.session.add(new_session)
-    db.session.commit()
-    print(new_session.id)
-    # Redirect to the 'sessions_page' or return an appropriate response
+    db.session.commit()  # Now commit everything including the associations
+
+    # Redirect or return a response
     return redirect(url_for('sessions_list'))
 
 
