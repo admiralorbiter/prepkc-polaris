@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Polaris: Our North Star{% endblock %}
+
+{% block content %}
+<h1>Schools</h1>
+    <div class="m-3">
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addSchoolModal">
+          Add School
+        </button>
+    </div>
+    <div class="model fade" id="addSchoolModal" tabindex="-1" aria-labelledby="addSchoolModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSchoolModalLabel">Add School</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addSchoolForm" hx-post="/add-school">
+                        <div class="mb-3">
+                            <label for="schoolName" class="form-label">School Name</label>
+                            <input type="text" class="form-control" id="schoolName" name="schoolName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="schoolState" class="form-label">School State</label>
+                            <input type="text" class="form-control" id="schoolState" name="schoolState" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="schoolLevel" class="form-label">School Level</label>
+                            <input type="text" class="form-control" id="schoolLevel" name="schoolLevel" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" form="addTeacherForm">Add Teacher</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="schoolsTable" hx-get="/load-school-table" hx-trigger="load">
+         <!-- session_table.html content will be loaded here -->
+         Loading Data Please Wait...
+    </div>
+{% endblock %}

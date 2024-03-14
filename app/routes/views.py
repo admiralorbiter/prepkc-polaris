@@ -262,3 +262,21 @@ def teachers():
 def load_teacher_table():
     teachers = Teacher.query.all()
     return render_template("/tables/teacher_table.html", teachers=teachers)
+
+@app.route("/schools", methods=["GET"])
+def schools():
+    return render_template("schools.html")
+
+@app.route("/load-school-table", methods=["GET"])
+def load_school_table():
+    schools = School.query.all()
+    return render_template("/tables/school_table.html", schools=schools)
+
+@app.route("/presenters", methods=["GET"])
+def presenters():
+    return render_template("presenters.html")
+
+@app.route("/load-presenter-table", methods=["GET"])
+def load_presenter_table():
+    presenters = Presenter.query.all()
+    return render_template("/tables/presenter_table.html", presenters=presenters)
