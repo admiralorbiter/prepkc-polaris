@@ -9,14 +9,14 @@
           Add School
         </button>
     </div>
-    <div class="model fade" id="addSchoolModal" tabindex="-1" aria-labelledby="addSchoolModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addSchoolModal" tabindex="-1" aria-labelledby="addSchoolModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addSchoolModalLabel">Add School</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                    <div class="modal-body">
                     <form id="addSchoolForm" hx-post="/add-school">
                         <div class="mb-3">
                             <label for="schoolName" class="form-label">School Name</label>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" form="addTeacherForm">Add Teacher</button>
+                            <button type="submit" class="btn btn-primary" form="addSchoolForm">Add School</button>
                         </div>
                     </form>
                 </div>
