@@ -221,6 +221,33 @@ def delete_session():
         return '', 200  # Return an empty response with a 200 OK status
     else:
         return 'Session not found', 404  # Return a 404 if the session doesn't exist
+    
+@app.route('/delete-school', methods=['DELETE'])
+def delete_school():
+    school_id = request.args.get('school_id')
+    school = School.query.filter_by(id=school_id).first()
+    if school:
+        db.session.delete(school)
+        db.session.commit()
+        return '', 200
+    
+@app.route('/delete-teacher', methods=['DELETE'])
+def delete_teacher():
+    teacher_id = request.args.get('teacher_id')
+    teacher = Teacher.query.filter_by(id=teacher_id).first()
+    if teacher:
+        db.session.delete(teacher)
+        db.session.commit()
+        return '', 200
+    
+@app.route('/delete-presenter', methods=['DELETE'])
+def delete_presenter():
+    presenter_id = request.args.get('presenter_id')
+    presenter = Presenter.query.filter_by(id=presenter_id).first()
+    if presenter:
+        db.session.delete(presenter)
+        db.session.commit()
+        return '', 200
 
 @app.route('/clear-edit-pane', methods=['GET'])
 def clear_edit_pane():

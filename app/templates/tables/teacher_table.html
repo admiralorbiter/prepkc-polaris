@@ -5,6 +5,7 @@
             <th>Name</th>
             <th>School Name</th>
             <th>Sessions</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,9 @@
                     <li>{{ session.title}}</li>
                     {% endfor %}
                 </ul>
+            </td>
+            <td>
+                <a href="#" hx-delete="/delete-teacher?teacher_id={{ teacher.id }}" hx-target="closest tr" hx-swap="outerHTML delete" hx-confirm="Are you sure you want to delete this teacher?" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>
         {% endfor %}
