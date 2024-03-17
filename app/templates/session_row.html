@@ -17,6 +17,17 @@
         {% endif %}
     </td>
     <td>
+        {% if session.teachers %}
+            {% set teacher_names = [] %}
+            {% for teacher in session.teachers %}
+                {% set _ = teacher_names.append(teacher.name) %}
+            {% endfor %}
+            {{ teacher_names|join(', ') }}
+        {% else %}
+            Teacher not set
+        {% endif %}
+    </td>
+    <td>
         {% if session.presenters %}
             {% set presenter_names = [] %}
             {% for presenter in session.presenters %}

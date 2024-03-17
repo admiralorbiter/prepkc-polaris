@@ -70,6 +70,17 @@
                 </div>
             </th>
             <th class="">
+                <div class="">Teachers</div>
+                <div class="">
+                    <a href="#" hx-get="/load-sessions-table?sort=teacher&direction=asc" hx-target="#sessionsTable" hx-trigger="click">
+                        <i class="fas fa-sort-up"></i>
+                    </a>
+                    <a href="#" hx-get="/load-sessions-table?sort=teacher&direction=desc" hx-target="#sessionsTable" hx-trigger="click">
+                        <i class="fas fa-sort-down"></i>
+                    </a>
+                </div>
+            </th>
+            <th class="">
                 <div class="">Presenter</div>
                 <div class="">
                     <a href="#" hx-get="/load-sessions-table?sort=presenter&direction=asc" hx-target="#sessionsTable" hx-trigger="click">

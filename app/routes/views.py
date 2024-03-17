@@ -138,6 +138,27 @@ def add_teacher():
     print(teacher.school_name)
     return "Submitted"
 
+@app.route("/add-school", methods=["POST"])
+def add_school():
+    name = request.form.get('schoolName')
+    state = request.form.get('schoolState')
+    level = request.form.get('schoolLevel')
+    school = School(name=name, state=state, level=level)
+    db.session.add(school)
+    db.session.commit()
+    return "Submitted"
+
+@app.route("/add-presenter", methods=["POST"])
+def add_presenter():
+    name = request.form.get('presenterName')
+    email = request.form.get('presenterEmail')
+    phone = request.form.get('presenterPhone')
+    organization = request.form.get('presenterOrganization')
+    presenter = Presenter(name=name, email=email, phone=phone, organization=organization)
+    db.session.add(presenter)
+    db.session.commit()
+    return "Submitted"
+    
 @app.route('/add-session', methods=['POST'])
 def add_session():
     # Get form data
