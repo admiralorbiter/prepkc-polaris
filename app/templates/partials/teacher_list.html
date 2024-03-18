@@ -1,0 +1,20 @@
+{% for teacher in teachers %}
+<a href="#" class="list-group-item list-group-item-action" onclick="document.getElementById('teacherName').value = '{{ teacher.name }}'; document.getElementById('teacherNameSuggestions').innerHTML = '';">{{ teacher.name }}</a>
+{% endfor %}
+<script>
+    document.addEventListener('click', function(event) {
+        var isClickInsideElement = document.getElementById('teacherName').contains(event.target) || document.getElementById('teacherNameSuggestions').contains(event.target);
+        if (!isClickInsideElement) {
+            document.getElementById('teacherNameSuggestions').innerHTML = '';
+        }
+    });
+</script>
+<style>
+    #teacherNameSuggestions .list-group-item {
+    cursor: pointer;
+}
+#teacherNameSuggestions .list-group-item:hover {
+    background-color: #f8f9fa; /* Light grey */
+}
+</style>
+    

@@ -22,6 +22,16 @@ def soft_delete(self):
 def index():
     return render_template("index.html")
 
+@app.route("/playground", methods=["GET"])
+def playground():
+    return render_template("playground.html")
+
+@app.route("/search-teachers", methods=["GET"])
+def search_teachers():
+    teacher_name = request.args.get('teacherName')
+    teachers = Teacher.query.filter(Teacher.name.ilike(f'%{teacher_name}%')).all()
+    return render_template("/partials/teacher_list.html", teachers=teachers)
+
 @app.route("/kcps", methods=["GET"])
 def kcps():
     return render_template("/districts/kcps/kcps.html")
@@ -262,19 +272,13 @@ def update_session():
             session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d')
         session.status = request.form.get('status', session.status)
 
-        # Handle multiple schools
-        schools_input = request.form.get('schools')
-        if schools_input:
-            school_names = [name.strip() for name in schools_input.split(',')]
-            print(school_names)
-            session.schools = []  # Clear existing schools
-
-            for school_name in school_names:
-                school = School.query.filter_by(name=school_name).first()
-                if not school:
-                    school = School(name=school_name)
-                    db.session.add(school)
-                session.schools.append(school)
+        teacher_input = request.form.get('teacherName')
+        if teacher_input:
+            teacher = Teacher.query.filter_by(name=teacher_input).first()
+            if not teacher:
+                teacher = Teacher(name=teacher_input)
+                db.session.add(teacher)
+            session.teachers = [teacher]
 
         # Handle multiple presenters
         presenters_input = request.form.get('presenters')
