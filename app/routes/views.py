@@ -28,7 +28,8 @@ def playground():
 
 @app.route("/search-teachers", methods=["GET"])
 def search_teachers():
-    teacher_name = request.args.get('teacherName')
+    teacher_name = request.args.get('teacherSearch')
+    print(teacher_name)
     teachers = Teacher.query.filter(Teacher.name.ilike(f'%{teacher_name}%')).all()
     return render_template("/partials/teacher_list.html", teachers=teachers)
 
@@ -272,13 +273,13 @@ def update_session():
             session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d')
         session.status = request.form.get('status', session.status)
 
-        teacher_input = request.form.get('teacherName')
-        if teacher_input:
-            teacher = Teacher.query.filter_by(name=teacher_input).first()
-            if not teacher:
-                teacher = Teacher(name=teacher_input)
-                db.session.add(teacher)
-            session.teachers = [teacher]
+        # Handle multiple teachers
+        teacher_ids = request.form.getlist('teacherIds[]')  # Get the list of teacher IDs
+        session.teachers = []  # Clear existing teachers
+        for teacher_id in teacher_ids:
+            teacher = Teacher.query.get(teacher_id)  # Use `get` for ID lookup
+            if teacher:
+                session.teachers.append(teacher)
 
         # Handle multiple presenters
         presenters_input = request.form.get('presenters')
@@ -292,9 +293,6 @@ def update_session():
                     presenter = Presenter(name=presenter_name)
                     db.session.add(presenter)
                 session.presenters.append(presenter)
-
-        
-
 
         db.session.commit()
 

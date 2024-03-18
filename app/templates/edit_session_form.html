@@ -17,8 +17,11 @@
     </div>
     <div class="mb-3">
         <label for="teacherName" class="form-label">Session Teachers</label>
-        <input type="text" class="form-control" id="teacherName" name="teacherName" required hx-get="/search-teachers" hx-trigger="keyup changed delay:500ms" hx-target="#teacherNameSuggestions" hx-swap="innerHTML" autocomplete="off">
-        <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+        <div id="selectedTeachers" class="mb-3">
+            <!-- Selected teachers will be displayed here as tags -->
+        </div>
+        <input type="text" class="form-control" id="teacherSearch" name="teacherSearch" placeholder="Type to search and add teachers..." hx-get="/search-teachers" hx-trigger="keyup changed delay:500ms" hx-target="#teacherNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+        <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
     </div>
     <div class="mb-3">
         <label for="sessionPresenter" class="form-label">Session Presenter</label>
