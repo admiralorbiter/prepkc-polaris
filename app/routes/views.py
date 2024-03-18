@@ -164,41 +164,34 @@ def add_session():
     # Get form data
     session_date_str = request.form.get('sessionDate')
     session_time_str = request.form.get('sessionTime')
-    session_school_name = request.form.get('sessionSchool')  # This should ideally be an identifier like an ID
     session_title = request.form.get('sessionTitle')
-    session_presenter = request.form.get('sessionPresenter')
-    session_organization = request.form.get('sessionOrganization')
+    session_lead_teacher = request.form.get('sessionLead')
 
-     # Convert date and time strings to datetime objects
+    # Convert date and time strings to datetime objects
     session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()  # Adjust the format if needed
     session_time = datetime.strptime(session_time_str, '%H:%M').time()  # Adjust the format if needed
 
-   # Find or create the School entity
-    school = School.query.filter_by(name=session_school_name).first()
-    if not school:
-        school = School(name=session_school_name)
-        db.session.add(school)
-        # Don't commit yet, as we might need to roll back if something fails later
+    # Query for the lead teacher, or create a new one if it doesn't exist
+    teacher = Teacher.query.filter_by(name=session_lead_teacher).first()
+    if not teacher:
+        # If the teacher doesn't exist, create and add to the session
+        teacher = Teacher(name=session_lead_teacher)
+        db.session.add(teacher)
+        db.session.flush()  # Flush to assign an ID if it's a new teacher
 
-    # Find or create the Presenter entity
-    presenter = Presenter.query.filter_by(name=session_presenter).first()
-    if not presenter:
-        presenter = Presenter(name=session_presenter, organization=session_organization)
-        db.session.add(presenter)
-        # Don't commit yet for the same reason as above
-    status="Pending"
     # Create a new session object
-    new_session = Session(title=session_title, date=session_date, start_time=session_time, status=status)
+    new_session = Session(date=session_date, start_time=session_time, title=session_title, status="Pending")
     
-    # Associate the school and presenter with the session
-    new_session.schools.append(school)  # Assuming 'schools' is a many-to-many relationship
-    new_session.presenters.append(presenter)  # Assuming 'presenters' is a one-to-many relationship
+    # Add the teacher to the session's teachers list
+    new_session.teachers.append(teacher)
 
+    # Add the new session to the DB session and commit
     db.session.add(new_session)
-    db.session.commit()  # Now commit everything including the associations
+    db.session.commit()
 
     # Redirect or return a response
     return redirect(url_for('sessions_list'))
+
 
 
 @app.route('/edit-session', methods=['GET'])
