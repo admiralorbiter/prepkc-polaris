@@ -25,6 +25,14 @@
                 <input type="text" class="form-control" id="teacherSearch" name="teacherSearch" placeholder="Type to search and add teachers..." hx-get="/search-teachers" hx-trigger="keyup changed delay:500ms" hx-target="#teacherNameSuggestions" hx-swap="innerHTML" autocomplete="off">
                 <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
             </div>
+            <div class="mb-3">
+                <label for="presenterSearch" class="form-label">Session Presenters</label>
+                <div id="selectedPresenters" class="mb-3">
+                    <!-- Selected presenters will be displayed here as tags -->
+                </div>
+                <input type="text" class="form-control" id="presenterSearch" name="presenterSearch" placeholder="Type to search and add presenters..." hx-get="/search-presenters" hx-trigger="keyup changed delay:500ms" hx-target="#presenterNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+                <div id="presenterNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+            </div>
             <button type="submit" class="btn btn-primary">Add Session</button>
         </form>
     </div>

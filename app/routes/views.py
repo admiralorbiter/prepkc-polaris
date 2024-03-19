@@ -33,6 +33,12 @@ def search_teachers():
     teachers = Teacher.query.filter(Teacher.name.ilike(f'%{teacher_name}%')).all()
     return render_template("/partials/teacher_list.html", teachers=teachers)
 
+@app.route("/search-presenters", methods=["GET"])
+def search_presenters():
+    presenter_name = request.args.get('presenterSearch')
+    presenters = Presenter.query.filter(Presenter.name.ilike(f'%{presenter_name}%')).all()
+    return render_template("/partials/presenter_list.html", presenters=presenters)
+
 @app.route("/kcps", methods=["GET"])
 def kcps():
     return render_template("/districts/kcps/kcps.html")
@@ -259,43 +265,24 @@ def clear_edit_pane():
 @app.route('/update-session', methods=['POST'])
 def update_session():
     session_id = request.form.get('session_id')
-    # Fetch the session object using session_id
     session = Session.query.filter_by(id=session_id).first()
 
     if not session:
         return redirect(url_for('sessions_list'))
 
     try:
-        # Update session with the new data
         session.title = request.form.get('title', session.title)
-        if request.form.get('date'):
-            session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d')
+        session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d') if request.form.get('date') else session.date
         session.status = request.form.get('status', session.status)
 
-        # Handle multiple teachers
-        teacher_ids = request.form.getlist('teacherIds[]')  # Get the list of teacher IDs
-        session.teachers = []  # Clear existing teachers
-        for teacher_id in teacher_ids:
-            teacher = Teacher.query.get(teacher_id)  # Use `get` for ID lookup
-            if teacher:
-                session.teachers.append(teacher)
+        teacher_ids = request.form.getlist('teacherIds[]')
+        session.teachers = [Teacher.query.get(teacher_id) for teacher_id in teacher_ids if Teacher.query.get(teacher_id)]
 
-        # Handle multiple presenters
-        presenters_input = request.form.get('presenters')
-        if presenters_input:
-            presenter_names = [name.strip() for name in presenters_input.split(';')]
-            session.presenters = []  # Clear existing presenters
-
-            for presenter_name in presenter_names:
-                presenter = Presenter.query.filter_by(name=presenter_name).first()
-                if not presenter:
-                    presenter = Presenter(name=presenter_name)
-                    db.session.add(presenter)
-                session.presenters.append(presenter)
+        presenter_ids = request.form.getlist('presenterIds[]')
+        session.presenters = [Presenter.query.get(presenter_id) for presenter_id in presenter_ids if Presenter.query.get(presenter_id)]
 
         db.session.commit()
-
-        # return render_template('session_row.html', session=session)
+        
         updated_row = render_template('/tables/session_row.html', session=session)
         
         # Script to clear the edit pane

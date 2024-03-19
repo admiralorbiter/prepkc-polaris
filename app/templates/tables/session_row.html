@@ -40,7 +40,11 @@
     </td>
     <td>
         {% if session.presenters %}
-            {{ session.presenters[0].organization if session.presenters[0].organization else 'Organization not set' }}
+            {% set presenter_orgs = [] %}
+            {% for presenter in session.presenters %}
+                {% set _ = presenter_orgs.append(presenter.organization) %}
+            {% endfor %}
+            {{ presenter_orgs|join(', ') }}
         {% else %}
             No Presenter
         {% endif %}

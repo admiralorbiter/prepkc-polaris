@@ -24,9 +24,13 @@
         <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
     </div>
     <div class="mb-3">
-        <label for="sessionPresenter" class="form-label">Session Presenter</label>
-        <input type="text" class="form-control" id="sessionPresenter" name="presenters"  value="{% for presenter in session.presenters %}{{ presenter.name }}{% if not loop.last %}, {% endif %}{% endfor %}">
-    </div>
+        <label for="presenterSearch" class="form-label">Session Presenters</label>
+        <div id="selectedPresenters" class="mb-3">
+            <!-- Selected presenters will be displayed here as tags -->
+        </div>
+        <input type="text" class="form-control" id="presenterSearch" name="presenterSearch" placeholder="Type to search and add presenters..." hx-get="/search-presenters" hx-trigger="keyup changed delay:500ms" hx-target="#presenterNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+        <div id="presenterNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+    </div>    
     <input type="hidden" name="session_id" value="{{ session.id }}">
     <div class="mb-3 d-flex justify-content-between">
         <button type="submit" class="btn btn-primary">Save Changes</button>
