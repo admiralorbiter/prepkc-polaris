@@ -155,6 +155,10 @@ def get_add_teacher():
 def get_add_presenter():
     return render_template("/modals/add_presenter.html")
 
+@app.route("/get-add-school", methods=["GET"])
+def get_add_school():
+    return render_template("/modals/add_school.html")
+
 @app.route("/load-sessions-table", methods=["GET"])
 def load_sessions_table():
     sessions = Session.query.all()
