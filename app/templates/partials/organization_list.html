@@ -1,0 +1,34 @@
+{% for organization in organizations %}
+<a href="#" class="list-group-item list-group-item-action" onclick="selectOrganization('{{ organization }}'); return false;">{{ organization }}</a>
+{% endfor %}
+
+<script>
+    function selectOrganization(name) {
+        document.getElementById('organizationSearch').value = name;
+        document.getElementById('organizationNameSuggestions').innerHTML = '';
+    }
+    document.addEventListener('click', function(event) {
+        if (!document.getElementById('organizationSearch').contains(event.target)) {
+            document.getElementById('organizationNameSuggestions').innerHTML = '';
+        }
+    });
+</script>
+
+<style>
+    #organizationNameSuggestions .list-group-item {
+        cursor: pointer;
+    }
+    #organizationNameSuggestions .list-group-item:hover {
+        background-color: #f8f9fa; /* Light grey */
+    }
+    #selectedOrganizations .badge {
+        padding: 0.5em 0.75em;
+        font-size: 0.875rem;
+        margin-bottom: 0.5em;
+        display: inline-flex;
+        align-items: center;
+    }
+    #selectedOrganizations .badge i {
+        margin-left: 0.5em;
+    }
+</style>

@@ -1,0 +1,41 @@
+{% for school in schools %}
+<a href="#" class="list-group-item list-group-item-action" onclick="addSchoolTag('{{ school.name }}', '{{ school.id }}'); return false;">{{ school.name }}</a>
+{% endfor %}
+
+<script>
+    function addSchoolTag(name, id) {
+        // Set the selected school ID in the hidden input
+        document.getElementById('selectedSchoolId').value = id;
+    
+        // Optional: Display the selected school's name for visual confirmation
+        document.getElementById('schoolSearch').value = name;
+    
+        // Clear the school search suggestions
+        document.getElementById('schoolNameSuggestions').innerHTML = '';
+    }
+
+    document.addEventListener('click', function(event) {
+        if (!document.getElementById('schoolSearch').contains(event.target)) {
+            document.getElementById('schoolNameSuggestions').innerHTML = '';
+        }
+    });
+</script>
+
+<style>
+    #schoolNameSuggestions .list-group-item {
+        cursor: pointer;
+    }
+    #schoolNameSuggestions .list-group-item:hover {
+        background-color: #f8f9fa; /* Light grey */
+    }
+    #selectedSchools .badge {
+        padding: 0.5em 0.75em;
+        font-size: 0.875rem;
+        margin-bottom: 0.5em;
+        display: inline-flex;
+        align-items: center;
+    }
+    #selectedSchools .badge i {
+        margin-left: 0.5em;
+    }
+</style>

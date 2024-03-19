@@ -39,6 +39,20 @@ def search_presenters():
     presenters = Presenter.query.filter(Presenter.name.ilike(f'%{presenter_name}%')).all()
     return render_template("/partials/presenter_list.html", presenters=presenters)
 
+@app.route("/search-schools", methods=["GET"])
+def search_schools():
+    school_name = request.args.get('schoolSearch')
+    schools = School.query.filter(School.name.ilike(f'%{school_name}%')).all()
+    return render_template("/partials/school_list.html", schools=schools)
+
+@app.route("/search-organizations", methods=["GET"])
+def search_organizations():
+    organization_name = request.args.get('organizationSearch')
+    print(organization_name)
+    organizations = db.session.query(Presenter.organization).filter(Presenter.organization.ilike(f'%{organization_name}%')).distinct().all()
+    organizations = [org[0] for org in organizations if org[0]]  # Unpack and remove None
+    return render_template("/partials/organization_list.html", organizations=organizations)
+
 @app.route("/kcps", methods=["GET"])
 def kcps():
     return render_template("/districts/kcps/kcps.html")
@@ -133,6 +147,14 @@ def sessions():
 def get_add_session():
     return render_template("/modals/add_session.html")
 
+@app.route("/get-add-teacher", methods=["GET"])
+def get_add_teacher():
+    return render_template("/modals/add_teacher.html")
+
+@app.route("/get-add-presenter", methods=["GET"])
+def get_add_presenter():
+    return render_template("/modals/add_presenter.html")
+
 @app.route("/load-sessions-table", methods=["GET"])
 def load_sessions_table():
     sessions = Session.query.all()
@@ -148,15 +170,18 @@ def sessions_list():
     sessions = Session.query.all()
     return render_template("/partials/session_list.html", sessions=sessions)
 
+#Note: Need to make teacher store the school_id instead of the school name
 @app.route("/add-teacher", methods=["POST"])
 def add_teacher():
     teacher_name = request.form.get('teacherName')
-    school_name = request.form.get('schoolName')
-    teacher = Teacher(name=teacher_name, school_name=school_name)
+    school_id = request.form.get('schoolId')
+    teacher = Teacher(name=teacher_name)
+    if school_id:
+        school = School.query.get(school_id)
+        if school:
+            teacher.school_name = school.name
     db.session.add(teacher)
     db.session.commit()
-    print(teacher.id)
-    print(teacher.school_name)
     return "Submitted"
 
 @app.route("/add-school", methods=["POST"])
@@ -174,11 +199,18 @@ def add_presenter():
     name = request.form.get('presenterName')
     email = request.form.get('presenterEmail')
     phone = request.form.get('presenterPhone')
-    organization = request.form.get('presenterOrganization')
+    organization = request.form.get('presenterOrganization')  # Directly get the organization name from the form
+
+    # Create a new Presenter instance with the form data
     presenter = Presenter(name=name, email=email, phone=phone, organization=organization)
+
+    # Add and commit the new presenter to the database
     db.session.add(presenter)
     db.session.commit()
+
     return "Submitted"
+
+
     
 @app.route('/add-session', methods=['POST'])
 def add_session():
