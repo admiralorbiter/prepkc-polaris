@@ -18,6 +18,7 @@
     <div id="details">
         <!-- Session details will be loaded here by HTMX -->
     </div>
+    
     {% set filter_id = 'statusFilter' %}
     {% set filter_name = 'statusFilter' %}
     {% set label = 'Filter by Status:' %}
@@ -26,7 +27,7 @@
     
     {% include '/partials/status_filter.html' %}
 
-    <form id="dateFilterForm" hx-get="/load-sessions-table" hx-target="#sessionsTable" hx-trigger="change from:#dateFilterForm">
+    <form id="dateFilterForm" hx-get="/filter-sessions-by-date" hx-target="#sessionsTable" hx-trigger="change from:#dateFilterForm">
         <div class="row">
             <div class="col-6">
                 <label for="startDate">Start Date:</label>
@@ -38,7 +39,7 @@
             </div>
         </div>
     </form>
-
+    
     <div id="sessionsTable" hx-get="/load-sessions-table" hx-trigger="load">
         <!-- session_table.html content will be loaded here -->
         Loading Data Please Wait...

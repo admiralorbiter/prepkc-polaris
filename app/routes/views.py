@@ -214,8 +214,30 @@ def add_presenter():
 
     return "Submitted"
 
+@app.route("/filter-sessions", methods=["GET"])
+def filter_sessions():
+    status_filter = request.args.get('statusFilter', 'All')
+    print(status_filter)
+    if status_filter == 'All':
+        sessions = Session.query.all()
+    else:
+        sessions = Session.query.filter_by(status=status_filter).all()
 
-    
+    return render_template("/tables/session_table.html", sessions=sessions)
+
+@app.route("/filter-sessions-by-date", methods=["GET"])
+def filter_sessions_by_date():
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+
+    if start_date and end_date:
+        sessions = Session.query.filter(Session.date >= start_date, Session.date <= end_date).all()
+    else:
+        sessions = Session.query.all()
+
+    return render_template("/tables/session_table.html", sessions=sessions)
+
+
 @app.route('/add-session', methods=['POST'])
 def add_session():
     # Get form data
