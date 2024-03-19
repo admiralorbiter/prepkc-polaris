@@ -209,7 +209,7 @@ def edit_session():
     session_id = request.args.get('session_id')
     session = Session.query.filter_by(id=session_id).first()
     if session:
-        return render_template('edit_session_form.html', session=session)
+        return render_template('/forms/edit_session_form.html', session=session)
     else:
         return 'Session not found', 404
 

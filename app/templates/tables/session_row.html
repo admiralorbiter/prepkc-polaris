@@ -6,14 +6,14 @@
     <td>{{ session.start_time.strftime('%H:%M') if session.start_time else 'Time not set' }}</td>
     <td>{{ session.status }}</td>
     <td>
-        {% if session.schools %}
+        {% if session.teachers %}
             {% set school_names = [] %}
-            {% for school in session.schools %}
-                {% set _ = school_names.append(school.name) %}
+            {% for teacher in session.teachers %}
+                {% set _ = school_names.append(teacher.school_name) %}
             {% endfor %}
             {{ school_names|join(', ') }}
         {% else %}
-            School not set
+            Teacher not set
         {% endif %}
     </td>
     <td>
