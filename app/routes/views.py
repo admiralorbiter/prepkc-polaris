@@ -176,25 +176,20 @@ def add_session():
     session_date_str = request.form.get('sessionDate')
     session_time_str = request.form.get('sessionTime')
     session_title = request.form.get('sessionTitle')
-    session_lead_teacher = request.form.get('sessionLead')
 
     # Convert date and time strings to datetime objects
     session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()  # Adjust the format if needed
     session_time = datetime.strptime(session_time_str, '%H:%M').time()  # Adjust the format if needed
 
-    # Query for the lead teacher, or create a new one if it doesn't exist
-    teacher = Teacher.query.filter_by(name=session_lead_teacher).first()
-    if not teacher:
-        # If the teacher doesn't exist, create and add to the session
-        teacher = Teacher(name=session_lead_teacher)
-        db.session.add(teacher)
-        db.session.flush()  # Flush to assign an ID if it's a new teacher
-
     # Create a new session object
     new_session = Session(date=session_date, start_time=session_time, title=session_title, status="Pending")
     
     # Add the teacher to the session's teachers list
-    new_session.teachers.append(teacher)
+    teacher_ids = request.form.getlist('teacherIds[]')  # Get the list of teacher IDs
+    for teacher_id in teacher_ids:
+        teacher = Teacher.query.get(teacher_id)  # Use `get` for ID lookup
+        if teacher:
+            new_session.teachers.append(teacher)
 
     # Add the new session to the DB session and commit
     db.session.add(new_session)
