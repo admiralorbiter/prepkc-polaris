@@ -244,8 +244,6 @@ def add_session():
     # Redirect or return a response
     return redirect(url_for('sessions_list'))
 
-
-
 @app.route('/edit-session', methods=['GET'])
 def edit_session():
     session_id = request.args.get('session_id')
@@ -254,6 +252,99 @@ def edit_session():
         return render_template('/forms/edit_session_form.html', session=session)
     else:
         return 'Session not found', 404
+
+@app.route('/edit-teacher', methods=['GET'])
+def edit_teacher():
+    teacher_id = request.args.get('teacher_id')
+    teacher = Teacher.query.filter_by(id=teacher_id).first()
+    if teacher:
+        return render_template('/forms/edit_teacher.html', teacher=teacher)
+    else:
+        return 'Teacher not found', 404
+    
+@app.route('/edit-presenter', methods=['GET'])
+def edit_presenter():
+    presenter_id = request.args.get('presenter_id')
+    presenter = Presenter.query.filter_by(id=presenter_id).first()
+    if presenter:
+        return render_template('/forms/edit_presenter.html', presenter=presenter)
+    else:
+        return 'Presenter not found', 404
+    
+@app.route('/edit-school', methods=['GET'])
+def edit_school():
+    school_id = request.args.get('school_id')
+    school = School.query.filter_by(id=school_id).first()
+    if school:
+        return render_template('/forms/edit_school.html', school=school)
+    else:
+        return 'School not found', 404
+
+@app.route("/update-teacher", methods=["POST"])
+def update_teacher():
+    teacher_id = request.form.get('teacher_id')
+    teacher_name = request.form.get('teacherName')
+    school_id = request.form.get('schoolId')
+
+    # Fetch the teacher object by ID
+    teacher = Teacher.query.get(teacher_id)
+
+    if not teacher:
+        # Handle the case where the teacher does not exist
+        return "Teacher not found", 404
+
+    # Update the teacher's attributes
+    teacher.name = teacher_name
+    if school_id:
+        school = School.query.get(school_id)
+        if school:
+            teacher.school_name = school.name
+    # Commit the changes to the database
+    db.session.commit()
+
+    # Redirect to the teachers list or return a success message
+    return redirect(url_for('teachers'))
+
+@app.route('/update-presenter', methods=['POST'])
+def update_presenter():
+    presenter_id = request.form.get('presenter_id')
+    name = request.form.get('presenterName')
+    email = request.form.get('presenterEmail')
+    phone = request.form.get('presenterPhone')
+    organization = request.form.get('presenterOrganization')
+
+    presenter = Presenter.query.get(presenter_id)
+    if not presenter:
+        return "Presenter not found", 404
+
+    presenter.name = name
+    presenter.email = email
+    presenter.phone = phone
+    presenter.organization = organization
+
+    db.session.commit()
+
+    return redirect(url_for('presenters'))
+
+@app.route('/update-school', methods=['POST'])
+def update_school():
+    school_id = request.form.get('school_id')
+    name = request.form.get('schoolName')
+    state = request.form.get('schoolState')
+    level = request.form.get('schoolLevel')
+
+    school = School.query.get(school_id)
+    if not school:
+        return "School not found", 404
+
+    school.name = name
+    school.state = state
+    school.level = level
+
+    db.session.commit()
+
+    return redirect(url_for('schools'))
+
 
 @app.route('/delete-session', methods=['DELETE'])
 def delete_session():
