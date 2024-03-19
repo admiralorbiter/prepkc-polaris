@@ -18,6 +18,14 @@
                 <input type="time" class="form-control" id="sessionTime" name="sessionTime" required>
             </div>
             <div class="mb-3">
+                <button hx-get="/get-add-teacher" hx-target="#addTeacherModal .modal-content" data-bs-toggle="modal" data-bs-target="#addTeacherModal" hx-trigger="click" class="btn btn-primary">Add Teacher</button>
+                <div id="addTeacherModal" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal content loaded by HTMX will go here -->
+                        </div>
+                    </div>
+                </div>
                 <label for="teacherName" class="form-label">Session Teachers</label>
                 <div id="selectedTeachers" class="mb-3">
                     <!-- Selected teachers will be displayed here as tags -->
@@ -26,6 +34,13 @@
                 <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
             </div>
             <div class="mb-3">
+                <button hx-get="/get-add-presenter" hx-target="#addPresenterModal .modal-content" data-bs-toggle="modal" data-bs-target="#addPresenterModal" hx-trigger="click" class="btn btn-primary">Add Presenter</button>
+                <div class="modal fade" id="addPresenterModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
                 <label for="presenterSearch" class="form-label">Session Presenters</label>
                 <div id="selectedPresenters" class="mb-3">
                     <!-- Selected presenters will be displayed here as tags -->
