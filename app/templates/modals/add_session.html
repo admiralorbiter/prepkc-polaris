@@ -1,0 +1,31 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="addSessionModalLabel">Add Session</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form method="POST" hx-post="/add-session">
+            <div class="mb-3">
+                <label for="sessionTitle" class="form-label">Session Title</label>
+                <input type="text" class="form-control" id="sessionTitle" name="sessionTitle" required>
+            </div>
+            <div class="mb-3">
+                <label for="sessionDate" class="form-label">Session Date</label>
+                <input type="date" class="form-control" id="sessionDate" name="sessionDate" required>
+            </div>
+            <div class="mb-3">
+                <label for="sessionTime" class="form-label">Session Time</label>
+                <input type="time" class="form-control" id="sessionTime" name="sessionTime" required>
+            </div>
+            <div class="mb-3">
+                <label for="teacherName" class="form-label">Session Teachers</label>
+                <div id="selectedTeachers" class="mb-3">
+                    <!-- Selected teachers will be displayed here as tags -->
+                </div>
+                <input type="text" class="form-control" id="teacherSearch" name="teacherSearch" placeholder="Type to search and add teachers..." hx-get="/search-teachers" hx-trigger="keyup changed delay:500ms" hx-target="#teacherNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+                <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
+            </div>
+            <button type="submit" class="btn btn-primary">Add Session</button>
+        </form>
+    </div>
+</div>

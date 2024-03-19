@@ -123,10 +123,14 @@ def sessions():
     print(sessions_data)
     return render_template("sessions.html", sessions=sessions_data)
 
+@app.route("/get-add-session", methods=["GET"])
+def get_add_session():
+    return render_template("/modals/add_session.html")
+
 @app.route("/load-sessions-table", methods=["GET"])
 def load_sessions_table():
     sessions = Session.query.all()
-    return render_template("session_table.html", sessions=sessions)
+    return render_template("/tables/session_table.html", sessions=sessions)
 
 @app.route("/session_page", methods=["GET"])
 def sessions_page():
@@ -292,7 +296,7 @@ def update_session():
         db.session.commit()
 
         # return render_template('session_row.html', session=session)
-        updated_row = render_template('session_row.html', session=session)
+        updated_row = render_template('/tables/session_row.html', session=session)
         
         # Script to clear the edit pane
         clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
