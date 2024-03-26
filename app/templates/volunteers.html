@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Volunteers{% endblock %}
+
+{% block content %}
+<h1>Volunteers</h1>
+<form method="GET" action="/volunteers">
+    <input type="text" name="search" placeholder="Search skills...">
+    <button type="submit">Search</button>
+</form>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Affiliation</th>
+            <th>Combined Skills and Categories</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for volunteer in volunteers %}
+        <tr>
+            <td>{{ volunteer.name }}</td>
+            <td>{{ volunteer.email }}</td>
+            <td>{{ volunteer.affiliation }}</td>
+            <td>
+                <ul>
+                    {% for skill in volunteer.combined_skills %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

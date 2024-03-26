@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, School, Session, Teacher, session_schools, Presenter
+from app.models import SessionRow, User, School, Session, Teacher, session_schools, Presenter, Volunteer
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
@@ -21,6 +21,31 @@ def soft_delete(self):
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
+
+@app.route('/volunteers')
+def volunteers():
+    search_query = request.args.get('search')
+    query = Volunteer.query  # Base query
+    if search_query:
+        search = f"%{search_query}%"
+        query = query.filter(or_(
+            Volunteer.job_category.like(search),
+            Volunteer.skills.like(search),
+            Volunteer.skills_text.like(search)
+        ))
+
+    # Use the filtered 'query' object to retrieve the list of volunteers
+    volunteer_list = query.all()
+
+    for volunteer in volunteer_list:
+        # Combine and split by different delimiters, then strip whitespace
+        combined_skills = volunteer.job_category.split(',') + volunteer.skills.split(',') + volunteer.skills_text.split(';')
+        # Remove empty strings and strip whitespace from each skill
+        combined_skills = [skill.strip() for skill in combined_skills if skill.strip()]
+        # Assign the combined, cleaned list back to the volunteer object for easy access in the template
+        volunteer.combined_skills = combined_skills
+
+    return render_template('volunteers.html', volunteers=volunteer_list)
 
 @app.route("/playground", methods=["GET"])
 def playground():

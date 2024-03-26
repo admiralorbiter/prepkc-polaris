@@ -117,3 +117,15 @@ class User(db.Model):
     active_subscription_name = db.Column(db.String) #missing
     last_session_date = db.Column(db.Date)
     affiliations = db.Column(db.String) #missing
+
+class Volunteer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=True)
+    affiliation = db.Column(db.String(255), nullable=True)
+    job_category = db.Column(db.String(255), nullable=True)
+    skills_text = db.Column(db.Text, nullable=True)  # For the textual description of skills
+    skills = db.Column(db.Text, nullable=True)  # You might want to use a more structured way to store multiple skills, like a relationship to another table
+
+    def __repr__(self):
+        return f'<Volunteer {self.name}>'
