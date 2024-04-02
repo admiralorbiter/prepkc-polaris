@@ -32,10 +32,15 @@ def parse_start_time(time_str):
         return None
 
 def import_data(csv_file_path):
+    session_map = {}  # Maps session titles to session instances
+
     with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
 
         for row in reader:
+            session_title = row['Session Title'].strip()
+            session_date = datetime.strptime(row['Date'], '%m/%d/%Y').date() if row['Date'] else None
+            session_status = row['Status'].strip()
             # School
             school, created = get_or_create(
                 School,
@@ -63,36 +68,47 @@ def import_data(csv_file_path):
                 }
             )
 
-            # Session
-            session_date = datetime.strptime(row['Date'], '%m/%d/%Y').date() if row['Date'] else None
-            session_time_str = row['Time'].strip()
-            session_time = parse_start_time(session_time_str) if session_time_str else None
+            # Check if this session title has already been encountered
+            if session_title in session_map:
+                session = session_map[session_title]
+                if session_status.lower() == 'simulcast':
+                    # For simulcast, just associate new teachers and schools without creating a new session
+                    if teacher not in session.teachers:
+                        session.teachers.append(teacher)
+                    if school not in session.schools:
+                        session.schools.append(school)
+                    continue  # Move to the next row without creating a new session or changing existing session details
+            else:
+                # This is a new session or the first entry of a session
+                session_time_str = row['Time'].strip()
+                session_time = parse_start_time(session_time_str) if session_time_str else None
 
-            if not session_date or not session_time:
-                print(f"Skipping row due to invalid date or time: {row}")
-                continue
+                if not session_time:
+                    print(f"Skipping session due to missing start time: {session_title}")
+                    continue
 
-            session, created = get_or_create(
-                Session,
-                title=row['Session Title'].strip(),
-                defaults={
-                    'status': row['Status'].strip(),
-                    'date': session_date,
-                    'start_time': session_time,
-                    'session_type': row['Session Type'].strip(),
-                    'topic': row['Topic/Theme'].strip(),
-                    'session_link': row['Session Link'].strip()
-                }
-            )
 
-            # Ensure that each teacher, presenter, and school is only added once to the session
-            if teacher not in session.teachers:
-                session.teachers.append(teacher)
-            if presenter not in session.presenters:
-                session.presenters.append(presenter)
-            if school not in session.schools:
-                session.schools.append(school)
+                session, created = get_or_create(
+                    Session,
+                    title=row['Session Title'].strip(),
+                    defaults={
+                        'status': row['Status'].strip(),
+                        'date': session_date,
+                        'start_time': session_time,
+                        'session_type': row['Session Type'].strip(),
+                        'topic': row['Topic/Theme'].strip(),
+                        'session_link': row['Session Link'].strip()
+                    }
+                )
 
+                # Ensure that each teacher, presenter, and school is only added once to the session
+                if teacher not in session.teachers:
+                    session.teachers.append(teacher)
+                if presenter not in session.presenters:
+                    session.presenters.append(presenter)
+                if school not in session.schools:
+                    session.schools.append(school)
+                session_map[session_title] = session
             db.session.add(session)
 
         db.session.commit()
