@@ -2,6 +2,7 @@ import csv
 from datetime import datetime
 from app import db, app
 from app.models import Session, Teacher, Presenter, School
+import re
 
 def get_or_create(model, defaults=None, **kwargs):
     instance = model.query.filter_by(**kwargs).first()
@@ -16,20 +17,33 @@ def get_or_create(model, defaults=None, **kwargs):
         return instance, True
 
 def parse_start_time(time_str):
-    # Extracts the start time from a time range string.
-    # Assumes time range is formatted as "HH:MM-HH:MM(am/pm)"
-    if '-' in time_str:
-        start_time_str = time_str.split('-')[0].strip()
-        am_pm = time_str.split('-')[1].strip()[-2:]  # Extracts the AM/PM part
-        start_time_str += am_pm  # Appends AM/PM to the start time
-    else:
-        start_time_str = time_str
+    # Normalize the time string by removing extra spaces and correcting common typos
+    time_str = time_str.replace(';', ':').replace(' ', '').lower()
 
-    try:
-        return datetime.strptime(start_time_str, '%I:%M%p').time()
-    except ValueError as e:
-        print(f"Error parsing time: {e}")
-        return None
+    # Define a pattern to match time formats, including those without minutes
+    time_pattern = r'(\d{1,2})(?::(\d{2}))?(am|pm)'
+
+    # Try to find a match for the time pattern
+    match = re.search(time_pattern, time_str)
+    if match:
+        hour, minute, am_pm = match.groups()
+        hour = int(hour)
+        minute = int(minute) if minute else 0  # Default to 0 if no minutes are specified
+
+        # Convert to 24-hour format if needed
+        if am_pm == 'pm' and hour < 12:
+            hour += 12
+        elif am_pm == 'am' and hour == 12:
+            hour = 0
+
+        # Construct the time object
+        try:
+            return datetime.strptime(f"{hour}:{minute}", "%H:%M").time()
+        except ValueError as e:
+            print(f"Error parsing time: {e}")
+
+    print(f"Unable to parse time: {time_str}")
+    return None
 
 def import_data(csv_file_path):
     session_map = {}  # Maps session titles to session instances

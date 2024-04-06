@@ -20,7 +20,7 @@ def soft_delete(self):
 # Home Page
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return render_template("sessions.html")
 
 @app.route('/volunteers')
 def volunteers():
