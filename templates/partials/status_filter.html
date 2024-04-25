@@ -1,0 +1,34 @@
+{% set filter_id = 'statusFilter' %}
+{% set filter_name = 'statusFilter' %}
+{% set label = 'Filter by Status:' %}
+{% set hx_get_url = '/filter-sessions' %}
+{% set hx_target = '#sessionsTable' %}
+<div class="row mb-3">
+    <div class="col-2">
+        <label for="{{ filter_id }}" class="form-label">{{ label }}</label>
+        <select id="{{ filter_id }}" name="{{ filter_name }}" class="form-select" hx-get="{{ hx_get_url }}" hx-target="{{ hx_target }}" hx-trigger="change">
+            <option value="All" {% if current_filter == 'All' %}selected{% endif %}>All</option>
+            <option value="Confirmed" {% if current_filter == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+            <option value="Completed" {% if current_filter == 'Completed' %}selected{% endif %}>Completed</option>
+            <option value="Draft" {% if current_filter == 'Draft' %}selected{% endif %}>Draft</option>
+            <option value="Requested" {% if current_filter == 'Requested' %}selected{% endif %}>Requested</option>
+        </select>
+    </div>
+    <div class="col-6">
+        <form id="dateFilterForm" hx-get="/filter-sessions-by-date" hx-target="#sessionsTable" hx-trigger="submit">
+            <div class="row">
+                <div class="col">
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" name="start_date" class="form-control" value="{{ start_date }}">
+                </div>
+                <div class="col">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" name="end_date" class="form-control" value="{{ end_date }}">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary mt-4">Filter by Date</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

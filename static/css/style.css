@@ -1,0 +1,27 @@
+/* Common styles for list-group items in suggestions */
+#presenterNameSuggestions .list-group-item,
+#teacherNameSuggestions .list-group-item {
+    cursor: pointer;
+}
+
+/* Hover effect for both teacher and presenter suggestions */
+#presenterNameSuggestions .list-group-item:hover,
+#teacherNameSuggestions .list-group-item:hover {
+    background-color: #f8f9fa; /* Light grey */
+}
+
+/* Common badge styling for selected presenters and teachers */
+#selectedPresenters .badge,
+#selectedTeachers .badge {
+    padding: 0.5em 0.75em;
+    font-size: 0.875rem;
+    margin-bottom: 0.5em;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Icon margin for badges in both selected presenters and teachers */
+#selectedPresenters .badge i,
+#selectedTeachers .badge i {
+    margin-left: 0.5em;
+}

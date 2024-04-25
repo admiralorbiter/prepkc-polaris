@@ -1,0 +1,4 @@
+{% for teacher in teachers %}
+<a href="#" class="list-group-item list-group-item-action" onclick="addTeacherTag('{{ teacher.name }}', '{{ teacher.id }}'); return false;">{{ teacher.name }}</a>
+{% endfor %}
+    

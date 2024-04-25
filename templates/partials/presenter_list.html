@@ -1,0 +1,3 @@
+{% for presenter in presenters %}
+<a href="#" class="list-group-item list-group-item-action" onclick="addPresenterTag('{{ presenter.name }}', '{{ presenter.id }}'); return false;">{{ presenter.name }}</a>
+{% endfor %}
