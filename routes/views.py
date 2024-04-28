@@ -1,10 +1,10 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for
-from models import db, Session, Teacher, Presenter
+from models import db, Session, Teacher, Presenter, School
 
 app = Blueprint('app_routes', __name__)
 
-##[Route] Index
+##[Defaut Route] Index
 # This route is used to render the index page of the application.
 # The index page contains the first page of the application with a brief description of the application and a link to the sessions page.
 @app.route('/')
@@ -61,7 +61,7 @@ def prepare_sessions(sessions):
         session.presenter_orgs = ', '.join(presenter.organization for presenter in session.presenters) if session.presenters else 'No organizations'
     return sessions
 
-##[Route] Sessions
+##[Session Route] Sessions
 # This route is used to display the sessions page. It fetches all the sessions from the database and prepares the data before rendering it on the page.
 # It also accepts a query parameter `statusFilter` to filter the sessions based on their status. Then it prepares the data and renders the sessions page.
 @app.route("/sessions", methods=["GET"])
@@ -74,7 +74,28 @@ def sessions():
     sessions_data = prepare_sessions(sessions_data)                                 # Prepare the session data
     return render_template("sessions.html", sessions=sessions_data)                 # Render the sessions page with the session data
 
-##[Route] Delete Session
+##[Presenter Route] Presenters
+# This route is used to display the presenters page. It fetches all the presenters from the database and renders the presenters page.
+@app.route("/presenters", methods=["GET"])
+def presenters():
+    presenters = Presenter.query.all()                                          # Get all the presenters
+    return render_template("presenters.html", presenters=presenters)            # Render the presenters page with the presenter data
+
+##[Teacher Route] Teachers
+# This route is used to display the teachers page. It fetches all the teachers from the database and renders the teachers page.
+@app.route("/teachers", methods=["GET"])
+def teachers():
+    teachers = Teacher.query.all()                                              # Get all the teachers
+    return render_template("teachers.html", teachers=teachers)                  # Render the teachers page with the teacher data
+
+##[School Route] Schools
+# This route is used to display the schools page. It fetches all the schools from the database and renders the schools page.
+@app.route("/schools", methods=["GET"])
+def schools():
+    schools = School.query.all()                                                # Get all the schools
+    return render_template("schools.html", schools=schools)                    # Render the schools page with the school data
+
+##[Session Route] Delete Session
 # This route is used to delete a session based on the session ID provided in the query parameters.
 @app.route('/delete-session', methods=['DELETE'])
 def delete_session():
@@ -87,7 +108,46 @@ def delete_session():
     else:                                                                       # Else                     
         return 'Session not found', 404                                             # Return a 404 if the session doesn't exist
     
-##[Route] Filter Sessions by Status
+##[Presenter Route] Delete Presenter
+# This route is used to delete a presenter based on the presenter ID provided in the query parameters.
+@app.route('/delete-presenter', methods=['DELETE'])
+def delete_presenter():
+    presenter_id = request.args.get('presenter_id')                             # Get the presenter ID from the query parameters
+    presenter = Presenter.query.filter_by(id=presenter_id).first()              # Find the presenter based on the presenter ID
+    if presenter:                                                               # If Presenter Exists
+        db.session.delete(presenter)                                                # Delete the presenter
+        db.session.commit()                                                         # Commit the changes
+        return '', 200                                                              # Return an empty response with a 200 OK status when successfully deleted
+    else:                                                                       # Else
+        return 'Presenter not found', 404                                           # Return a 404 if the presenter doesn't exist
+
+##[Teacher Route] Delete Teacher
+# This route is used to delete a teacher based on the teacher ID provided in the query parameters.
+@app.route('/delete-teacher', methods=['DELETE'])
+def delete_teacher():
+    teacher_id = request.args.get('teacher_id')                                 # Get the teacher ID from the query parameters
+    teacher = Teacher.query.filter_by(id=teacher_id).first()                    # Find the teacher based on the teacher ID
+    if teacher:                                                                 # If Teacher Exists
+        db.session.delete(teacher)                                                  # Delete the teacher
+        db.session.commit()                                                         # Commit the changes
+        return '', 200                                                              # Return an empty response with a 200 OK status when successfully deleted
+    else:                                                                       # Else
+        return 'Teacher not found', 404                                             # Return a 404 if the teacher doesn't exist
+    
+##[School Route] Delete School
+# This route is used to delete a school based on the school ID provided in the query parameters.
+@app.route('/delete-school', methods=['DELETE'])
+def delete_school():
+    school_id = request.args.get('school_id')                                   # Get the school ID from the query parameters
+    school = School.query.filter_by(id=school_id).first()                       # Find the school based on the school ID
+    if school:                                                                  # If School Exists
+        db.session.delete(school)                                                   # Delete the school
+        db.session.commit()                                                         # Commit the changes
+        return '', 200                                                              # Return an empty response with a 200 OK status when successfully deleted
+    else:                                                                       # Else
+        return 'School not found', 404                                              # Return a 404 if the school doesn't exist
+
+##[Session Route] Filter Sessions by Status
 # This route is used to filter the sessions based on the status filter provided in the query parameters.
 @app.route("/filter-sessions", methods=["GET"])
 def filter_sessions():
@@ -99,7 +159,7 @@ def filter_sessions():
     sessions = prepare_sessions(sessions)                                       # Prepare the session data
     return render_template("/tables/sessions.html", sessions=sessions, current_filter=status_filter)
 
-##[Route] Filter Sessions by Date
+##[Session Route] Filter Sessions by Date
 # This route is used to filter the sessions based on the date range provided in the query parameters.
 @app.route("/filter-sessions-by-date", methods=["GET"])
 def filter_sessions_by_date():
@@ -114,7 +174,7 @@ def filter_sessions_by_date():
     sessions = prepare_sessions(sessions)                                       # Prepare the session data
     return render_template("/tables/sessions.html", sessions=sessions)
 
-##[Route] Edit Session
+##[Session Route] Edit Session
 # This route is used to GET the form to  edit a session based on the session ID provided in the query parameters.
 @app.route('/edit-session', methods=['GET'])
 def edit_session():
@@ -125,7 +185,40 @@ def edit_session():
     else:                                                                       # Else
         return 'Session not found', 404                                         # Return a 404 if the session doesn't exist
 
-##[Route] Update Session
+##[Presenter Route] Edit Presenter
+# This route is used to GET the form to edit a presenter based on the presenter ID provided in the query parameters.
+@app.route('/edit-presenter', methods=['GET'])
+def edit_presenter():
+    presenter_id = request.args.get('presenter_id')                             # Get the presenter ID from the query parameters
+    presenter = Presenter.query.filter_by(id=presenter_id).first()              # Find the presenter based on the presenter ID
+    if presenter:                                                               # If Presenter Exists
+        return render_template('/forms/edit_presenter.html', presenter=presenter)   # Render the edit presenter form with the presenter data
+    else:                                                                       # Else
+        return 'Presenter not found', 404                                         # Return a 404 if the presenter doesn't exist
+
+##[Teacher Route] Edit Teacher
+# This route is used to GET the form to edit a teacher based on the teacher ID provided in the query parameters.
+@app.route('/edit-teacher', methods=['GET'])
+def edit_teacher():
+    teacher_id = request.args.get('teacher_id')                                 # Get the teacher ID from the query parameters
+    teacher = Teacher.query.filter_by(id=teacher_id).first()                    # Find the teacher based on the teacher ID
+    if teacher:                                                                 # If Teacher Exists
+        return render_template('/forms/edit_teacher.html', teacher=teacher)         # Render the edit teacher form with the teacher data
+    else:                                                                       # Else
+        return 'Teacher not found', 404                                           # Return a 404 if the teacher doesn't exist
+    
+##[School Route] Edit School
+# This route is used to GET the form to edit a school based on the school ID provided in the query parameters.
+@app.route('/edit-school', methods=['GET'])
+def edit_school():
+    school_id = request.args.get('school_id')                                   # Get the school ID from the query parameters
+    school = School.query.filter_by(id=school_id).first()                        # Find the school based on the school ID
+    if school:                                                                  # If School Exists
+        return render_template('/forms/edit_school.html', school=school)            # Render the edit school form with the school data
+    else:                                                                       # Else
+        return 'School not found', 404                                             # Return a 404 if the school doesn't exist
+
+##[Session Route] Update Session
 # This route is used to update a session based on the form data provided in the POST request.
 @app.route('/update-session', methods=['POST'])
 def update_session():
@@ -151,13 +244,90 @@ def update_session():
         db.session.rollback()                                                   # Rollback the session                                                              
         return redirect(url_for('app_routes.edit_session', session_id=session_id))
     
-##[Route] Get Add Session Form
+##[Presenter Route] Update Presenter
+# This route is used to update a presenter based on the form data provided in the POST request.
+@app.route('/update-presenter', methods=['POST'])
+def update_presenter():
+    presenter_id = request.form.get('presenter_id')                             # Get the presenter ID from the form data
+    presenter = Presenter.query.filter_by(id=presenter_id).first()              # Find the presenter based on the presenter ID
+    if not presenter:                                                           # If Presenter Doesn't Exist
+        return redirect(url_for('app_routes.presenters'))                           # Redirect to the presenters page if presenter doesn't exist
+
+    try:                                                                        # Try to update the presenter data
+        presenter.name = request.form.get('name', presenter.name)
+        presenter.email = request.form.get('email', presenter.email)
+        presenter.phone = request.form.get('phone', presenter.phone)
+        presenter.organization = request.form.get('organization', presenter.organization)
+        presenter.local = request.form.get('local') == 'true'                   # Convert the string 'true'/'false' to boolean
+        presenter.ethnicity = request.form.get('ethnicity', presenter.ethnicity)
+        presenter.job_title = request.form.get('job_title', presenter.job_title)
+        presenter.city = request.form.get('city', presenter.city)
+        presenter.state = request.form.get('state', presenter.state)
+        presenter.postal_code = request.form.get('postal_code', presenter.postal_code)
+        
+        db.session.commit()                                                     # Commit the changes
+        return redirect(url_for('app_routes.presenters'))                       # Redirect back to the presenters page
+
+    except Exception as e:
+        db.session.rollback()                                                   # Rollback in case of any exception
+        return redirect(url_for('app_routes.edit_presenter', presenter_id=presenter_id))  # Redirect back to the edit page if an error occurs
+##[School Route] Update School
+# This route is used to update a school based on the form data provided in the POST request.
+@app.route('/update-teacher', methods=['POST'])
+def update_teacher():
+    teacher_id = request.form.get('teacher_id')                                 # Get the teacher ID from the form data
+    teacher = Teacher.query.filter_by(id=teacher_id).first()                    # Find the teacher based on the teacher ID
+    if not teacher:                                                             # If Teacher Doesn't Exist
+        return redirect(url_for('app_routes.teachers'))                             # Redirect to the teachers page if teacher doesn't exist
+
+    try:                                                                        # Update the teacher's details from the form data
+        teacher.name = request.form.get('name', teacher.name)
+        teacher.school_name = request.form.get('school_name', teacher.school_name)
+        session_ids = request.form.getlist('sessionIds[]')                      # Get the session IDs from the form data
+        if session_ids:                                                         # If session IDs are provided then update the sessions
+            teacher.sessions = [Session.query.get(session_id) for session_id in session_ids if Session.query.get(session_id)]
+        
+        db.session.commit()                                                     # Commit the changes
+        return redirect(url_for('app_routes.teachers'))                         # Redirect back to the teachers page
+
+    except Exception as e:
+        db.session.rollback()  # Rollback in case of any exception
+        print(e)  # Optionally print or log the exception for debugging
+        return redirect(url_for('app_routes.edit_teacher', teacher_id=teacher_id))  # Redirect back to the edit page if an error occurs
+
+##[School Route] Update School
+# This route is used to update a school based on the form data provided in the POST request.
+@app.route('/update-school', methods=['POST'])
+def update_school():
+    school_id = request.form.get('school_id')                                   # Get the school ID from the form data
+    school = School.query.filter_by(id=school_id).first()                       # Find the school based on the school ID
+    if not school:                                                              # If School Doesn't Exist
+        return redirect(url_for('app_routes.schools'))                              # Redirect to the schools page if school doesn't exist
+
+    try:                                                                        # Update the school's details from the form data
+        school.name = request.form.get('name', school.name)
+        school.district = request.form.get('district', school.district)
+        school.level = request.form.get('level', school.level)
+        school.state = request.form.get('state', school.state)
+        session_ids = request.form.getlist('sessionIds[]')                      # Get the session IDs from the form data
+        if session_ids:                                                         # If session IDs are provided then update the sessions
+            school.sessions = [Session.query.get(session_id) for session_id in session_ids if Session.query.get(session_id)]
+        
+        db.session.commit()                                                     # Commit the changes
+        return redirect(url_for('app_routes.schools'))                          # Redirect back to the schools page
+
+    except Exception as e:
+        db.session.rollback()                                                   # Rollback in case of any exception
+        return redirect(url_for('app_routes.edit_school', school_id=school_id)) # Redirect back to the edit page if an error occurs
+
+
+##[Session Route] Get Add Session Form
 # This route is used to GET the form to add a new session.
 @app.route("/get-create-session", methods=["GET"])
 def get_add_session():
     return render_template("/forms/create_session.html")
 
-##[Route] Create Session
+##[Session Route] Create Session
 # This route is used to create a new session based on the form data provided in the POST request.
 # Note: Make sure input validation is done html side AND server side to prevent SQL injection and XSS attacks.
 @app.route('/create-session', methods=['POST'])
@@ -192,7 +362,7 @@ def create_session():
         return redirect(url_for('app_routes.sessions')), 500                                # Redirect to the sessions page with a 500 Internal Server Error status
     return redirect(url_for('app_routes.sessions'))                                         # Redirect to the sessions page
 
-##[Route] Search Teachers
+##[Session Route] Search Teachers
 # This route is used to search teachers based on the teacher name provided in the query parameters.
 # It fetches the teachers from the database and renders the teacher list on the page for the search results.
 @app.route("/search-teachers", methods=["GET"])
@@ -201,7 +371,7 @@ def search_teachers():
     teachers = Teacher.query.filter(Teacher.name.ilike(f'%{teacher_name}%')).all()          # Filter the teachers based on the teacher name
     return render_template("/partials/teacher_list.html", teachers=teachers)                # Render the teacher list on the page
 
-##[Route] Search Presenters
+##[Session Route] Search Presenters
 # This route is used to search presenters based on the presenter name provided in the query parameters.
 # It fetches the presenters from the database and renders the presenter list on the page for the search results.
 @app.route("/search-presenters", methods=["GET"])

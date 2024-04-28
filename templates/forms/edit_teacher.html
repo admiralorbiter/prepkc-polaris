@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Teacher{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-5">
+    <h1>Edit Teacher</h1>
+    <form method="POST" action="/update-teacher">
+        <input type="hidden" name="teacher_id" value="{{ teacher.id }}">
+        <div class="mb-3">
+            <label for="teacherName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="teacherName" name="name" value="{{ teacher.name }}">
+        </div>
+        <div class="mb-3">
+            <label for="schoolName" class="form-label">School Name</label>
+            <input type="text" class="form-control" id="schoolName" name="school_name" value="{{ teacher.school_name }}">
+        </div>
+        <div class="mb-3">
+            <label for="sessionSelect" class="form-label">Sessions</label>
+            <select multiple class="form-control" id="sessionSelect" name="sessionIds[]">
+                {% for session in sessions %}
+                <option value="{{ session.id }}" {% if session in teacher.sessions %}selected{% endif %}>
+                    {{ session.title }}
+                </option>
+                {% endfor %}
+            </select>
+            <small class="form-text text-muted">Hold down the Ctrl (Windows) or Command (Mac) button to select multiple options.</small>
+        </div>
+        <div class="mb-3 d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="#" onclick="window.history.back(); return false;" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

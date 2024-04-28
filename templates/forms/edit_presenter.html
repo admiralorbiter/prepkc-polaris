@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Presenter{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-5">
+    <h1>Edit Presenter</h1>
+    <form method="POST" action="/update-presenter">
+        <input type="hidden" name="presenter_id" value="{{ presenter.id }}">
+        <div class="mb-3">
+            <label for="presenterName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="presenterName" name="name" value="{{ presenter.name }}">
+        </div>
+        <div class="mb-3">
+            <label for="presenterEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="presenterEmail" name="email" value="{{ presenter.email }}">
+        </div>
+        <div class="mb-3">
+            <label for="presenterPhone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="presenterPhone" name="phone" value="{{ presenter.phone }}">
+        </div>
+        <div class="mb-3">
+            <label for="presenterOrganization" class="form-label">Organization</label>
+            <input type="text" class="form-control" id="presenterOrganization" name="organization" value="{{ presenter.organization }}">
+        </div>
+        <div class="mb-3">
+            <label for="presenterLocal" class="form-label">Local</label>
+            <select class="form-control" id="presenterLocal" name="local">
+                <option value="true" {% if presenter.local %}selected{% endif %}>Yes</option>
+                <option value="false" {% if not presenter.local %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="presenterEthnicity" class="form-label">Ethnicity</label>
+            <input type="text" class="form-control" id="presenterEthnicity" name="ethnicity" value="{{ presenter.ethnicity }}">
+        </div>
+        <div class="mb-3">
+            <label for="presenterJobTitle" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="presenterJobTitle" name="job_title" value="{{ presenter.job_title }}">
+        </div>
+        <div class="mb-3">
+            <label for="presenterCity" class="form-label">City</label>
+            <input type="text" class="form-control" id="presenterCity" name="city" value="{{ presenter.city }}">
+        </div>
+        <div class="mb-3">
+            <label for="presenterState" class="form-label">State</label>
+            <input type="text" class="form-control" id="presenterState" name="state" value="{{ presenter.state }}">
+        </div>
+        <div class="mb-3">
+            <label for="presenterPostalCode" class="form-label">Postal Code</label>
+            <input type="text" class="form-control" id="presenterPostalCode" name="postal_code" value="{{ presenter.postal_code }}">
+        </div>
+        <div class="mb-3 d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="#" onclick="window.history.back(); return false;" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
