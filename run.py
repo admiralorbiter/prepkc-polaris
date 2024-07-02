@@ -6,4 +6,4 @@ from app import app
 app.secret_key = os.urandom(16)  # or a fixed key, or use os.environ.get('SECRET_KEY')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
