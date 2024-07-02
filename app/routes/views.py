@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, School, Session, Teacher, session_schools, Presenter, Volunteer, Organization
+from app.models import School, Session, Teacher, session_schools, Volunteer, Organization
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
@@ -20,7 +20,7 @@ def soft_delete(self):
 # Home Page
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("sessions.html")
+    return render_template("/sessions/sessions.html")
 
 @app.route('/volunteers')
 def volunteers():
@@ -56,27 +56,27 @@ def search_teachers():
     teacher_name = request.args.get('teacherSearch')
     print(teacher_name)
     teachers = Teacher.query.filter(Teacher.name.ilike(f'%{teacher_name}%')).all()
-    return render_template("/partials/teacher_list.html", teachers=teachers)
+    return render_template("/teachers/teacher_list.html", teachers=teachers)
 
 @app.route("/search-presenters", methods=["GET"])
 def search_presenters():
     presenter_name = request.args.get('presenterSearch')
-    presenters = Presenter.query.filter(Presenter.name.ilike(f'%{presenter_name}%')).all()
-    return render_template("/partials/presenter_list.html", presenters=presenters)
+    presenters = Volunteer.query.filter(Volunteer.name.ilike(f'%{presenter_name}%')).all()
+    return render_template("/volunteers/presenter_list.html", presenters=presenters)
 
 @app.route("/search-schools", methods=["GET"])
 def search_schools():
     school_name = request.args.get('schoolSearch')
     schools = School.query.filter(School.name.ilike(f'%{school_name}%')).all()
-    return render_template("/partials/school_list.html", schools=schools)
+    return render_template("/schools/school_list.html", schools=schools)
 
 @app.route("/search-organizations", methods=["GET"])
 def search_organizations():
     organization_name = request.args.get('organizationSearch')
     print(organization_name)
-    organizations = db.session.query(Presenter.organization).filter(Presenter.organization.ilike(f'%{organization_name}%')).distinct().all()
+    organizations = db.session.query(Volunteer.organization).filter(Volunteer.organization.ilike(f'%{organization_name}%')).distinct().all()
     organizations = [org[0] for org in organizations if org[0]]  # Unpack and remove None
-    return render_template("/partials/organization_list.html", organizations=organizations)
+    return render_template("/organizations/organization_list.html", organizations=organizations)
 
 @app.route("/kcps", methods=["GET"])
 def kcps():
@@ -166,11 +166,11 @@ def sessions():
     else:
         sessions_data = Session.query.all()
     print(sessions_data)
-    return render_template("sessions.html", sessions=sessions_data)
+    return render_template("/sessions/sessions.html", sessions=sessions_data)
 
 @app.route("/get-add-session", methods=["GET"])
 def get_add_session():
-    return render_template("/modals/add_session.html")
+    return render_template("/sessions/add_session.html")
 
 @app.route("/get-add-organization", methods=["GET"])
 def get_add_organization():
@@ -178,20 +178,20 @@ def get_add_organization():
 
 @app.route("/get-add-teacher", methods=["GET"])
 def get_add_teacher():
-    return render_template("/modals/add_teacher.html")
+    return render_template("/teachers/add_teacher.html")
 
 @app.route("/get-add-presenter", methods=["GET"])
 def get_add_presenter():
-    return render_template("/modals/add_presenter.html")
+    return render_template("/volunteers/add_Volunteer.html")
 
 @app.route("/get-add-school", methods=["GET"])
 def get_add_school():
-    return render_template("/modals/add_school.html")
+    return render_template("/schools/add_school.html")
 
 @app.route("/load-sessions-table", methods=["GET"])
 def load_sessions_table():
     sessions = Session.query.all()
-    return render_template("/tables/session_table.html", sessions=sessions)
+    return render_template("/sessions/session_table.html", sessions=sessions)
 
 @app.route("/load-organizations-table", methods=["GET"])
 def load_organizations_table():
@@ -201,7 +201,7 @@ def load_organizations_table():
 @app.route("/session_page", methods=["GET"])
 def sessions_page():
     sessions = Session.query.all()
-    return render_template("session_page.html", sessions=sessions)
+    return render_template("/sessions/session_page.html", sessions=sessions)
 
 @app.route("/organizations", methods=["GET"])
 def organizations():
@@ -211,7 +211,7 @@ def organizations():
 @app.route("/sessions_list")
 def sessions_list():
     sessions = Session.query.all()
-    return render_template("/partials/session_list.html", sessions=sessions)
+    return render_template("/sessions/session_list.html", sessions=sessions)
 
 #Note: Need to make teacher store the school_id instead of the school name
 @app.route("/add-teacher", methods=["POST"])
@@ -253,7 +253,7 @@ def add_presenter():
     organization = request.form.get('presenterOrganization')  # Directly get the organization name from the form
 
     # Create a new Presenter instance with the form data
-    presenter = Presenter(name=name, email=email, phone=phone, organization=organization)
+    presenter = Volunteer(name=name, email=email, phone=phone, organization=organization)
 
     # Add and commit the new presenter to the database
     db.session.add(presenter)
@@ -270,7 +270,7 @@ def filter_sessions():
     else:
         sessions = Session.query.filter_by(status=status_filter).all()
 
-    return render_template("/tables/session_table.html", sessions=sessions)
+    return render_template("/sessions/session_table.html", sessions=sessions)
 
 @app.route("/filter-sessions-by-date", methods=["GET"])
 def filter_sessions_by_date():
@@ -282,7 +282,7 @@ def filter_sessions_by_date():
     else:
         sessions = Session.query.all()
 
-    return render_template("/tables/session_table.html", sessions=sessions)
+    return render_template("/sessions/session_table.html", sessions=sessions)
 
 
 @app.route('/add-session', methods=['POST'])
@@ -325,7 +325,7 @@ def edit_session():
     session_id = request.args.get('session_id')
     session = Session.query.filter_by(id=session_id).first()
     if session:
-        return render_template('/forms/edit_session_form.html', session=session)
+        return render_template('/sessions/edit_session_form.html', session=session)
     else:
         return 'Session not found', 404
     
@@ -343,16 +343,16 @@ def edit_teacher():
     teacher_id = request.args.get('teacher_id')
     teacher = Teacher.query.filter_by(id=teacher_id).first()
     if teacher:
-        return render_template('/forms/edit_teacher.html', teacher=teacher)
+        return render_template('/teachers/edit_teacher.html', teacher=teacher)
     else:
         return 'Teacher not found', 404
     
 @app.route('/edit-presenter', methods=['GET'])
 def edit_presenter():
     presenter_id = request.args.get('presenter_id')
-    presenter = Presenter.query.filter_by(id=presenter_id).first()
+    presenter = Volunteer.query.filter_by(id=presenter_id).first()
     if presenter:
-        return render_template('/forms/edit_presenter.html', presenter=presenter)
+        return render_template('/volunteers/edit_Volunteer.html', presenter=presenter)
     else:
         return 'Presenter not found', 404
     
@@ -361,7 +361,7 @@ def edit_school():
     school_id = request.args.get('school_id')
     school = School.query.filter_by(id=school_id).first()
     if school:
-        return render_template('/forms/edit_school.html', school=school)
+        return render_template('/schools/edit_school.html', school=school)
     else:
         return 'School not found', 404
 
@@ -398,14 +398,14 @@ def update_presenter():
     phone = request.form.get('presenterPhone')
     organization = request.form.get('presenterOrganization')
 
-    presenter = Presenter.query.get(presenter_id)
+    presenter = Volunteer.query.get(presenter_id)
     if not presenter:
         return "Presenter not found", 404
 
-    presenter.name = name
-    presenter.email = email
-    presenter.phone = phone
-    presenter.organization = organization
+    Volunteer.name = name
+    Volunteer.email = email
+    Volunteer.phone = phone
+    Volunteer.organization = organization
 
     db.session.commit()
 
@@ -494,7 +494,7 @@ def delete_teacher():
 @app.route('/delete-presenter', methods=['DELETE'])
 def delete_presenter():
     presenter_id = request.args.get('presenter_id')
-    presenter = Presenter.query.filter_by(id=presenter_id).first()
+    presenter = Volunteer.query.filter_by(id=presenter_id).first()
     if presenter:
         db.session.delete(presenter)
         db.session.commit()
@@ -521,7 +521,7 @@ def update_session():
         session.teachers = [Teacher.query.get(teacher_id) for teacher_id in teacher_ids if Teacher.query.get(teacher_id)]
 
         presenter_ids = request.form.getlist('presenterIds[]')
-        session.presenters = [Presenter.query.get(presenter_id) for presenter_id in presenter_ids if Presenter.query.get(presenter_id)]
+        session.presenters = [Volunteer.query.get(presenter_id) for presenter_id in presenter_ids if Volunteer.query.get(presenter_id)]
 
         db.session.commit()
         
@@ -541,27 +541,27 @@ def update_session():
 
 @app.route("/teachers", methods=["GET"])
 def teachers():
-    return render_template("teachers.html")
+    return render_template("/teachers/teachers.html")
 
 @app.route("/load-teacher-table", methods=["GET"])
 def load_teacher_table():
     teachers = Teacher.query.all()
-    return render_template("/tables/teacher_table.html", teachers=teachers)
+    return render_template("/teachers/teacher_table.html", teachers=teachers)
 
 @app.route("/schools", methods=["GET"])
 def schools():
-    return render_template("schools.html")
+    return render_template("/schools/schools.html")
 
 @app.route("/load-school-table", methods=["GET"])
 def load_school_table():
     schools = School.query.all()
-    return render_template("/tables/school_table.html", schools=schools)
+    return render_template("/schools/school_table.html", schools=schools)
 
 @app.route("/presenters", methods=["GET"])
 def presenters():
-    return render_template("presenters.html")
+    return render_template("/volunteers/presenters.html")
 
 @app.route("/load-presenter-table", methods=["GET"])
 def load_presenter_table():
-    presenters = Presenter.query.all()
-    return render_template("/tables/presenter_table.html", presenters=presenters)
+    presenters = Volunteer.query.all()
+    return render_template("/volunteers/presenter_table.html", presenters=presenters)

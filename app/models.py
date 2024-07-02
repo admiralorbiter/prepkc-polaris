@@ -1,144 +1,124 @@
+from collections import defaultdict
 from flask_sqlalchemy import SQLAlchemy
-from app import db
 from datetime import datetime
+from . import db
 
-# New association table for the many-to-many relationship between sessions and teachers
+# Base Class
+class Base(db.Model):
+    __abstract__ = True
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    deleted_at = db.Column(db.DateTime, nullable=True, index=True)
+
+# Association tables for many-to-many relationships
 session_teachers_association = db.Table('session_teachers_association',
     db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
-    db.Column('teacher_id', db.Integer, db.ForeignKey('teachers.id'), primary_key=True)
+    db.Column('teacher_id', db.Integer, db.ForeignKey('teachers.id'), primary_key=True),
+    db.Column('school_id', db.Integer, db.ForeignKey('schools.id'))
 )
 
-# Association table for the many-to-many relationship between sessions and schools
 session_schools = db.Table('session_schools',
     db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
     db.Column('school_id', db.Integer, db.ForeignKey('schools.id'), primary_key=True)
 )
 
+# Association table for many-to-many relationship between sessions and organizations
 session_organizations_association = db.Table('session_organizations_association',
     db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
     db.Column('organization_id', db.Integer, db.ForeignKey('organizations.id'), primary_key=True)
 )
 
-class Base(db.Model):
-    __abstract__ = True  # Indicates that this class should not be created as a table
+# Association table for many-to-many relationship between volunteers and organizations
+volunteer_organizations = db.Table('volunteer_organizations',
+    db.Column('volunteer_id', db.Integer, db.ForeignKey('volunteers.id'), primary_key=True),
+    db.Column('organization_id', db.Integer, db.ForeignKey('organizations.id'), primary_key=True)
+)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    deleted_at = db.Column(db.DateTime, nullable=True, index=True)  # Soft delete column
-
-class Session(db.Model):
+# Session Table
+class Session(Base):
     __tablename__ = 'sessions'
     id = db.Column(db.Integer, primary_key=True)
-    status = db.Column(db.String, index=True)
-    date = db.Column(db.Date, index=True)
-    start_time = db.Column(db.Time, index=True) 
-    session_type = db.Column(db.String) 
-    external_session_id = db.Column(db.Integer)  
-    teachers = db.relationship('Teacher', secondary=session_teachers_association, back_populates='sessions')
+    name = db.Column(db.String(50), nullable=False, index=True)
+    organization_id = db.Column(db.Integer, db.ForeignKey('organizations.id'), nullable=False)
+    type = db.Column(db.String, nullable=False)
+    status = db.Column(db.String, nullable=False)
+    start_date = db.Column(db.Date, nullable=False)
+    start_time = db.Column(db.Time, nullable=False)
+    delivery_hours = db.Column(db.Numeric, nullable=False)
+    topic = db.Column(db.String, nullable=False)
+    participant_count = db.Column(db.Integer, nullable=False)
+    student_count = db.Column(db.Integer, nullable=False)
+    volunteer_count = db.Column(db.Integer, nullable=False)
+    skills_needed = db.Column(db.String, nullable=False)
+    teachers = db.relationship('Teacher', secondary=session_teachers_association, back_populates='sessions', overlaps="historical_affiliation,sessions")
     schools = db.relationship('School', secondary=session_schools, back_populates='sessions')
-    title = db.Column(db.String) 
-    topic = db.Column(db.String)  
-    session_link = db.Column(db.String) 
-    presenters = db.relationship('Presenter', back_populates='session')
     organizations = db.relationship('Organization', secondary=session_organizations_association, back_populates='sessions')
 
-
-class Presenter(db.Model):
-    __tablename__ = 'presenters'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    email = db.Column(db.String, index=True)
-    phone = db.Column(db.String)
-    organization = db.Column(db.String)
-    local = db.Column(db.Boolean)
-    ethnicity = db.Column(db.String)
-    job_title = db.Column(db.String)
-    city = db.Column(db.String)
-    state = db.Column(db.String(2))
-    postal_code = db.Column(db.String)
-    session_id = db.Column(db.Integer, db.ForeignKey('sessions.id'), index=True)
-    session = db.relationship('Session', back_populates='presenters')
-
-class Teacher(db.Model):
-    __tablename__ = 'teachers'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    school_name = db.Column(db.String)
-    sessions = db.relationship('Session', secondary=session_teachers_association, back_populates='teachers')
-
-class School(db.Model):
-    __tablename__ = 'schools'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    district = db.Column(db.String)
-    level = db.Column(db.String)
-    state = db.Column(db.String(2))
-    sessions = db.relationship('Session', secondary=session_schools, back_populates='schools')
-
-class Organization(db.Model):
+# Organization Table
+class Organization(Base):
     __tablename__ = 'organizations'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
     sessions = db.relationship('Session', secondary=session_organizations_association, back_populates='organizations')
+    volunteers = db.relationship('Volunteer', secondary=volunteer_organizations, back_populates='organizations', overlaps="historical_affiliation,organizations")
 
+# Person Base Table
+class PersonBase(Base):
+    __abstract__ = True
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    middle_name = db.Column(db.String(50), nullable=True)
+    suffix = db.Column(db.String(10), nullable=True)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    address = db.Column(db.String(255), nullable=False)
+    primary_phone = db.Column(db.String(15), nullable=False)
+    secondary_phone = db.Column(db.String(15), nullable=True)
+    active = db.Column(db.Boolean, default=True)
+    birthday = db.Column(db.Date, nullable=False)
+    connector_account_id = db.Column(db.Integer, db.ForeignKey('connector_accounts.id'), nullable=True)
+    gender = db.Column(db.String(10), nullable=True)
+    contact_type = db.Column(db.String(50), nullable=True)
 
-### Tables from the original CSVs ### Tables from the original CSVs ### Tables from the original CSVs ###
-class SessionRow(db.Model):
-    __tablename__ = 'session_rows'
+# Volunteer Table
+class Volunteer(PersonBase):
+    __tablename__ = 'volunteers'
     id = db.Column(db.Integer, primary_key=True)
-    session_id = db.Column(db.Integer)
-    title = db.Column(db.String, nullable=False)
-    series_or_event_title = db.Column(db.String)
-    career_cluster = db.Column(db.String) #Missing
-    date = db.Column(db.Date)
-    status = db.Column(db.String)
-    duration = db.Column(db.Integer)
-    user_auth_id = db.Column(db.Integer)
-    name = db.Column(db.String)
-    sign_up_role = db.Column(db.String)
-    school = db.Column(db.String)
-    district_or_company = db.Column(db.String)
-    partner = db.Column(db.String)
-    state = db.Column(db.String(2)) #missing add to sschool
-    registered_student_count = db.Column(db.Integer) #Missing
-    attended_student_count = db.Column(db.Integer) #Missing
-    registered_educator_count = db.Column(db.Integer) #Missing
-    attended_educator_count = db.Column(db.Integer) #Missing
-    work_based_learning = db.Column(db.String) #Missing
+    title = db.Column(db.String(100), nullable=True)
+    primary_affiliation_id = db.Column(db.Integer, db.ForeignKey('organizations.id'), nullable=False)
+    historical_affiliation = db.relationship('Organization', secondary=volunteer_organizations, back_populates='volunteers', overlaps="organizations")
+    education_background = db.Column(db.String(100), nullable=True)
+    last_mailchimp_email_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_volunteer_date = db.Column(db.DateTime, default=datetime.utcnow)
+    organizations = db.relationship('Organization', secondary=volunteer_organizations, back_populates='volunteers', overlaps="historical_affiliation,volunteers")
 
-class User(db.Model):
-    __tablename__ = 'users'
+# School Table
+class School(Base):
+    __tablename__ = 'schools'
     id = db.Column(db.Integer, primary_key=True)
-    user_auth_id = db.Column(db.Integer)
-    sign_up_role = db.Column(db.String, nullable=False)
-    name = db.Column(db.String, nullable=False)
-    login_email = db.Column(db.String, nullable=False, unique=True)
-    notification_email = db.Column(db.String, unique=True)
-    school = db.Column(db.String)
-    district_or_company = db.Column(db.String)
-    job_title = db.Column(db.String)
-    grade_cluster = db.Column(db.String)
-    skills = db.Column(db.String) #missing
-    join_date = db.Column(db.Date) #missing
-    last_login_date = db.Column(db.Date) #missing
-    login_count = db.Column(db.Integer) #missing
-    count_of_days_logged_in_last_30_days = db.Column(db.Integer) #missing
-    city = db.Column(db.String)
-    state = db.Column(db.String(2))
-    postal_code = db.Column(db.String)
-    active_subscription_type = db.Column(db.String) #missing
-    active_subscription_name = db.Column(db.String) #missing
-    last_session_date = db.Column(db.Date)
-    affiliations = db.Column(db.String) #missing
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    district = db.Column(db.String(100), nullable=False)
+    level = db.Column(db.String(50), nullable=False)
+    sessions = db.relationship('Session', secondary=session_schools, back_populates='schools')
+    teachers = db.relationship('Teacher', secondary=session_teachers_association, back_populates='historical_affiliation', overlaps="sessions,teachers")
 
-class Volunteer(db.Model):
+# Teacher Table
+class Teacher(PersonBase):
+    __tablename__ = 'teachers'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(255), nullable=True)
-    affiliation = db.Column(db.String(255), nullable=True)
-    job_category = db.Column(db.String(255), nullable=True)
-    skills_text = db.Column(db.Text, nullable=True)  # For the textual description of skills
-    skills = db.Column(db.Text, nullable=True)  # You might want to use a more structured way to store multiple skills, like a relationship to another table
+    primary_affiliation_id = db.Column(db.Integer, db.ForeignKey('schools.id'), nullable=False)
+    historical_affiliation = db.relationship(
+        'School',
+        secondary=session_teachers_association,
+        primaryjoin=(session_teachers_association.c.teacher_id == id),
+        secondaryjoin=(session_teachers_association.c.school_id == School.id),
+        back_populates='teachers',
+        overlaps="teachers"
+    )
+    type = db.Column(db.String(50), nullable=False)
+    sessions = db.relationship('Session', secondary=session_teachers_association, back_populates='teachers', overlaps="historical_affiliation,teachers")
 
-    def __repr__(self):
-        return f'<Volunteer {self.name}>'
+# Connector Account Table
+class ConnectorAccount(Base):
+    __tablename__ = 'connector_accounts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)

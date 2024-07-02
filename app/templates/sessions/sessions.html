@@ -25,7 +25,7 @@
     {% set hx_get_url = '/filter-sessions' %}
     {% set hx_target = '#sessionsTable' %}
     
-    {% include '/partials/status_filter.html' %}
+    {% include '/sessions/partials/status_filter.html' %}
 
     <form id="dateFilterForm" hx-get="/filter-sessions-by-date" hx-target="#sessionsTable" hx-trigger="change from:#dateFilterForm">
         <div class="row">
