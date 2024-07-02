@@ -1,9 +1,10 @@
-from flask import redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for
 from app import app, db
 from app.models import School, Session, Teacher, session_schools, Volunteer, Organization
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
+from flask import jsonify
 
 def add_school_to_session(session_id, school_id):
     session = Session.query.get(session_id)
@@ -168,7 +169,7 @@ def sessions():
     print(sessions_data)
     return render_template("/sessions/sessions.html", sessions=sessions_data)
 
-@app.route("/get-add-session", methods=["GET"])
+@app.route("/add-session", methods=["GET"])
 def get_add_session():
     return render_template("/sessions/add_session.html")
 
@@ -284,7 +285,6 @@ def filter_sessions_by_date():
 
     return render_template("/sessions/session_table.html", sessions=sessions)
 
-
 @app.route('/add-session', methods=['POST'])
 def add_session():
     # Get form data
@@ -293,23 +293,49 @@ def add_session():
     session_title = request.form.get('sessionTitle')
 
     # Convert date and time strings to datetime objects
-    session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()  # Adjust the format if needed
-    session_time = datetime.strptime(session_time_str, '%H:%M').time()  # Adjust the format if needed
+    session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()
+    session_time = datetime.strptime(session_time_str, '%H:%M').time()
 
-    # Create a new session object
-    new_session = Session(date=session_date, start_time=session_time, title=session_title, status="Pending")
-    
-    # Add the teacher to the session's teachers list
-    teacher_ids = request.form.getlist('teacherIds[]')  # Get the list of teacher IDs
+    # Create a new session object with default values
+    new_session = Session(
+        start_date=session_date,
+        start_time=session_time,
+        name=session_title,
+        status="Draft",  # Set default status
+        type="Null",  # Set default type
+        delivery_hours=0,  # Set default delivery hours
+        participant_count=0,  # Set default participant count
+        student_count=0,  # Set default student count
+        volunteer_count=0,  # Set default volunteer count
+        skills_needed=None,  # Assuming skills_needed can be nullable
+        topic=None  # Assuming topic can be nullable
+    )
+
+    # Optionally add organization to the session
+    organization_id = request.form.get('organizationId')
+    if organization_id:
+        organization = Organization.query.get(organization_id)
+        if organization:
+            new_session.organization_id = organization.id
+
+    # Optionally add teachers to the session's teachers list
+    teacher_ids = request.form.getlist('teacherIds[]')
     for teacher_id in teacher_ids:
-        teacher = Teacher.query.get(teacher_id)  # Use `get` for ID lookup
+        teacher = Teacher.query.get(teacher_id)
         if teacher:
             new_session.teachers.append(teacher)
 
-    # Add the organizations to the session's organizations list
-    organization_ids = request.form.getlist('organizationIds[]')  # Get the list of organization IDs
+    # Optionally add presenters to the session's presenters list
+    presenter_ids = request.form.getlist('presenterIds[]')
+    for presenter_id in presenter_ids:
+        presenter = Volunteer.query.get(presenter_id)
+        if presenter:
+            new_session.presenters.append(presenter)
+
+    # Optionally add organizations to the session's organizations list
+    organization_ids = request.form.getlist('organizationIds[]')
     for organization_id in organization_ids:
-        organization = Organization.query.get(organization_id)  # Use `get` for ID lookup
+        organization = Organization.query.get(organization_id)
         if organization:
             new_session.organizations.append(organization)
 
@@ -318,7 +344,7 @@ def add_session():
     db.session.commit()
 
     # Redirect or return a response
-    return redirect(url_for('sessions_list'))
+    return redirect(url_for('sessions'))
 
 @app.route('/edit-session', methods=['GET'])
 def edit_session():
@@ -525,7 +551,7 @@ def update_session():
 
         db.session.commit()
         
-        updated_row = render_template('/tables/session_row.html', session=session)
+        updated_row = render_template('/sessions/session_row.html', session=session)
         
         # Script to clear the edit pane
         clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"

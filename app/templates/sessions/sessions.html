@@ -5,16 +5,8 @@
 {% block content %}
     <h1>Sessions List</h1>
 
-    <button hx-get="/get-add-session" hx-target="#addSessionModal .modal-content" data-bs-toggle="modal" data-bs-target="#addSessionModal" hx-trigger="click" class="btn btn-primary">Add Session</button>
-    <div id="addSessionModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <!-- Modal content loaded by HTMX will go here -->
-            </div>
-        </div>
-    </div>
-
-            
+    <a href="{{ url_for('add_session') }}" class="btn btn-primary">Add Session</a>
+   
     <div id="details">
         <!-- Session details will be loaded here by HTMX -->
     </div>

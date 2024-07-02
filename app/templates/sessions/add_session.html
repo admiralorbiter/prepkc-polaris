@@ -1,69 +1,70 @@
-<div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="addSessionModalLabel">Add Session</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        <form method="POST" hx-post="/add-session">
-            <div class="mb-3">
-                <label for="sessionTitle" class="form-label">Session Title</label>
-                <input type="text" class="form-control" id="sessionTitle" name="sessionTitle" required>
-            </div>
-            <div class="mb-3">
-                <label for="sessionDate" class="form-label">Session Date</label>
-                <input type="date" class="form-control" id="sessionDate" name="sessionDate" required>
-            </div>
-            <div class="mb-3">
-                <label for="sessionTime" class="form-label">Session Time</label>
-                <input type="time" class="form-control" id="sessionTime" name="sessionTime" required>
-            </div>
-            <div class="mb-3">
-                <button hx-get="/get-add-teacher" hx-target="#addTeacherModal .modal-content" data-bs-toggle="modal" data-bs-target="#addTeacherModal" hx-trigger="click" class="btn btn-primary">Add Teacher</button>
-                <div id="addTeacherModal" class="modal fade" tabindex="-1">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <!-- Modal content loaded by HTMX will go here -->
-                        </div>
+{% extends "base.html" %}
+
+{% block title %}Add Session{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Add Session</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="sessionTitle" class="form-label">Session Title</label>
+            <input type="text" class="form-control" id="sessionTitle" name="sessionTitle" required>
+        </div>
+        <div class="mb-3">
+            <label for="sessionDate" class="form-label">Session Date</label>
+            <input type="date" class="form-control" id="sessionDate" name="sessionDate" required>
+        </div>
+        <div class="mb-3">
+            <label for="sessionTime" class="form-label">Session Time</label>
+            <input type="time" class="form-control" id="sessionTime" name="sessionTime" required>
+        </div>
+        <div class="mb-3">
+            <button hx-get="/get-add-teacher" hx-target="#addTeacherModal .modal-content" data-bs-toggle="modal" data-bs-target="#addTeacherModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Teacher</button>
+            <div id="addTeacherModal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <!-- Modal content loaded by HTMX will go here -->
                     </div>
                 </div>
-                <label for="teacherName" class="form-label">Session Teachers</label>
-                <div id="selectedTeachers" class="mb-3">
-                    <!-- Selected teachers will be displayed here as tags -->
-                </div>
-                <input type="text" class="form-control" id="teacherSearch" name="teacherSearch" placeholder="Type to search and add teachers..." hx-get="/search-teachers" hx-trigger="keyup changed delay:500ms" hx-target="#teacherNameSuggestions" hx-swap="innerHTML" autocomplete="off">
-                <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
             </div>
-            <div class="mb-3">
-                <button hx-get="/get-add-presenter" hx-target="#addPresenterModal .modal-content" data-bs-toggle="modal" data-bs-target="#addPresenterModal" hx-trigger="click" class="btn btn-primary">Add Presenter</button>
-                <div class="modal fade" id="addPresenterModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        </div>
+            <label for="teacherName" class="form-label">Session Teachers</label>
+            <div id="selectedTeachers" class="mb-3">
+                <!-- Selected teachers will be displayed here as tags -->
+            </div>
+            <input type="text" class="form-control" id="teacherSearch" name="teacherSearch" placeholder="Type to search and add teachers..." hx-get="/search-teachers" hx-trigger="keyup changed delay:500ms" hx-target="#teacherNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+            <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
+        </div>
+        <div class="mb-3">
+            <button hx-get="/get-add-presenter" hx-target="#addPresenterModal .modal-content" data-bs-toggle="modal" data-bs-target="#addPresenterModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Presenter</button>
+            <div class="modal fade" id="addPresenterModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
                     </div>
                 </div>
-                <label for="presenterSearch" class="form-label">Session Presenters</label>
-                <div id="selectedPresenters" class="mb-3">
-                    <!-- Selected presenters will be displayed here as tags -->
-                </div>
-                <input type="text" class="form-control" id="presenterSearch" name="presenterSearch" placeholder="Type to search and add presenters..." hx-get="/search-presenters" hx-trigger="keyup changed delay:500ms" hx-target="#presenterNameSuggestions" hx-swap="innerHTML" autocomplete="off">
-                <div id="presenterNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
             </div>
-            <div class="mb-3">
-                <button hx-get="/get-add-organization" hx-target="#addOrganizationModal .modal-content" data-bs-toggle="modal" data-bs-target="#addOrganizationModal" hx-trigger="click" class="btn btn-primary">Add Organization</button>
-                <div class="modal fade" id="addOrganizationModal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        </div>
+            <label for="presenterSearch" class="form-label">Session Presenters</label>
+            <div id="selectedPresenters" class="mb-3">
+                <!-- Selected presenters will be displayed here as tags -->
+            </div>
+            <input type="text" class="form-control" id="presenterSearch" name="presenterSearch" placeholder="Type to search and add presenters..." hx-get="/search-presenters" hx-trigger="keyup changed delay:500ms" hx-target="#presenterNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+            <div id="presenterNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+        </div>
+        <div class="mb-3">
+            <button hx-get="/get-add-organization" hx-target="#addOrganizationModal .modal-content" data-bs-toggle="modal" data-bs-target="#addOrganizationModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Organization</button>
+            <div class="modal fade" id="addOrganizationModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
                     </div>
                 </div>
-                <label for="organizationSearch" class="form-label">Session Organizations</label>
-                <div id="selectedOrganizations" class="mb-3">
-                    <!-- Selected organizations will be displayed here as tags -->
-                </div>
-                <input type="text" class="form-control" id="organizationSearch" name="organizationSearch" placeholder="Type to search and add organizations..." hx-get="/search-organizations" hx-trigger="keyup changed delay:500ms" hx-target="#organizationNameSuggestions" hx-swap="innerHTML" autocomplete="off">
-                <div id="organizationNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
             </div>
-            <button type="submit" class="btn btn-primary">Add Session</button>
-        </form>
-    </div>
+            <label for="organizationSearch" class="form-label">Session Organizations</label>
+            <div id="selectedOrganizations" class="mb-3">
+                <!-- Selected organizations will be displayed here as tags -->
+            </div>
+            <input type="text" class="form-control" id="organizationSearch" name="organizationSearch" placeholder="Type to search and add organizations..." hx-get="/search-organizations" hx-trigger="keyup changed delay:500ms" hx-target="#organizationNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+            <div id="organizationNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Session</button>
+    </form>
 </div>
+{% endblock %}
