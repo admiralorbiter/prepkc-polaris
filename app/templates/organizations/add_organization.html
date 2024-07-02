@@ -1,0 +1,30 @@
+<div class="modeal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="addOrganizationModalLabel">Add Organization</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="addOrganizationForm" hx-post="/add-organization">
+            <div class="mb-3">
+                <label for="organizationName" class="form-label">Organization Name</label>
+                <input type="text" class="form-control" id="organizationName" name="organizationName" required>
+            </div>
+            <div class="mb-3">
+                <label for="organizationEmail" class="form-label">Organization Email</label>
+                <input type="email" class="form-control" id="organizationEmail" name="organizationEmail" required>
+            </div>
+            <div class="mb-3">
+                <label for="organizationPhone" class="form-label">Organization Phone</label>
+                <input type="text" class="form-control" id="organizationPhone" name="organizationPhone" required>
+            </div>
+            <div class="mb-3">
+                <label for="organizationAddress" class="form-label">Organization Address</label>
+                <input type="text" class="form-control" id="organizationAddress" name="organizationAddress" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="addOrganizationForm">Add Organization</button>
+            </div>
+        </form>
+    </div>
+</div>
