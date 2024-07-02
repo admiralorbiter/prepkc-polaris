@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, School, Session, Teacher, session_schools, Presenter, Volunteer
+from app.models import SessionRow, User, School, Session, Teacher, session_schools, Presenter, Volunteer, Organization
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
@@ -172,6 +172,10 @@ def sessions():
 def get_add_session():
     return render_template("/modals/add_session.html")
 
+@app.route("/get-add-organization", methods=["GET"])
+def get_add_organization():
+    return render_template("/organizations/add_organization.html")
+
 @app.route("/get-add-teacher", methods=["GET"])
 def get_add_teacher():
     return render_template("/modals/add_teacher.html")
@@ -189,10 +193,20 @@ def load_sessions_table():
     sessions = Session.query.all()
     return render_template("/tables/session_table.html", sessions=sessions)
 
+@app.route("/load-organizations-table", methods=["GET"])
+def load_organizations_table():
+    organizations = Organization.query.all()
+    return render_template("/organizations/organization_table.html", organizations=organizations)
+
 @app.route("/session_page", methods=["GET"])
 def sessions_page():
     sessions = Session.query.all()
     return render_template("session_page.html", sessions=sessions)
+
+@app.route("/organizations", methods=["GET"])
+def organizations():
+    organizations = Organization.query.all()
+    return render_template("/organizations/organizations.html", organizations=organizations)
 
 @app.route("/sessions_list")
 def sessions_list():
@@ -210,6 +224,17 @@ def add_teacher():
         if school:
             teacher.school_name = school.name
     db.session.add(teacher)
+    db.session.commit()
+    return "Submitted"
+
+@app.route("/add-organization", methods=["POST"])
+def add_organization():
+    organization_name = request.form.get('organizationName')
+    organization_email = request.form.get('organizationEmail')
+    organization_phone = request.form.get('organizationPhone')
+    organization_address = request.form.get('organizationAddress')
+    organization = Organization(name=organization_name, email=organization_email, phone=organization_phone, address=organization_address)
+    db.session.add(organization)
     db.session.commit()
     return "Submitted"
 
@@ -299,6 +324,15 @@ def edit_session():
         return render_template('/forms/edit_session_form.html', session=session)
     else:
         return 'Session not found', 404
+    
+@app.route('/edit-organization', methods=['GET'])
+def edit_organization():
+    organization_id = request.args.get('organization_id')
+    organization = Organization.query.filter_by(id=organization_id).first()
+    if organization:
+        return render_template('/organizations/edit_organization.html', organization=organization)
+    else:
+        return 'Organization not found', 404
 
 @app.route('/edit-teacher', methods=['GET'])
 def edit_teacher():
@@ -373,6 +407,27 @@ def update_presenter():
 
     return redirect(url_for('presenters'))
 
+@app.route('/update-organization', methods=['POST'])
+def update_organization():
+    organization_id = request.form.get('organization_id')
+    name = request.form.get('organizationName')
+    email = request.form.get('organizationEmail')
+    phone = request.form.get('organizationPhone')
+    address = request.form.get('organizationAddress')
+
+    organization = Organization.query.get(organization_id)
+    if not organization:
+        return "Organization not found", 404
+
+    organization.name = name
+    organization.email = email
+    organization.phone = phone
+    organization.address = address
+
+    db.session.commit()
+
+    return redirect(url_for('organizations'))
+
 @app.route('/update-school', methods=['POST'])
 def update_school():
     school_id = request.form.get('school_id')
@@ -405,6 +460,15 @@ def delete_session():
     else:
         return 'Session not found', 404  # Return a 404 if the session doesn't exist
     
+@app.route('/delete-organization', methods=['DELETE'])
+def delete_organization():
+    organization_id = request.args.get('organization_id')
+    organization = Organization.query.filter_by(id=organization_id).first()
+    if organization:
+        db.session.delete(organization)
+        db.session.commit()
+        return '', 200
+
 @app.route('/delete-school', methods=['DELETE'])
 def delete_school():
     school_id = request.args.get('school_id')

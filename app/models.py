@@ -59,7 +59,6 @@ class Teacher(db.Model):
     school_name = db.Column(db.String)
     sessions = db.relationship('Session', secondary=session_teachers_association, back_populates='teachers')
 
-
 class School(db.Model):
     __tablename__ = 'schools'
     id = db.Column(db.Integer, primary_key=True)
@@ -68,6 +67,14 @@ class School(db.Model):
     level = db.Column(db.String)
     state = db.Column(db.String(2))
     sessions = db.relationship('Session', secondary=session_schools, back_populates='schools')
+
+class Organization(db.Model):
+    __tablename__ = 'organizations'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+    phone = db.Column(db.String, nullable=False)
+    address = db.Column(db.String, nullable=False)
 
 ### Tables from the original CSVs ### Tables from the original CSVs ### Tables from the original CSVs ###
 class SessionRow(db.Model):
