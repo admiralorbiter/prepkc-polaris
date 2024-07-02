@@ -19,6 +19,23 @@
             <input type="time" class="form-control" id="sessionTime" name="sessionTime" required>
         </div>
         <div class="mb-3">
+            <label for="sessionStatus" class="form-label">Session Status</label>
+            <select class="form-control" id="sessionStatus" name="sessionStatus" required>
+                <option value="Draft">Draft</option>
+                <option value="Published">Published</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="sessionType" class="form-label">Session Type</label>
+            <select class="form-control" id="sessionType" name="sessionType">
+                {% for type in session_types %}
+                <option value="{{ type }}">{{ type }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
             <button hx-get="/get-add-teacher" hx-target="#addTeacherModal .modal-content" data-bs-toggle="modal" data-bs-target="#addTeacherModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Teacher</button>
             <div id="addTeacherModal" class="modal fade" tabindex="-1">
                 <div class="modal-dialog modal-lg modal-dialog-centered">

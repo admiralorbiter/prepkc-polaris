@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
 from flask import jsonify
+from app.templates.sessions.partials.session_types import session_types
 
 def add_school_to_session(session_id, school_id):
     session = Session.query.get(session_id)
@@ -171,7 +172,7 @@ def sessions():
 
 @app.route("/add-session", methods=["GET"])
 def get_add_session():
-    return render_template("/sessions/add_session.html")
+    return render_template('/sessions/add_session.html', session_types=session_types)
 
 @app.route("/get-add-organization", methods=["GET"])
 def get_add_organization():
@@ -291,6 +292,8 @@ def add_session():
     session_date_str = request.form.get('sessionDate')
     session_time_str = request.form.get('sessionTime')
     session_title = request.form.get('sessionTitle')
+    session_status = request.form.get('sessionStatus')
+    session_type = request.form.get('sessionType')
 
     # Convert date and time strings to datetime objects
     session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()
@@ -301,8 +304,8 @@ def add_session():
         start_date=session_date,
         start_time=session_time,
         name=session_title,
-        status="Draft",  # Set default status
-        type="Null",  # Set default type
+        status=session_status,
+        type=session_type,
         delivery_hours=0,  # Set default delivery hours
         participant_count=0,  # Set default participant count
         student_count=0,  # Set default student count
