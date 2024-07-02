@@ -1,6 +1,6 @@
 <div class="mb-3">
     <label for="sessionTitle" class="form-label">Session Title</label>
-    <input type="text" class="form-control" id="sessionTitle" name="sessionTitle" value="{{ session.title if session else '' }}" required>
+    <input type="text" class="form-control" id="sessionTitle" name="sessionTitle" value="{{ session.name if session else '' }}" required>
 </div>
 <div class="mb-3">
     <label for="sessionDate" class="form-label">Session Date</label>

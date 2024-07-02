@@ -353,8 +353,8 @@ def add_session():
 def edit_session(session_id):
     session = Session.query.get_or_404(session_id)
     if request.method == 'POST':
-        session.title = request.form.get('sessionTitle')
-        session.date = datetime.strptime(request.form.get('sessionDate'), '%Y-%m-%d').date()
+        session.name = request.form.get('sessionTitle')
+        session.start_date = datetime.strptime(request.form.get('sessionDate'), '%Y-%m-%d').date()
         session.start_time = datetime.strptime(request.form.get('sessionTime'), '%H:%M').time()
         session.status = request.form.get('sessionStatus')
         session.type = request.form.get('sessionType')
