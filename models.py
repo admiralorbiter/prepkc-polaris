@@ -4,84 +4,107 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
-## Base Class
-# This class is used to define the common columns that are used in all the tables.
+# Base Class
 class Base(db.Model):
-    __abstract__ = True                                                                         # Indicates that this class should not be created as a table
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)                                # This column will be set to the current time when a row is created
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)      # This column will be updated whenever the row is updated
-    deleted_at = db.Column(db.DateTime, nullable=True, index=True)                              # Soft delete column
+    __abstract__ = True
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    deleted_at = db.Column(db.DateTime, nullable=True, index=True)
 
-# The `session_teachers_association` table is an association table that establishes a many-to-many relationship between sessions and teachers.
-# It has two columns: `session_id` and `teacher_id`. Both are integers and serve as primary keys.
+# Association tables for many-to-many relationships
 session_teachers_association = db.Table('session_teachers_association',
     db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
     db.Column('teacher_id', db.Integer, db.ForeignKey('teachers.id'), primary_key=True)
 )
 
-# Similarly, the `session_schools` table is an association table that establishes a many-to-many relationship between sessions and schools.
-# It also has two columns: `session_id` and `school_id`. Both are integers and serve as primary keys.
 session_schools = db.Table('session_schools',
     db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
     db.Column('school_id', db.Integer, db.ForeignKey('schools.id'), primary_key=True)
 )
 
-## Session Table
-# This table stores information about the sessions that are conducted.
-class Session(db.Model):
-    __tablename__ = 'sessions'                                                                  # Table name
-    id = db.Column(db.Integer, primary_key=True)                                                # Primary key created on when a session is created
-    status = db.Column(db.String, index=True)                                                   # Status of the session 
-    date = db.Column(db.Date, index=True)                                                       # Date of the session
-    start_time = db.Column(db.Time, index=True)                                                 # Start time of the session
-    session_type = db.Column(db.String)                                                         # Type of the session
-    external_session_id = db.Column(db.Integer)                                                 # External session id based on the connector        
+# Association table for many-to-many relationship between sessions and organizations
+session_organizations_association = db.Table('session_organizations_association',
+    db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
+    db.Column('organization_id', db.Integer, db.ForeignKey('organizations.id'), primary_key=True)
+)
+
+# Session Table
+class Session(Base):
+    __tablename__ = 'sessions'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    organization_id = db.Column(db.Integer, db.ForeignKey('organizations.id'), nullable=False)
+    type = db.Column(db.String, nullable=False)
+    status = db.Column(db.String, nullable=False)
+    start_date = db.Column(db.Date, nullable=False)
+    start_time = db.Column(db.Time, nullable=False)
+    delivery_hours = db.Column(db.Numeric, nullable=False)
+    topic = db.Column(db.String, nullable=False)
+    participant_count = db.Column(db.Integer, nullable=False)
+    student_count = db.Column(db.Integer, nullable=False)
+    volunteer_count = db.Column(db.Integer, nullable=False)
+    skills_needed = db.Column(db.String, nullable=False)
     teachers = db.relationship('Teacher', secondary=session_teachers_association, back_populates='sessions')
     schools = db.relationship('School', secondary=session_schools, back_populates='sessions')
-    title = db.Column(db.String)                                                                # Title of the session                          
-    topic = db.Column(db.String)                                                                # Topic of the session
-    session_link = db.Column(db.String)                                                         # Link to the session
-    presenters = db.relationship('Presenter', back_populates='session')                         # Relationship with the Presenter table
+    organizations = db.relationship('Organization', secondary=session_organizations_association, back_populates='sessions')
 
-    @property
-    def school_teacher_mapping(self):
-        mapping = defaultdict(list)
-        for teacher in self.teachers:  # Assuming 'teachers' is a relationship field in the model
-            mapping[teacher.school_name].append(teacher.name)
-        return mapping
 
-## Presenter Table
-# This table stores information about the presenters who conduct the sessions.
-class Presenter(db.Model):
-    __tablename__ = 'presenters'                                                                # Table name                
-    id = db.Column(db.Integer, primary_key=True)                                                # Primary key created on when a presenter is created
-    name = db.Column(db.String)                                                                 # Name of the presenter
-    email = db.Column(db.String, index=True)                                                    # Email of the presenter
-    phone = db.Column(db.String)                                                                # Phone number of the presenter
-    organization = db.Column(db.String)                                                         # Organization of the presenter                           
-    local = db.Column(db.Boolean)                                                               # Local or not boolean
-    ethnicity = db.Column(db.String)                                                            # ethnicity of the presenter
-    job_title = db.Column(db.String)                                                            # Job title of the presenter
-    city = db.Column(db.String)
-    state = db.Column(db.String(2))                                                             # State of the presenter                                :up to 2 characters
-    postal_code = db.Column(db.String)                                                          # Postal code of the presenter
-    session_id = db.Column(db.Integer, db.ForeignKey('sessions.id'), index=True)                # Foreign key to the Session table
-    session = db.relationship('Session', back_populates='presenters')                           # Relationship with the Session table
+# Organization Table
+class Organization(Base):
+    __tablename__ = 'organizations'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    sessions = db.relationship('Session', secondary=session_organizations_association, back_populates='organizations')
 
-## Teacher Table
-# This table stores information about the teachers who are part of the sessions.
-class Teacher(db.Model):
-    __tablename__ = 'teachers'                                                                  # Table name
-    id = db.Column(db.Integer, primary_key=True)                                                # Primary key created on when a teacher is created
-    name = db.Column(db.String)                                                                 # Name of the teacher
-    school_name = db.Column(db.String)                                                          # School name of the teacher
+
+# Person Base Table
+class PersonBase(Base):
+    __abstract__ = True
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    middle_name = db.Column(db.String(50), nullable=True)
+    suffix = db.Column(db.String(10), nullable=True)
+    email = db.Column(db.String(100), nullable=False)
+    address = db.Column(db.String(255), nullable=False)
+    primary_phone = db.Column(db.String(15), nullable=False)
+    secondary_phone = db.Column(db.String(15), nullable=True)
+    active = db.Column(db.Boolean, default=True)
+    birthday = db.Column(db.Date, nullable=False)
+    connector_account_id = db.Column(db.Integer, db.ForeignKey('connector_accounts.id'), nullable=True)
+    gender = db.Column(db.String(10), nullable=True)
+    contact_type = db.Column(db.String(50), nullable=True)
+
+# Volunteer Table
+class Volunteer(PersonBase):
+    __tablename__ = 'volunteers'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=True)
+    primary_affiliation_id = db.Column(db.Integer, db.ForeignKey('organizations.id'), nullable=False)
+    historical_affiliation = db.relationship('Organization', secondary='volunteer_organizations', back_populates='volunteers')
+    education_background = db.Column(db.String(100), nullable=True)
+    last_mailchimp_email_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_volunteer_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+# School Table
+class School(Base):
+    __tablename__ = 'schools'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    district = db.Column(db.String(100), nullable=False)
+    level = db.Column(db.String(50), nullable=False)
+    sessions = db.relationship('Session', secondary=session_schools, back_populates='schools')
+
+# Teacher Table
+class Teacher(PersonBase):
+    __tablename__ = 'teachers'
+    id = db.Column(db.Integer, primary_key=True)
+    primary_affiliation_id = db.Column(db.Integer, db.ForeignKey('schools.id'), nullable=False)
+    historical_affiliation = db.relationship('School', secondary='teacher_schools', back_populates='teachers')
+    type = db.Column(db.String(50), nullable=False)
     sessions = db.relationship('Session', secondary=session_teachers_association, back_populates='teachers')
 
-class School(db.Model):
-    __tablename__ = 'schools'                                                                   # Table name
-    id = db.Column(db.Integer, primary_key=True)                                                # Primary key created on when a school is created
-    name = db.Column(db.String)                                                                 # Name of the school             
-    district = db.Column(db.String)                                                             # District of the school             
-    level = db.Column(db.String)                                                                # Level of the school
-    state = db.Column(db.String(2))                                                             # State of the school                                :up to 2 characters
-    sessions = db.relationship('Session', secondary=session_schools, back_populates='schools')  # Relationship with the Session table
+# Connector Account Table
+class ConnectorAccount(Base):
+    __tablename__ = 'connector_accounts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
