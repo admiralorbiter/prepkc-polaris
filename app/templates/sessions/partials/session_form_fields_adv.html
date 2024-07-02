@@ -1,0 +1,21 @@
+<!-- session_edit_fields.html -->
+<div class="mb-3">
+    <label for="deliveryHours" class="form-label">Delivery Hours</label>
+    <input type="number" class="form-control" id="deliveryHours" name="deliveryHours" value="{{ session.delivery_hours if session else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="participantCount" class="form-label">Participant Count</label>
+    <input type="number" class="form-control" id="participantCount" name="participantCount" value="{{ session.participant_count if session else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="studentCount" class="form-label">Student Count</label>
+    <input type="number" class="form-control" id="studentCount" name="studentCount" value="{{ session.student_count if session else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="volunteerCount" class="form-label">Volunteer Count</label>
+    <input type="number" class="form-control" id="volunteerCount" name="volunteerCount" value="{{ session.volunteer_count if session else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="skillsNeeded" class="form-label">Skills Needed</label>
+    <input type="text" class="form-control" id="skillsNeeded" name="skillsNeeded" value="{{ session.skills_needed if session else '' }}">
+</div>

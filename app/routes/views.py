@@ -358,6 +358,11 @@ def edit_session(session_id):
         session.start_time = datetime.strptime(request.form.get('sessionTime'), '%H:%M').time()
         session.status = request.form.get('sessionStatus')
         session.type = request.form.get('sessionType')
+        session.delivery_hours = request.form.get('deliveryHours')
+        session.participant_count = request.form.get('participantCount')
+        session.student_count = request.form.get('studentCount')
+        session.volunteer_count = request.form.get('volunteerCount')
+        session.skills_needed = request.form.get('skillsNeeded')
 
         db.session.commit()
 
