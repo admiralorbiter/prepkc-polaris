@@ -230,10 +230,7 @@ def add_teacher():
 @app.route("/add-organization", methods=["POST"])
 def add_organization():
     organization_name = request.form.get('organizationName')
-    organization_email = request.form.get('organizationEmail')
-    organization_phone = request.form.get('organizationPhone')
-    organization_address = request.form.get('organizationAddress')
-    organization = Organization(name=organization_name, email=organization_email, phone=organization_phone, address=organization_address)
+    organization = Organization(name=organization_name)
     db.session.add(organization)
     db.session.commit()
     return "Submitted"

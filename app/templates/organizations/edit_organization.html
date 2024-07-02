@@ -11,21 +11,6 @@
         <input type="text" class="form-control" id="organizationName" name="organizationName" value="{{ organization.name }}" required>
     </div>
 
-    <div class="mb-3">
-        <label for="organizationEmail" class="form-label">Email</label>
-        <input type="email" class="form-control" id="organizationEmail" name="organizationEmail" value="{{ organization.email }}" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="organizationPhone" class="form-label">Phone</label>
-        <input type="text" class="form-control" id="organizationPhone" name="organizationPhone" value="{{ organization.phone }}" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="organizationAddress" class="form-label">Address</label>
-        <input type="text" class="form-control" id="organizationAddress" name="organizationAddress" value="{{ organization.address }}" required>
-    </div>
-
     <button type="submit" class="btn btn-primary">Update Organization</button>
 </form>
 {% endblock %}
