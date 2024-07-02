@@ -349,14 +349,21 @@ def add_session():
     # Redirect or return a response
     return redirect(url_for('sessions'))
 
-@app.route('/edit-session', methods=['GET'])
-def edit_session():
-    session_id = request.args.get('session_id')
-    session = Session.query.filter_by(id=session_id).first()
-    if session:
-        return render_template('/sessions/edit_session_form.html', session=session)
-    else:
-        return 'Session not found', 404
+@app.route('/edit-session/<int:session_id>', methods=['GET', 'POST'])
+def edit_session(session_id):
+    session = Session.query.get_or_404(session_id)
+    if request.method == 'POST':
+        session.title = request.form.get('sessionTitle')
+        session.date = datetime.strptime(request.form.get('sessionDate'), '%Y-%m-%d').date()
+        session.start_time = datetime.strptime(request.form.get('sessionTime'), '%H:%M').time()
+        session.status = request.form.get('sessionStatus')
+        session.type = request.form.get('sessionType')
+
+        db.session.commit()
+
+        return redirect(url_for('sessions'))
+
+    return render_template('/sessions/edit_session_form.html', session=session, session_types=session_types)
     
 @app.route('/edit-organization', methods=['GET'])
 def edit_organization():
@@ -533,40 +540,40 @@ def delete_presenter():
 def clear_edit_pane():
     return '<div id="editPane" class="edit-pane"></div>'  # Returns an empty response to clear the pane
 
-@app.route('/update-session', methods=['POST'])
-def update_session():
-    session_id = request.form.get('session_id')
-    session = Session.query.filter_by(id=session_id).first()
+# @app.route('/update-session', methods=['POST'])
+# def update_session():
+#     session_id = request.form.get('session_id')
+#     session = Session.query.filter_by(id=session_id).first()
 
-    if not session:
-        return redirect(url_for('sessions_list'))
+#     if not session:
+#         return redirect(url_for('sessions_list'))
 
-    try:
-        session.title = request.form.get('title', session.title)
-        session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d') if request.form.get('date') else session.date
-        session.status = request.form.get('status', session.status)
+#     try:
+#         session.title = request.form.get('title', session.title)
+#         session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d') if request.form.get('date') else session.date
+#         session.status = request.form.get('status', session.status)
 
-        teacher_ids = request.form.getlist('teacherIds[]')
-        session.teachers = [Teacher.query.get(teacher_id) for teacher_id in teacher_ids if Teacher.query.get(teacher_id)]
+#         teacher_ids = request.form.getlist('teacherIds[]')
+#         session.teachers = [Teacher.query.get(teacher_id) for teacher_id in teacher_ids if Teacher.query.get(teacher_id)]
 
-        presenter_ids = request.form.getlist('presenterIds[]')
-        session.presenters = [Volunteer.query.get(presenter_id) for presenter_id in presenter_ids if Volunteer.query.get(presenter_id)]
+#         presenter_ids = request.form.getlist('presenterIds[]')
+#         session.presenters = [Volunteer.query.get(presenter_id) for presenter_id in presenter_ids if Volunteer.query.get(presenter_id)]
 
-        db.session.commit()
+#         db.session.commit()
         
-        updated_row = render_template('/sessions/session_row.html', session=session)
+#         updated_row = render_template('/sessions/session_row.html', session=session)
         
-        # Script to clear the edit pane
-        clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
+#         # Script to clear the edit pane
+#         clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
 
-        # Combine the updated row and script
-        combined_response = updated_row + clear_script
+#         # Combine the updated row and script
+#         combined_response = updated_row + clear_script
 
-        return combined_response
+#         return combined_response
 
-    except Exception as e:
-        db.session.rollback()
-        return redirect(url_for('edit_session', session_id=session_id))
+#     except Exception as e:
+#         db.session.rollback()
+#         return redirect(url_for('edit_session', session_id=session_id))
 
 @app.route("/teachers", methods=["GET"])
 def teachers():
