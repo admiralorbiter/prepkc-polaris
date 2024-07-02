@@ -7,9 +7,7 @@
 
     <a href="{{ url_for('add_session') }}" class="btn btn-primary">Add Session</a>
    
-    <div id="details">
-        <!-- Session details will be loaded here by HTMX -->
-    </div>
+    <div id="detailsPane"></div>
     
     {% set filter_id = 'statusFilter' %}
     {% set filter_name = 'statusFilter' %}

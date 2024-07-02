@@ -2,7 +2,9 @@
 
 <tr id="id{{ session.id }}">
     <td>{{ session.id }}</td>
-    <td><a href="#" hx-get="/session_details?session_id={{ session.id }}" hx-target="#details">{{ session.name }}</a></td>
+    <td><a href="{{ url_for('session_details', session_id=session.id) }}" hx-get="{{ url_for('session_details', session_id=session.id) }}" hx-target="#detailsPane" hx-swap="innerHTML">
+        {{ session.name }}
+    </a></td>
     <td>{{ session.start_date.strftime('%m/%d/%Y') if session.start_date else 'Date not set' }}</td>
     <td>{{ session.start_time.strftime('%H:%M') if session.start_time else 'Time not set' }}</td>
     <td>{{ session.status }}</td>

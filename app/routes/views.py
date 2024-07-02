@@ -286,6 +286,16 @@ def filter_sessions_by_date():
 
     return render_template("/sessions/session_table.html", sessions=sessions)
 
+@app.route('/session_details/<int:session_id>')
+def session_details(session_id):
+    session = Session.query.get_or_404(session_id)
+    return render_template('/sessions/session_details.html', session=session)
+
+@app.route('/clear-details-pane')
+def clear_details_pane():
+    return '<div id="detailsPane"></div>'
+
+
 @app.route('/add-session', methods=['POST'])
 def add_session():
     # Get form data
