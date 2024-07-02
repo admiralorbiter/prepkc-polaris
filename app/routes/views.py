@@ -309,6 +309,13 @@ def add_session():
         if teacher:
             new_session.teachers.append(teacher)
 
+    # Add the organizations to the session's organizations list
+    organization_ids = request.form.getlist('organizationIds[]')  # Get the list of organization IDs
+    for organization_id in organization_ids:
+        organization = Organization.query.get(organization_id)  # Use `get` for ID lookup
+        if organization:
+            new_session.organizations.append(organization)
+
     # Add the new session to the DB session and commit
     db.session.add(new_session)
     db.session.commit()

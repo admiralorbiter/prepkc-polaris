@@ -14,6 +14,11 @@ session_schools = db.Table('session_schools',
     db.Column('school_id', db.Integer, db.ForeignKey('schools.id'), primary_key=True)
 )
 
+session_organizations_association = db.Table('session_organizations_association',
+    db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True),
+    db.Column('organization_id', db.Integer, db.ForeignKey('organizations.id'), primary_key=True)
+)
+
 class Base(db.Model):
     __abstract__ = True  # Indicates that this class should not be created as a table
 
@@ -35,6 +40,8 @@ class Session(db.Model):
     topic = db.Column(db.String)  
     session_link = db.Column(db.String) 
     presenters = db.relationship('Presenter', back_populates='session')
+    organizations = db.relationship('Organization', secondary=session_organizations_association, back_populates='sessions')
+
 
 class Presenter(db.Model):
     __tablename__ = 'presenters'
@@ -75,6 +82,8 @@ class Organization(db.Model):
     email = db.Column(db.String, nullable=False)
     phone = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
+    sessions = db.relationship('Session', secondary=session_organizations_association, back_populates='organizations')
+
 
 ### Tables from the original CSVs ### Tables from the original CSVs ### Tables from the original CSVs ###
 class SessionRow(db.Model):
