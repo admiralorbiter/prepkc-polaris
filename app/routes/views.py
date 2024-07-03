@@ -186,7 +186,7 @@ def get_add_teacher():
 def get_add_presenter():
     return render_template("/volunteers/add_Volunteer.html")
 
-@app.route("/get-add-school", methods=["GET"])
+@app.route("/add-school", methods=["GET"])
 def get_add_school():
     return render_template("/schools/add_school.html")
 
@@ -240,12 +240,12 @@ def add_organization():
 @app.route("/add-school", methods=["POST"])
 def add_school():
     name = request.form.get('schoolName')
-    state = request.form.get('schoolState')
+    district = request.form.get('schoolDistrict')
     level = request.form.get('schoolLevel')
-    school = School(name=name, state=state, level=level)
+    school = School(name=name, district=district, level=level)
     db.session.add(school)
     db.session.commit()
-    return "Submitted"
+    return redirect(url_for('schools'))
 
 @app.route("/add-presenter", methods=["POST"])
 def add_presenter():
