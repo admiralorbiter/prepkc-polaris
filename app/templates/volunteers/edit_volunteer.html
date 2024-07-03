@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Polaris: Our North Star{% endblock %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('update_volunteer') }}">
+    <input type="hidden" name="volunteer_id" value="{{ volunteer.id }}">
+
+    <div class="mb-3">
+        <label for="volunteerName" class="form-label">Name</label>
+        <input type="text" class="form-control" id="volunteerName" name="volunteerName" value="{{ volunteer.name }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="volunteerEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="volunteerEmail" name="volunteerEmail" value="{{ volunteer.email }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="volunteerPhone" class="form-label">Phone</label>
+        <input type="text" class="form-control" id="volunteerPhone" name="volunteerPhone" value="{{ volunteer.phone }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="volunteerOrganization" class="form-label">Organization</label>
+        <input type="text" class="form-control" id="volunteerOrganization" name="volunteerOrganization" value="{{ volunteer.organization }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update volunteer</button>
+</form>
+{% endblock %}

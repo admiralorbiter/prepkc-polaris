@@ -1,10 +1,10 @@
-{% for presenter in presenters %}
-<a href="#" class="list-group-item list-group-item-action" onclick="addPresenterTag('{{ presenter.name }}', '{{ presenter.id }}'); return false;">{{ presenter.name }}</a>
+{% for volunteer in volunteers %}
+<a href="#" class="list-group-item list-group-item-action" onclick="addvolunteerTag('{{ volunteer.name }}', '{{ volunteer.id }}'); return false;">{{ volunteer.name }}</a>
 {% endfor %}
 
 <script>
-    function addPresenterTag(name, id) {
-        const container = document.getElementById('selectedPresenters');
+    function addvolunteerTag(name, id) {
+        const container = document.getElementById('selectedvolunteers');
         const tag = document.createElement('span');
         tag.className = 'badge bg-primary me-2';
         tag.textContent = name + ' ';
@@ -13,40 +13,40 @@
         removeIcon.style.cursor = 'pointer';
         removeIcon.onclick = function() { container.removeChild(tag); };
         tag.appendChild(removeIcon);
-        // Include a hidden input to submit the presenter's ID
+        // Include a hidden input to submit the volunteer's ID
         const hiddenInput = document.createElement('input');
         hiddenInput.type = 'hidden';
-        hiddenInput.name = 'presenterIds[]'; // Use array name to capture multiple IDs
+        hiddenInput.name = 'volunteerIds[]'; // Use array name to capture multiple IDs
         hiddenInput.value = id;
         tag.appendChild(hiddenInput);
         container.appendChild(tag);
         // Clear the search field and suggestions
-        document.getElementById('presenterSearch').value = '';
-        document.getElementById('presenterNameSuggestions').innerHTML = '';
+        document.getElementById('volunteerSearch').value = '';
+        document.getElementById('volunteerNameSuggestions').innerHTML = '';
     }
 
     document.addEventListener('click', function(event) {
-        if (!document.getElementById('presenterSearch').contains(event.target)) {
-            document.getElementById('presenterNameSuggestions').innerHTML = '';
+        if (!document.getElementById('volunteerSearch').contains(event.target)) {
+            document.getElementById('volunteerNameSuggestions').innerHTML = '';
         }
     });
 </script>
 
 <style>
-    #presenterNameSuggestions .list-group-item {
+    #volunteerNameSuggestions .list-group-item {
         cursor: pointer;
     }
-    #presenterNameSuggestions .list-group-item:hover {
+    #volunteerNameSuggestions .list-group-item:hover {
         background-color: #f8f9fa; /* Light grey */
     }
-    #selectedPresenters .badge {
+    #selectedvolunteers .badge {
         padding: 0.5em 0.75em;
         font-size: 0.875rem;
         margin-bottom: 0.5em;
         display: inline-flex;
         align-items: center;
     }
-    #selectedPresenters .badge i {
+    #selectedvolunteers .badge i {
         margin-left: 0.5em;
     }
 </style>
