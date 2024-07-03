@@ -1,5 +1,7 @@
 from collections import defaultdict
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+from sqlalchemy import func
 from datetime import datetime
 from . import db
 
@@ -78,6 +80,14 @@ class PersonBase(Base):
     connector_account_id = db.Column(db.Integer, db.ForeignKey('connector_accounts.id'), nullable=True)
     gender = db.Column(db.String(10), nullable=True)
     contact_type = db.Column(db.String(50), nullable=True)
+
+    @hybrid_property
+    def name(self):
+        return f"{self.first_name} {self.last_name}"
+    
+    @name.expression
+    def name(cls):
+        return cls.first_name + ' ' + cls.last_name
 
 # Volunteer Table
 class Volunteer(PersonBase):

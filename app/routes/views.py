@@ -31,7 +31,6 @@ def playground():
 @app.route("/search-teachers", methods=["GET"])
 def search_teachers():
     teacher_name = request.args.get('teacherSearch')
-    print(teacher_name)
     teachers = Teacher.query.filter(Teacher.name.ilike(f'%{teacher_name}%')).all()
     return render_template("/teachers/teacher_list.html", teachers=teachers)
 
@@ -51,7 +50,7 @@ def search_schools():
 def search_organizations():
     organization_name = request.args.get('organizationSearch')
     print(organization_name)
-    organizations = db.session.query(Volunteer.organization).filter(Volunteer.organization.ilike(f'%{organization_name}%')).distinct().all()
+    organizations = db.session.query(Volunteer.organizations).filter(Volunteer.organizations.ilike(f'%{organization_name}%')).distinct().all()
     organizations = [org[0] for org in organizations if org[0]]  # Unpack and remove None
     return render_template("/organizations/organization_list.html", organizations=organizations)
 
