@@ -13,14 +13,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///{db_path}'
 app.config["SQLALCHEMY_ECHO"] = False
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy()
-migrate = Migrate()
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 from app.routes import views
 from app import models
 
-db.init_app(app)
-migrate.init_app(app, db)
+# db.init_app(app)
+# migrate.init_app(app, db)
 
 with app.app_context():
     db.create_all()

@@ -178,7 +178,7 @@ def get_add_session():
 def get_add_organization():
     return render_template("/organizations/add_organization.html")
 
-@app.route("/get-add-teacher", methods=["GET"])
+@app.route("/add-teacher", methods=["GET"])
 def get_add_teacher():
     return render_template("/teachers/add_teacher.html")
 
@@ -218,16 +218,14 @@ def sessions_list():
 #Note: Need to make teacher store the school_id instead of the school name
 @app.route("/add-teacher", methods=["POST"])
 def add_teacher():
-    teacher_name = request.form.get('teacherName')
+    first_name = request.form.get('firstName')
+    last_name = request.form.get('lastName')
+    email = request.form.get('email')
     school_id = request.form.get('schoolId')
-    teacher = Teacher(name=teacher_name)
-    if school_id:
-        school = School.query.get(school_id)
-        if school:
-            teacher.school_name = school.name
+    teacher = Teacher(first_name=first_name, last_name=last_name, email=email, primary_affiliation_id=school_id, type='Teacher')  # Assuming 'type' is required
     db.session.add(teacher)
     db.session.commit()
-    return "Submitted"
+    return redirect(url_for('teachers'))
 
 @app.route("/add-organization", methods=["POST"])
 def add_organization():
