@@ -36,6 +36,11 @@ volunteer_organizations = db.Table('volunteer_organizations',
     db.Column('organization_id', db.Integer, db.ForeignKey('organizations.id'), primary_key=True)
 )
 
+volunteer_sessions = db.Table('volunteer_sessions',
+    db.Column('volunteer_id', db.Integer, db.ForeignKey('volunteers.id'), primary_key=True),
+    db.Column('session_id', db.Integer, db.ForeignKey('sessions.id'), primary_key=True)
+)
+
 # Session Table
 class Session(Base):
     __tablename__ = 'sessions'
@@ -55,6 +60,8 @@ class Session(Base):
     teachers = db.relationship('Teacher', secondary=session_teachers_association, back_populates='sessions', overlaps="historical_affiliation,sessions")
     schools = db.relationship('School', secondary=session_schools, back_populates='sessions')
     organizations = db.relationship('Organization', secondary=session_organizations_association, back_populates='sessions')
+    volunteers = db.relationship('Volunteer', secondary=volunteer_sessions, back_populates='sessions')
+
 
 # Organization Table
 class Organization(Base):
@@ -100,6 +107,7 @@ class Volunteer(PersonBase):
     last_mailchimp_email_date = db.Column(db.DateTime, default=datetime.utcnow)
     last_volunteer_date = db.Column(db.DateTime, default=datetime.utcnow)
     organizations = db.relationship('Organization', secondary=volunteer_organizations, back_populates='volunteers', overlaps="historical_affiliation,volunteers")
+    sessions = db.relationship('Session', secondary=volunteer_sessions, back_populates='volunteers')
 
 # School Table
 class School(Base):

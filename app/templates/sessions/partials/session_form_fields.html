@@ -28,7 +28,7 @@
     </select>
 </div>
 <div class="mb-3">
-    <button hx-get="/get-add-teacher" hx-target="#addTeacherModal .modal-content" data-bs-toggle="modal" data-bs-target="#addTeacherModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Teacher</button>
+    <button hx-get="/add-teacher" hx-target="#addTeacherModal .modal-content" data-bs-toggle="modal" data-bs-target="#addTeacherModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Teacher</button>
     <div id="addTeacherModal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -44,22 +44,22 @@
     <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
 </div>
 <div class="mb-3">
-    <button hx-get="/get-add-presenter" hx-target="#addPresenterModal .modal-content" data-bs-toggle="modal" data-bs-target="#addPresenterModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Presenter</button>
-    <div class="modal fade" id="addPresenterModal" tabindex="-1">
+    <button hx-get="/add-volunteer" hx-target="#addvolunteerModal .modal-content" data-bs-toggle="modal" data-bs-target="#addvolunteerModal" hx-trigger="click" class="btn btn-sm btn-primary">Add volunteer</button>
+    <div class="modal fade" id="addvolunteerModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
             </div>
         </div>
     </div>
-    <label for="presenterSearch" class="form-label">Session Presenters</label>
-    <div id="selectedPresenters" class="mb-3">
-        <!-- Selected presenters will be displayed here as tags -->
+    <label for="volunteerSearch" class="form-label">Session volunteers</label>
+    <div id="selectedvolunteers" class="mb-3">
+        <!-- Selected volunteers will be displayed here as tags -->
     </div>
-    <input type="text" class="form-control" id="presenterSearch" name="presenterSearch" placeholder="Type to search and add presenters..." hx-get="/search-presenters" hx-trigger="keyup changed delay:500ms" hx-target="#presenterNameSuggestions" hx-swap="innerHTML" autocomplete="off">
-    <div id="presenterNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+    <input type="text" class="form-control" id="volunteerSearch" name="volunteerSearch" placeholder="Type to search and add volunteers..." hx-get="/search-volunteers" hx-trigger="keyup changed delay:500ms" hx-target="#volunteerNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+    <div id="volunteerNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
 </div>
 <div class="mb-3">
-    <button hx-get="/get-add-organization" hx-target="#addOrganizationModal .modal-content" data-bs-toggle="modal" data-bs-target="#addOrganizationModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Organization</button>
+    <button hx-get="/add-organization" hx-target="#addOrganizationModal .modal-content" data-bs-toggle="modal" data-bs-target="#addOrganizationModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Organization</button>
     <div class="modal fade" id="addOrganizationModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

@@ -49,10 +49,9 @@ def search_schools():
 @app.route("/search-organizations", methods=["GET"])
 def search_organizations():
     organization_name = request.args.get('organizationSearch')
-    print(organization_name)
-    organizations = db.session.query(Volunteer.organizations).filter(Volunteer.organizations.ilike(f'%{organization_name}%')).distinct().all()
-    organizations = [org[0] for org in organizations if org[0]]  # Unpack and remove None
+    organizations = db.session.query(Organization).filter(Organization.name.ilike(f'%{organization_name}%')).distinct().all()
     return render_template("/organizations/organization_list.html", organizations=organizations)
+
 
 @app.route("/kcps", methods=["GET"])
 def kcps():

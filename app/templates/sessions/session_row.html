@@ -32,25 +32,25 @@
         {% endif %}
     </td>
     <td>
-        {% if session.presenters %}
-            {% set presenter_names = [] %}
-            {% for presenter in session.presenters %}
-                {% set _ = presenter_names.append(presenter.name) %}
+        {% if session.volunteers %}
+            {% set volunteer_names = [] %}
+            {% for volunteer in session.volunteers %}
+                {% set _ = volunteer_names.append(volunteer.name) %}
             {% endfor %}
-            {{ presenter_names|join(', ') }}
+            {{ volunteer_names|join(', ') }}
         {% else %}
-            Presenter not set
+            volunteer not set
         {% endif %}
     </td>
     <td>
-        {% if session.presenters %}
-            {% set presenter_orgs = [] %}
-            {% for presenter in session.presenters %}
-                {% set _ = presenter_orgs.append(presenter.organization) %}
+        {% if session.volunteers %}
+            {% set volunteer_orgs = [] %}
+            {% for volunteer in session.volunteers %}
+                {% set _ = volunteer_orgs.append(volunteer.organization) %}
             {% endfor %}
-            {{ presenter_orgs|join(', ') }}
+            {{ volunteer_orgs|join(', ') }}
         {% else %}
-            No Presenter
+            No volunteer
         {% endif %}
     </td>
     <td>

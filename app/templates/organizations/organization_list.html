@@ -1,5 +1,5 @@
 {% for organization in organizations %}
-<a href="#" class="list-group-item list-group-item-action" onclick="selectOrganization('{{ organization }}'); return false;">{{ organization }}</a>
+<a href="#" class="list-group-item list-group-item-action" onclick="selectOrganization('{{ organization.name }}'); return false;">{{ organization.name }}</a>
 {% endfor %}
 
 <script>
@@ -32,3 +32,4 @@
         margin-left: 0.5em;
     }
 </style>
+
