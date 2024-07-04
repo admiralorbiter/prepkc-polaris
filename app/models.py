@@ -124,6 +124,7 @@ class Teacher(PersonBase):
     __tablename__ = 'teachers'
     id = db.Column(db.Integer, primary_key=True)
     primary_affiliation_id = db.Column(db.Integer, db.ForeignKey('schools.id'), nullable=False)
+    primary_affiliation = db.relationship('School', back_populates='teachers')
     historical_affiliation = db.relationship(
         'School',
         secondary=session_teachers_association,

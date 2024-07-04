@@ -13,7 +13,7 @@
         {% if session.teachers %}
             {% set school_names = [] %}
             {% for teacher in session.teachers %}
-                {% set _ = school_names.append(teacher.primary_affiliation_id) %}
+                {% set _ = school_names.append(teacher.primary_affiliation.name) %}
             {% endfor %}
             {{ school_names|join(', ') }}
         {% else %}
