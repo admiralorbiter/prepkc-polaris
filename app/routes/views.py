@@ -318,12 +318,11 @@ def edit_session(session_id):
         session.name = request.form.get('sessionTitle')
         session.start_date = datetime.strptime(request.form.get('sessionDate'), '%Y-%m-%d').date()
         session.start_time = datetime.strptime(request.form.get('sessionTime'), '%H:%M').time()
+        session.end_time = datetime.strptime(request.form.get('sessionEndTime'), '%H:%M').time()
         session.status = request.form.get('sessionStatus')
         session.type = request.form.get('sessionType')
-        session.delivery_hours = request.form.get('deliveryHours')
-        session.participant_count = request.form.get('participantCount')
-        session.student_count = request.form.get('studentCount')
-        session.volunteer_count = request.form.get('volunteerCount')
+        session.manual_student_count = request.form.get('manualStudentCount')
+        session.pathway = request.form.get('pathway')
         session.skills_needed = request.form.get('skillsNeeded')
 
         db.session.commit()
@@ -331,6 +330,7 @@ def edit_session(session_id):
         return redirect(url_for('sessions'))
 
     return render_template('/sessions/edit_session_form.html', session=session, session_types=session_types)
+
     
 @app.route('/edit-organization', methods=['GET'])
 def edit_organization():
