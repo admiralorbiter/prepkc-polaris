@@ -13,7 +13,7 @@
         {% if session.teachers %}
             {% set school_names = [] %}
             {% for teacher in session.teachers %}
-                {% set _ = school_names.append(teacher.school_name) %}
+                {% set _ = school_names.append(teacher.primary_affiliation_id) %}
             {% endfor %}
             {{ school_names|join(', ') }}
         {% else %}
@@ -46,7 +46,7 @@
         {% if session.volunteers %}
             {% set volunteer_orgs = [] %}
             {% for volunteer in session.volunteers %}
-                {% set _ = volunteer_orgs.append(volunteer.organization) %}
+                {% set _ = volunteer_orgs.append(volunteer.primary_affiliation_id) %}
             {% endfor %}
             {{ volunteer_orgs|join(', ') }}
         {% else %}
