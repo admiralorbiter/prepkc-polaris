@@ -11,6 +11,10 @@
     <input type="time" class="form-control" id="sessionTime" name="sessionTime" value="{{ session.start_time.strftime('%H:%M') if session and session.start_time else '' }}" required>
 </div>
 <div class="mb-3">
+    <label for="sessionEndTime" class="form-label">Session End Time</label>
+    <input type="time" class="form-control" id="sessionEndTime" name="sessionEndTime" value="{{ session.end_time.strftime('%H:%M') if session and session.end_time else '' }}" required>
+</div>
+<div class="mb-3">
     <label for="sessionStatus" class="form-label">Session Status</label>
     <select class="form-control" id="sessionStatus" name="sessionStatus" required>
         <option value="Draft" {{ 'selected' if session and session.status == 'Draft' else '' }}>Draft</option>

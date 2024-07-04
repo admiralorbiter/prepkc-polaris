@@ -267,6 +267,7 @@ def add_session():
     # Get form data
     session_date_str = request.form.get('sessionDate')
     session_time_str = request.form.get('sessionTime')
+    end_time_str = request.form.get('sessionEndTime')
     session_title = request.form.get('sessionTitle')
     session_status = request.form.get('sessionStatus')
     session_type = request.form.get('sessionType')
@@ -274,18 +275,17 @@ def add_session():
     # Convert date and time strings to datetime objects
     session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()
     session_time = datetime.strptime(session_time_str, '%H:%M').time()
+    end_time = datetime.strptime(end_time_str, '%H:%M').time()
 
     # Create a new session object with default values
     new_session = Session(
         start_date=session_date,
         start_time=session_time,
+        end_time=end_time,
         name=session_title,
         status=session_status,
         type=session_type,
-        delivery_hours=0,  # Set default delivery hours
-        participant_count=0,  # Set default participant count
-        student_count=0,  # Set default student count
-        volunteer_count=0,  # Set default volunteer count
+        manual_student_count=0,  # Set default student count
         skills_needed=None,  # Assuming skills_needed can be nullable
         topic=None  # Assuming topic can be nullable
     )
@@ -303,13 +303,6 @@ def add_session():
         volunteer = Volunteer.query.get(volunteer_id)
         if volunteer:
             new_session.volunteers.append(volunteer)
-
-    # Optionally add organizations to the session's organizations list
-    organization_ids = request.form.getlist('organizationIds[]')
-    for organization_id in organization_ids:
-        organization = Organization.query.get(organization_id)
-        if organization:
-            new_session.organizations.append(organization)
 
     # Add the new session to the DB session and commit
     db.session.add(new_session)
