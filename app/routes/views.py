@@ -290,13 +290,6 @@ def add_session():
         topic=None  # Assuming topic can be nullable
     )
 
-    # Optionally add organization to the session
-    organization_id = request.form.get('organizationId')
-    if organization_id:
-        organization = Organization.query.get(organization_id)
-        if organization:
-            new_session.organization_id = organization.id
-
     # Optionally add teachers to the session's teachers list
     teacher_ids = request.form.getlist('teacherIds[]')
     for teacher_id in teacher_ids:
