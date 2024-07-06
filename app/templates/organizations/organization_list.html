@@ -3,17 +3,19 @@
 {% endfor %}
 
 <script>
-    function selectOrganization(name) {
-        document.getElementById('organizationSearch').value = name;
+    function selectOrganization(orgId, orgName) {
+        document.getElementById('organizationSearch').value = orgName;
+        document.getElementById('selectedOrganizationId').value = orgId;
         document.getElementById('organizationNameSuggestions').innerHTML = '';
+        console.log("Selected Organization ID:", orgId);  // Debugging
     }
+
     document.addEventListener('click', function(event) {
         if (!document.getElementById('organizationSearch').contains(event.target)) {
             document.getElementById('organizationNameSuggestions').innerHTML = '';
         }
     });
 </script>
-
 <style>
     #organizationNameSuggestions .list-group-item {
         cursor: pointer;

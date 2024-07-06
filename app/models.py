@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from sqlalchemy import case, func, select
 from datetime import datetime, timedelta
+from sqlalchemy.orm import aliased
 from . import db
 
 # Base Class
@@ -171,6 +172,20 @@ class Volunteer(PersonBase):
     last_volunteer_date = db.Column(db.DateTime, default=datetime.utcnow)
     organizations = db.relationship('Organization', secondary=volunteer_organizations, back_populates='volunteers', overlaps="historical_affiliation,volunteers")
     sessions = db.relationship('Session', secondary=volunteer_sessions, back_populates='volunteers')
+
+    @hybrid_property
+    def primary_affiliation_name(self):
+        organization = next((org for org in self.organizations if org.id == self.primary_affiliation_id), None)
+        return organization.name if organization else None
+
+    @primary_affiliation_name.expression
+    def primary_affiliation_name(cls):
+        OrganizationAlias = aliased(Organization)
+        return (
+            select([OrganizationAlias.name])
+            .where(OrganizationAlias.id == cls.primary_affiliation_id)
+            .as_scalar()
+        )
 
 # School Table
 class School(Base):

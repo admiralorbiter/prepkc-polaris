@@ -224,6 +224,7 @@ def add_volunteer():
     last_name = request.form.get('lastName')
     email = request.form.get('email')
     organization_id = request.form.get('organizationId')
+    print(organization_id)
     volunteer = Volunteer(first_name=first_name, last_name=last_name, email=email, primary_affiliation_id=organization_id)
     db.session.add(volunteer)
     db.session.commit()
