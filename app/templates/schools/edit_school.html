@@ -3,28 +3,11 @@
 {% block title %}Polaris: Our North Star{% endblock %}
 
 {% block content %}
-<form method="POST" action="{{ url_for('update_school') }}">
-    <input type="hidden" name="school_id" value="{{ school.id }}">
-
-    <div class="mb-3">
-        <label for="schoolName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="schoolName" name="schoolName" value="{{ school.name }}" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="schoolState" class="form-label">State</label>
-        <input type="text" class="form-control" id="schoolState" name="schoolState" value="{{ school.state }}" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="schoolLevel" class="form-label">Level</label>
-        <select class="form-select" id="schoolLevel" name="schoolLevel" required>
-            <option value="Primary" {{ 'selected' if school.level == 'Primary' else '' }}>Primary</option>
-            <option value="Secondary" {{ 'selected' if school.level == 'Secondary' else '' }}>Secondary</option>
-            <option value="Higher" {{ 'selected' if school.level == 'Higher' else '' }}>Higher</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Update School</button>
-</form>
+<div class="container mt-5">
+    <h1>Edit School</h1>
+    <form method="POST" action="{{ url_for('update_school', school_id=school.id) }}">
+        {% include '/schools/edit_school_form.html' %}
+        <button type="submit" class="btn btn-primary">Add School</button>
+    </form>
+</div>
 {% endblock %}

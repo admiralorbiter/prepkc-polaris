@@ -422,21 +422,12 @@ def update_organization(organization_id):
 
     return redirect(url_for('organizations'))
 
-@app.route('/update-school', methods=['POST'])
-def update_school():
-    school_id = request.form.get('school_id')
-    name = request.form.get('schoolName')
-    state = request.form.get('schoolState')
-    level = request.form.get('schoolLevel')
-
-    school = School.query.get(school_id)
-    if not school:
-        return "School not found", 404
-
-    school.name = name
-    school.state = state
-    school.level = level
-
+@app.route('/update-school/<int:school_id>', methods=['POST'])
+def update_school(school_id):
+    school = School.query.get_or_404(school_id)
+    school.name = request.form.get('schoolName')
+    school.district = request.form.get('schoolDistrict')
+    school.level = request.form.get('schoolLevel')
     db.session.commit()
 
     return redirect(url_for('schools'))
