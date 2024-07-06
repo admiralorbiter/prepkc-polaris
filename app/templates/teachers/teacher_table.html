@@ -12,7 +12,7 @@
         <tr>
             <td>{{ teacher.id }}</td>
             <td>{{ teacher.first_name+" "+teacher.last_name }}</td>
-            <td>{{ teacher.primary_affiliation_id }}</td>
+            <td>{{ teacher.primary_affiliation_name }}</td>
             <td>
                 <a href="/edit-teacher?teacher_id={{ teacher.id }}" class="btn btn-primary btn-sm">Edit</a>
                 <a href="#" hx-delete="/delete-teacher?teacher_id={{ teacher.id }}" hx-target="closest tr" hx-swap="outerHTML delete" hx-confirm="Are you sure you want to delete this teacher?" class="btn btn-danger btn-sm">Delete</a>

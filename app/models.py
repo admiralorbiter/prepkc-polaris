@@ -216,6 +216,19 @@ class Teacher(PersonBase):
     type = db.Column(db.String(50), nullable=False)
     sessions = db.relationship('Session', secondary=session_teachers_association, back_populates='teachers', overlaps="historical_affiliation,teachers")
 
+    @hybrid_property
+    def primary_affiliation_name(self):
+        return self.primary_affiliation.name
+
+    @primary_affiliation_name.expression
+    def primary_affiliation_name(cls):
+        SchoolAlias = aliased(School)
+        return (
+            select([SchoolAlias.name])
+            .where(SchoolAlias.id == cls.primary_affiliation_id)
+            .as_scalar()
+        )
+
 # Student Table
 class Student(PersonBase):
     __tablename__ = 'students'
