@@ -368,29 +368,29 @@ def edit_school():
     else:
         return 'School not found', 404
 
-@app.route("/update-teacher", methods=["POST"])
-def update_teacher():
-    teacher_id = request.form.get('teacher_id')
-    teacher_name = request.form.get('teacherName')
-    school_id = request.form.get('schoolId')
+@app.route("/update-teacher/<int:teacher_id>", methods=["POST"])
+def update_teacher(teacher_id):
+    teacher = Teacher.query.get_or_404(teacher_id)
+    teacher.first_name = request.form.get('firstName')
+    teacher.last_name = request.form.get('lastName')
+    teacher.middle_name = request.form.get('middleName')
+    teacher.suffix = request.form.get('suffix')
+    teacher.email = request.form.get('email')
+    teacher.address = request.form.get('address')
+    teacher.primary_phone = request.form.get('primaryPhone')
+    teacher.secondary_phone = request.form.get('secondaryPhone')
+    teacher.active = request.form.get('active') == 'true'
+    teacher.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date() if request.form.get('birthday') else None
+    teacher.connector_account_id = request.form.get('connectorAccountId')
+    teacher.gender = request.form.get('gender')
+    teacher.contact_type = request.form.get('contactType')
 
-    # Fetch the teacher object by ID
-    teacher = Teacher.query.get(teacher_id)
+    # Teacher fields
+    teacher.primary_affiliation_id = request.form.get('schoolId')
+    teacher.type = request.form.get('type')
 
-    if not teacher:
-        # Handle the case where the teacher does not exist
-        return "Teacher not found", 404
-
-    # Update the teacher's attributes
-    teacher.name = teacher_name
-    if school_id:
-        school = School.query.get(school_id)
-        if school:
-            teacher.school_name = school.name
-    # Commit the changes to the database
     db.session.commit()
 
-    # Redirect to the teachers list or return a success message
     return redirect(url_for('teachers'))
 
 @app.route('/update-volunteer', methods=['POST'])

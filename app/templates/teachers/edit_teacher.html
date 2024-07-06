@@ -3,20 +3,14 @@
 {% block title %}Polaris: Our North Star{% endblock %}
 
 {% block content %}
-<form method="POST" action="{{ url_for('update_teacher') }}">
+<div class="container mt-5">
+    <h1>Edit Teacher</h1>
+    <form method="POST" action="{{ url_for('update_teacher', teacher_id=teacher.id) }}">
+
+    {%include '/persons/edit_person_form.html' %}
+    {%include '/teachers/edit_teacher_form.html' %}
     <input type="hidden" name="teacher_id" value="{{ teacher.id }}">
 
-    <div class="mb-3">
-        <label for="teacherName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="teacherName" name="teacherName" value="{{ teacher.name }}" required>
-    </div>
-
-    <div class="mb-3">
-        <label for="schoolSearch" class="form-label">Teacher School</label>
-        <input type="text" class="form-control" id="schoolSearch" name="schoolSearch" placeholder="Type to search and add a school..." hx-get="/search-schools" hx-trigger="keyup changed delay:500ms" hx-target="#schoolNameSuggestions" hx-swap="innerHTML" autocomplete="off">
-        <div id="schoolNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
-        <input type="hidden" id="selectedSchoolId" name="schoolId">
-    </div>
     <button type="submit" class="btn btn-primary">Update Teacher</button>
 </form>
 {% endblock %}

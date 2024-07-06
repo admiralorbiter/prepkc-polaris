@@ -1,0 +1,55 @@
+<div class="mb-3">
+    <label for="firstName" class="form-label">First Name</label>
+    <input type="text" class="form-control" id="firstName" name="firstName" value="{{ teacher.first_name if teacher else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="lastName" class="form-label">Last Name</label>
+    <input type="text" class="form-control" id="lastName" name="lastName" value="{{ teacher.last_name if teacher else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="middleName" class="form-label">Middle Name</label>
+    <input type="text" class="form-control" id="middleName" name="middleName" value="{{ teacher.middle_name if teacher else '' }}">
+</div>
+<div class="mb-3">
+    <label for="suffix" class="form-label">Suffix</label>
+    <input type="text" class="form-control" id="suffix" name="suffix" value="{{ teacher.suffix if teacher else '' }}">
+</div>
+<div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email" value="{{ teacher.email if teacher else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" class="form-control" id="address" name="address" value="{{ teacher.address if teacher else '' }}">
+</div>
+<div class="mb-3">
+    <label for="primaryPhone" class="form-label">Primary Phone</label>
+    <input type="text" class="form-control" id="primaryPhone" name="primaryPhone" value="{{ teacher.primary_phone if teacher else '' }}">
+</div>
+<div class="mb-3">
+    <label for="secondaryPhone" class="form-label">Secondary Phone</label>
+    <input type="text" class="form-control" id="secondaryPhone" name="secondaryPhone" value="{{ teacher.secondary_phone if teacher else '' }}">
+</div>
+<div class="mb-3">
+    <label for="active" class="form-label">Active</label>
+    <select class="form-control" id="active" name="active">
+        <option value="true" {{ 'selected' if teacher and teacher.active else '' }}>Active</option>
+        <option value="false" {{ 'selected' if teacher and not teacher.active else '' }}>Inactive</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="birthday" class="form-label">Birthday</label>
+    <input type="date" class="form-control" id="birthday" name="birthday" value="{{ teacher.birthday.strftime('%Y-%m-%d') if teacher and teacher.birthday else '' }}">
+</div>
+<div class="mb-3">
+    <label for="connectorAccountId" class="form-label">Connector Account ID</label>
+    <input type="number" class="form-control" id="connectorAccountId" name="connectorAccountId" value="{{ teacher.connector_account_id if teacher else '' }}">
+</div>
+<div class="mb-3">
+    <label for="gender" class="form-label">Gender</label>
+    <input type="text" class="form-control" id="gender" name="gender" value="{{ teacher.gender if teacher else '' }}">
+</div>
+<div class="mb-3">
+    <label for="contactType" class="form-label">Contact Type</label>
+    <input type="text" class="form-control" id="contactType" name="contactType" value="{{ teacher.contact_type if teacher else '' }}">
+</div>
