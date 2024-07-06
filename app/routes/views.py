@@ -393,22 +393,30 @@ def update_teacher(teacher_id):
 
     return redirect(url_for('teachers'))
 
-@app.route('/update-volunteer', methods=['POST'])
-def update_volunteer():
-    volunteer_id = request.form.get('volunteer_id')
-    name = request.form.get('volunteerName')
-    email = request.form.get('volunteerEmail')
-    phone = request.form.get('volunteerPhone')
-    organization = request.form.get('volunteerOrganization')
+@app.route('/update-volunteer/<int:volunteer_id>', methods=['POST'])
+def update_volunteer(volunteer_id):
+    volunteer = Volunteer.query.get_or_404(volunteer_id)
+    # PersonBase fields
+    volunteer.first_name = request.form.get('firstName')
+    volunteer.last_name = request.form.get('lastName')
+    volunteer.middle_name = request.form.get('middleName')
+    volunteer.suffix = request.form.get('suffix')
+    volunteer.email = request.form.get('email')
+    volunteer.address = request.form.get('address')
+    volunteer.primary_phone = request.form.get('primaryPhone')
+    volunteer.secondary_phone = request.form.get('secondaryPhone')
+    volunteer.active = request.form.get('active') == 'true'
+    volunteer.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date() if request.form.get('birthday') else None
+    volunteer.connector_account_id = request.form.get('connectorAccountId')
+    volunteer.gender = request.form.get('gender')
+    volunteer.contact_type = request.form.get('contactType')
 
-    volunteer = Volunteer.query.get(volunteer_id)
-    if not volunteer:
-        return "volunteer not found", 404
-
-    Volunteer.name = name
-    Volunteer.email = email
-    Volunteer.phone = phone
-    Volunteer.organization = organization
+    # Volunteer fields
+    volunteer.title = request.form.get('title')
+    volunteer.primary_affiliation_id = request.form.get('organizationId')
+    volunteer.education_background = request.form.get('educationBackground')
+    volunteer.last_mailchimp_email_date = datetime.strptime(request.form.get('lastMailchimpEmailDate'), '%Y-%m-%dT%H:%M:%S') if request.form.get('lastMailchimpEmailDate') else None
+    volunteer.last_volunteer_date = datetime.strptime(request.form.get('lastVolunteerDate'), '%Y-%m-%dT%H:%M:%S') if request.form.get('lastVolunteerDate') else None
 
     db.session.commit()
 
