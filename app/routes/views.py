@@ -414,23 +414,10 @@ def update_volunteer():
 
     return redirect(url_for('volunteers'))
 
-@app.route('/update-organization', methods=['POST'])
-def update_organization():
-    organization_id = request.form.get('organization_id')
-    name = request.form.get('organizationName')
-    email = request.form.get('organizationEmail')
-    phone = request.form.get('organizationPhone')
-    address = request.form.get('organizationAddress')
-
-    organization = Organization.query.get(organization_id)
-    if not organization:
-        return "Organization not found", 404
-
-    organization.name = name
-    organization.email = email
-    organization.phone = phone
-    organization.address = address
-
+@app.route('/update-organization/<int:organization_id>', methods=['POST'])
+def update_organization(organization_id):
+    organization = Organization.query.get_or_404(organization_id)
+    organization.name = request.form.get('organizationName')
     db.session.commit()
 
     return redirect(url_for('organizations'))
