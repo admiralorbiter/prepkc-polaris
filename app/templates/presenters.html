@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Polaris: Our North Star{% endblock %}
+
+{% block content %}
+<h1>Presenters</h1>
+    <button hx-get="/get-add-presenter" hx-target="#addPresenterModal .modal-content" data-bs-toggle="modal" data-bs-target="#addPresenterModal" hx-trigger="click" class="btn btn-primary">Add Presenter</button>
+    <div class="modal fade" id="addPresenterModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <div id="presenterTable" hx-get="/load-presenter-table" hx-trigger="load">
+        Loading Data Please Wait...
+    </div>
+{% endblock %}

@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS sessions (
 )
 ''')
 
-# Create the 'volunteers' table
+# Create the 'presenters' table
 c.execute('''
-CREATE TABLE IF NOT EXISTS volunteers (
+CREATE TABLE IF NOT EXISTS presenters (
     id INTEGER PRIMARY KEY,
     name TEXT,
     email TEXT,

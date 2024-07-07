@@ -4,7 +4,13 @@
 
 {% block content %}
 <h1>Organization</h1>
-    <a href="{{ url_for('add_organization') }}" class="btn btn-primary">Add Organization</a>
+    <button hx-get="/get-add-organization" hx-target="#addOrganizationModal .modal-content" data-bs-toggle="modal" data-bs-target="#addOrganizationModal" hx-trigger="click" class="btn btn-primary">Add Organization</button>
+    <div class="modal fade" id="addOrganizationModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
     <div id="organizationTable" hx-get="/load-organizations-table" hx-trigger="load">
         Loading Data Please Wait...
     </div>

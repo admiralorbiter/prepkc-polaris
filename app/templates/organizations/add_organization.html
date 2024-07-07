@@ -1,13 +1,18 @@
-{% extends "base.html" %}
-
-{% block title %}Add Organization{% endblock %}
-
-{% block content %}
-<div class="container mt-5">
-    <h1>Add Organization</h1>
-    <form id="addOrganizationForm" method="POST" action="/add-organization">
-        {% include '/organizations/edit_organization_form.html' %}
-        <button type="submit" class="btn btn-primary">Add Organization</button>
-    </form>
+<div class="modeal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="addOrganizationModalLabel">Add Organization</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="addOrganizationForm" hx-post="/add-organization">
+            <div class="mb-3">
+                <label for="organizationName" class="form-label">Organization Name</label>
+                <input type="text" class="form-control" id="organizationName" name="organizationName" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="addOrganizationForm">Add Organization</button>
+            </div>
+        </form>
+    </div>
 </div>
-{% endblock %}

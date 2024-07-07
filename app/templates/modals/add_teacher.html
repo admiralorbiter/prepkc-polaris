@@ -1,0 +1,24 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="addTeacherModalLabel">Add Teacher</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="addTeacherForm" hx-post="/add-teacher">
+            <div class="mb-3">
+                <label for="teacherName" class="form-label">Teacher Name</label>
+                <input type="text" class="form-control" id="teacherName" name="teacherName" required>
+            </div>
+            <div class="mb-3">
+                <label for="schoolSearch" class="form-label">Teacher School</label>
+                <input type="text" class="form-control" id="schoolSearch" name="schoolSearch" placeholder="Type to search and add a school..." hx-get="/search-schools" hx-trigger="keyup changed delay:500ms" hx-target="#schoolNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+                <div id="schoolNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+                <input type="hidden" id="selectedSchoolId" name="schoolId">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="addTeacherForm">Add Teacher</button>
+    </div>
+</div>

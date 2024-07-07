@@ -1,0 +1,31 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="addPresenterModalLabel">Add Presenter</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="addPresenterForm" hx-post="/add-presenter">
+            <div class="mb-3">
+                <label for="presenterName" class="form-label">Presenter Name</label>
+                <input type="text" class="form-control" id="presenterName" name="presenterName" required>
+            </div>
+            <div class="mb-3">
+                <label for="presenterEmail" class="form-label">Presenter Email</label>
+                <input type="email" class="form-control" id="presenterEmail" name="presenterEmail" required>
+            </div>
+            <div class="mb-3">
+                <label for="presenterPhone" class="form-label">Presenter Phone</label>
+                <input type="text" class="form-control" id="presenterPhone" name="presenterPhone" required>
+            </div>
+            <div class="mb-3">
+                <label for="organizationSearch" class="form-label">Presenter Organization</label>
+                <input type="text" class="form-control" id="organizationSearch" name="organizationSearch" placeholder="Type to search and select an organization..." hx-get="/search-organizations" hx-trigger="keyup changed delay:500ms" hx-target="#organizationNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+                <div id="organizationNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="addPresenterForm">Add Presenter</button>
+            </div>
+        </form>
+    </div>
+</div>
