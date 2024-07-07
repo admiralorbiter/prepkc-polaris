@@ -24,6 +24,10 @@
     </select>
 </div>
 <div class="mb-3">
+    <label for="sessionTopic" class="form-label">Session Topic</label>
+    <input type="text" class="form-control" id="sessionTopic" name="sessionTopic" value="{{ session.topic if session else '' }}">
+</div>
+<div class="mb-3">
     <label for="sessionType" class="form-label">Session Type</label>
     <select class="form-control" id="sessionType" name="sessionType">
         {% for type in session_types %}
