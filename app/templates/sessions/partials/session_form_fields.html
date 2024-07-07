@@ -1,0 +1,72 @@
+<div class="mb-3">
+    <label for="sessionTitle" class="form-label">Session Title</label>
+    <input type="text" class="form-control" id="sessionTitle" name="sessionTitle" value="{{ session.name if session else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="sessionDate" class="form-label">Session Date</label>
+    <input type="date" class="form-control" id="sessionDate" name="sessionDate" value="{{ session.start_date.strftime('%Y-%m-%d') if session else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="sessionTime" class="form-label">Session Time</label>
+    <input type="time" class="form-control" id="sessionTime" name="sessionTime" value="{{ session.start_time.strftime('%H:%M') if session and session.start_time else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="sessionEndTime" class="form-label">Session End Time</label>
+    <input type="time" class="form-control" id="sessionEndTime" name="sessionEndTime" value="{{ session.end_time.strftime('%H:%M') if session and session.end_time else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="sessionStatus" class="form-label">Session Status</label>
+    <select class="form-control" id="sessionStatus" name="sessionStatus" required>
+        <option value="Draft" {{ 'selected' if session and session.status == 'Draft' else '' }}>Draft</option>
+        <option value="Published" {{ 'selected' if session and session.status == 'Published' else '' }}>Published</option>
+        <option value="Completed" {{ 'selected' if session and session.status == 'Completed' else '' }}>Completed</option>
+        <option value="Cancelled" {{ 'selected' if session and session.status == 'Cancelled' else '' }}>Cancelled</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label for="volunteersNeeded" class="form-label">Volunteers Needed</label>
+    <input type="number" class="form-control" id="volunteersNeeded" name="volunteersNeeded" value="{{ session.volunteers_needed if session else '' }}" required>
+</div>
+<div class="mb-3">
+    <label for="sessionTopic" class="form-label">Session Topic</label>
+    <input type="text" class="form-control" id="sessionTopic" name="sessionTopic" value="{{ session.topic if session else '' }}">
+</div>
+<div class="mb-3">
+    <label for="sessionType" class="form-label">Session Type</label>
+    <select class="form-control" id="sessionType" name="sessionType">
+        {% for type in session_types %}
+        <option value="{{ type }}" {{ 'selected' if session and session.type == type else '' }}>{{ type }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="mb-3">
+    <button hx-get="/add-teacher" hx-target="#addTeacherModal .modal-content" data-bs-toggle="modal" data-bs-target="#addTeacherModal" hx-trigger="click" class="btn btn-sm btn-primary">Add Teacher</button>
+    <div id="addTeacherModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal content loaded by HTMX will go here -->
+            </div>
+        </div>
+    </div>
+    <label for="teacherName" class="form-label">Session Teachers</label>
+    <div id="selectedTeachers" class="mb-3">
+        <!-- Selected teachers will be displayed here as tags -->
+    </div>
+    <input type="text" class="form-control" id="teacherSearch" name="teacherSearch" placeholder="Type to search and add teachers..." hx-get="/search-teachers" hx-trigger="keyup changed delay:500ms" hx-target="#teacherNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+    <div id="teacherNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>        
+</div>
+<div class="mb-3">
+    <button hx-get="/add-volunteer" hx-target="#addvolunteerModal .modal-content" data-bs-toggle="modal" data-bs-target="#addvolunteerModal" hx-trigger="click" class="btn btn-sm btn-primary">Add volunteer</button>
+    <div class="modal fade" id="addvolunteerModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <label for="volunteerSearch" class="form-label">Session volunteers</label>
+    <div id="selectedvolunteers" class="mb-3">
+        <!-- Selected volunteers will be displayed here as tags -->
+    </div>
+    <input type="text" class="form-control" id="volunteerSearch" name="volunteerSearch" placeholder="Type to search and add volunteers..." hx-get="/search-volunteers" hx-trigger="keyup changed delay:500ms" hx-target="#volunteerNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+    <div id="volunteerNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+</div>

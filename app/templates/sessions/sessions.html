@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Polaris: Our North Star{% endblock %}
+
+{% block content %}
+    <h1>Sessions List</h1>
+
+    <a href="{{ url_for('add_session') }}" class="btn btn-primary">Add Session</a>
+   
+    <div id="detailsPane"></div>
+    
+    {% set filter_id = 'statusFilter' %}
+    {% set filter_name = 'statusFilter' %}
+    {% set label = 'Filter by Status:' %}
+    {% set hx_get_url = '/filter-sessions' %}
+    {% set hx_target = '#sessionsTable' %}
+    
+    {% include '/sessions/partials/status_filter.html' %}
+
+    <form id="dateFilterForm" hx-get="/filter-sessions-by-date" hx-target="#sessionsTable" hx-trigger="change from:#dateFilterForm">
+        <div class="row">
+            <div class="col-6">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="start_date" class="form-control" value="{{ start_date }}">
+            </div>
+            <div class="col-6">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="end_date" class="form-control" value="{{ end_date }}">
+            </div>
+        </div>
+    </form>
+    
+    <div id="sessionsTable" hx-get="/load-sessions-table" hx-trigger="load">
+        <!-- session_table.html content will be loaded here -->
+        Loading Data Please Wait...
+    </div>
+</div>
+{% endblock %}

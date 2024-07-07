@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Polaris: Our North Star{% endblock %}
+
+{% block content %}
+<h1>Teachers</h1>
+<button onclick="location.href='/add-teacher'" class="btn btn-primary">Add Teacher</button>
+
+<div id="teacherTable" hx-get="/load-teacher-table" hx-trigger="load">
+    Loading Data Please Wait...
+</div>
+{% endblock %}
+
+

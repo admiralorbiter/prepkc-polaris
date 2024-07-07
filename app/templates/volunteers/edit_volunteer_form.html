@@ -1,0 +1,22 @@
+<div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" value="{{ volunteer.title if volunteer else '' }}">
+</div>
+<div class="mb-3">
+    <label for="organizationSearch" class="form-label">Volunteer Organization</label>
+    <input type="text" class="form-control" id="organizationSearch" name="organizationSearch" placeholder="Type to search and select an organization..." hx-get="/search-organizations" hx-trigger="keyup changed delay:500ms" hx-target="#organizationNameSuggestions" hx-swap="innerHTML" autocomplete="off">
+    <div id="organizationNameSuggestions" class="list-group position-absolute" style="z-index: 100; width:100%;"></div>
+    <input type="hidden" id="selectedOrganizationId" name="organizationId" value="{{ volunteer.primary_affiliation_id if volunteer else '' }}">
+</div>
+<div class="mb-3">
+    <label for="educationBackground" class="form-label">Education Background</label>
+    <input type="text" class="form-control" id="educationBackground" name="educationBackground" value="{{ volunteer.education_background if volunteer else '' }}">
+</div>
+<div class="mb-3">
+    <label for="lastMailchimpEmailDate" class="form-label">Last Mailchimp Email Date</label>
+    <input type="datetime-local" class="form-control" id="lastMailchimpEmailDate" name="lastMailchimpEmailDate" value="{{ volunteer.last_mailchimp_email_date.strftime('%Y-%m-%dT%H:%M:%S') if volunteer and volunteer.last_mailchimp_email_date else '' }}">
+</div>
+<div class="mb-3">
+    <label for="lastVolunteerDate" class="form-label">Last Volunteer Date</label>
+    <input type="datetime-local" class="form-control" id="lastVolunteerDate" name="lastVolunteerDate" value="{{ volunteer.last_volunteer_date.strftime('%Y-%m-%dT%H:%M:%S') if volunteer and volunteer.last_volunteer_date else '' }}">
+</div>

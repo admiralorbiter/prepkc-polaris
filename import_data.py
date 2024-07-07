@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
 from app import db, app
-from app.models import Session, Teacher, Presenter, School
+from app.models import Session, Teacher, volunteer, School
 import re
 
 def get_or_create(model, defaults=None, **kwargs):
@@ -72,13 +72,13 @@ def import_data(csv_file_path):
                 defaults={'school_name': school.name}
             )
 
-            # Presenter
-            presenter, created = get_or_create(
-                Presenter,
-                name=row['Presenter'].strip(),
+            # volunteer
+            volunteer, created = get_or_create(
+                volunteer,
+                name=row['volunteer'].strip(),
                 defaults={
                     'organization': row['Organization'].strip(),
-                    'local': row['Presenter Location'] == 'Local'
+                    'local': row['volunteer Location'] == 'Local'
                 }
             )
 
@@ -115,11 +115,11 @@ def import_data(csv_file_path):
                     }
                 )
 
-                # Ensure that each teacher, presenter, and school is only added once to the session
+                # Ensure that each teacher, volunteer, and school is only added once to the session
                 if teacher not in session.teachers:
                     session.teachers.append(teacher)
-                if presenter not in session.presenters:
-                    session.presenters.append(presenter)
+                if volunteer not in session.volunteers:
+                    session.volunteers.append(volunteer)
                 if school not in session.schools:
                     session.schools.append(school)
                 session_map[session_title] = session

@@ -3,14 +3,13 @@
 {% block title %}Polaris: Our North Star{% endblock %}
 
 {% block content %}
-<form method="POST" action="{{ url_for('update_organization') }}">
-    <input type="hidden" name="organization_id" value="{{ organization.id }}">
+<div class="container mt-5">
+    <h1>Edit Organizations</h1>
+    <form method="POST" action="{{ url_for('update_organization', organization_id=organization.id) }}">
+        {% include '/organizations/edit_organization_form.html' %}
+        <input type="hidden" name="organization_id" value="{{ organization.id }}">
 
-    <div class="mb-3">
-        <label for="organizationName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="organizationName" name="organizationName" value="{{ organization.name }}" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Update Organization</button>
-</form>
+        <button type="submit" class="btn btn-primary">Update Organization</button>
+    </form>
+</div>
 {% endblock %}

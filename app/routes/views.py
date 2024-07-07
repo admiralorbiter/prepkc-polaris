@@ -1,9 +1,11 @@
-from flask import redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for
 from app import app, db
-from app.models import SessionRow, User, School, Session, Teacher, session_schools, Presenter, Volunteer, Organization
+from app.models import School, Session, Teacher, session_schools, Volunteer, Organization
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
+from flask import jsonify
+from app.templates.sessions.partials.session_types import session_types
 
 def add_school_to_session(session_id, school_id):
     session = Session.query.get(session_id)
@@ -20,32 +22,7 @@ def soft_delete(self):
 # Home Page
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("sessions.html")
-
-@app.route('/volunteers')
-def volunteers():
-    search_query = request.args.get('search')
-    query = Volunteer.query  # Base query
-    if search_query:
-        search = f"%{search_query}%"
-        query = query.filter(or_(
-            Volunteer.job_category.like(search),
-            Volunteer.skills.like(search),
-            Volunteer.skills_text.like(search)
-        ))
-
-    # Use the filtered 'query' object to retrieve the list of volunteers
-    volunteer_list = query.all()
-
-    for volunteer in volunteer_list:
-        # Combine and split by different delimiters, then strip whitespace
-        combined_skills = volunteer.job_category.split(',') + volunteer.skills.split(',') + volunteer.skills_text.split(';')
-        # Remove empty strings and strip whitespace from each skill
-        combined_skills = [skill.strip() for skill in combined_skills if skill.strip()]
-        # Assign the combined, cleaned list back to the volunteer object for easy access in the template
-        volunteer.combined_skills = combined_skills
-
-    return render_template('volunteers.html', volunteers=volunteer_list)
+    return render_template("/sessions/sessions.html")
 
 @app.route("/playground", methods=["GET"])
 def playground():
@@ -54,29 +31,27 @@ def playground():
 @app.route("/search-teachers", methods=["GET"])
 def search_teachers():
     teacher_name = request.args.get('teacherSearch')
-    print(teacher_name)
     teachers = Teacher.query.filter(Teacher.name.ilike(f'%{teacher_name}%')).all()
-    return render_template("/partials/teacher_list.html", teachers=teachers)
+    return render_template("/teachers/teacher_list.html", teachers=teachers)
 
-@app.route("/search-presenters", methods=["GET"])
-def search_presenters():
-    presenter_name = request.args.get('presenterSearch')
-    presenters = Presenter.query.filter(Presenter.name.ilike(f'%{presenter_name}%')).all()
-    return render_template("/partials/presenter_list.html", presenters=presenters)
+@app.route("/search-volunteers", methods=["GET"])
+def search_volunteers():
+    volunteer_name = request.args.get('volunteerSearch')
+    volunteers = Volunteer.query.filter(Volunteer.name.ilike(f'%{volunteer_name}%')).all()
+    return render_template("/volunteers/volunteer_list.html", volunteers=volunteers)
 
 @app.route("/search-schools", methods=["GET"])
 def search_schools():
     school_name = request.args.get('schoolSearch')
     schools = School.query.filter(School.name.ilike(f'%{school_name}%')).all()
-    return render_template("/partials/school_list.html", schools=schools)
+    return render_template("/schools/school_list.html", schools=schools)
 
 @app.route("/search-organizations", methods=["GET"])
 def search_organizations():
     organization_name = request.args.get('organizationSearch')
-    print(organization_name)
-    organizations = db.session.query(Presenter.organization).filter(Presenter.organization.ilike(f'%{organization_name}%')).distinct().all()
-    organizations = [org[0] for org in organizations if org[0]]  # Unpack and remove None
-    return render_template("/partials/organization_list.html", organizations=organizations)
+    organizations = db.session.query(Organization).filter(Organization.name.ilike(f'%{organization_name}%')).distinct().all()
+    return render_template("/organizations/organization_list.html", organizations=organizations)
+
 
 @app.route("/kcps", methods=["GET"])
 def kcps():
@@ -166,32 +141,32 @@ def sessions():
     else:
         sessions_data = Session.query.all()
     print(sessions_data)
-    return render_template("sessions.html", sessions=sessions_data)
+    return render_template("/sessions/sessions.html", sessions=sessions_data)
 
-@app.route("/get-add-session", methods=["GET"])
+@app.route("/add-session", methods=["GET"])
 def get_add_session():
-    return render_template("/modals/add_session.html")
+    return render_template('/sessions/add_session.html', session_types=session_types)
 
-@app.route("/get-add-organization", methods=["GET"])
+@app.route("/add-organization", methods=["GET"])
 def get_add_organization():
     return render_template("/organizations/add_organization.html")
 
-@app.route("/get-add-teacher", methods=["GET"])
+@app.route("/add-teacher", methods=["GET"])
 def get_add_teacher():
-    return render_template("/modals/add_teacher.html")
+    return render_template("/teachers/add_teacher.html")
 
-@app.route("/get-add-presenter", methods=["GET"])
-def get_add_presenter():
-    return render_template("/modals/add_presenter.html")
+@app.route("/add-volunteer", methods=["GET"])
+def get_add_volunteer():
+    return render_template("/volunteers/add_volunteer.html")
 
-@app.route("/get-add-school", methods=["GET"])
+@app.route("/add-school", methods=["GET"])
 def get_add_school():
-    return render_template("/modals/add_school.html")
+    return render_template("/schools/add_school.html")
 
 @app.route("/load-sessions-table", methods=["GET"])
 def load_sessions_table():
     sessions = Session.query.all()
-    return render_template("/tables/session_table.html", sessions=sessions)
+    return render_template("/sessions/session_table.html", sessions=sessions)
 
 @app.route("/load-organizations-table", methods=["GET"])
 def load_organizations_table():
@@ -201,7 +176,7 @@ def load_organizations_table():
 @app.route("/session_page", methods=["GET"])
 def sessions_page():
     sessions = Session.query.all()
-    return render_template("session_page.html", sessions=sessions)
+    return render_template("/sessions/session_page.html", sessions=sessions)
 
 @app.route("/organizations", methods=["GET"])
 def organizations():
@@ -211,21 +186,19 @@ def organizations():
 @app.route("/sessions_list")
 def sessions_list():
     sessions = Session.query.all()
-    return render_template("/partials/session_list.html", sessions=sessions)
+    return render_template("/sessions/session_list.html", sessions=sessions)
 
 #Note: Need to make teacher store the school_id instead of the school name
 @app.route("/add-teacher", methods=["POST"])
 def add_teacher():
-    teacher_name = request.form.get('teacherName')
+    first_name = request.form.get('firstName')
+    last_name = request.form.get('lastName')
+    email = request.form.get('email')
     school_id = request.form.get('schoolId')
-    teacher = Teacher(name=teacher_name)
-    if school_id:
-        school = School.query.get(school_id)
-        if school:
-            teacher.school_name = school.name
+    teacher = Teacher(first_name=first_name, last_name=last_name, email=email, primary_affiliation_id=school_id, type='Teacher')  # Assuming 'type' is required
     db.session.add(teacher)
     db.session.commit()
-    return "Submitted"
+    return redirect(url_for('teachers'))
 
 @app.route("/add-organization", methods=["POST"])
 def add_organization():
@@ -233,33 +206,28 @@ def add_organization():
     organization = Organization(name=organization_name)
     db.session.add(organization)
     db.session.commit()
-    return "Submitted"
+    return redirect(url_for('organizations'))
 
 @app.route("/add-school", methods=["POST"])
 def add_school():
     name = request.form.get('schoolName')
-    state = request.form.get('schoolState')
+    district = request.form.get('schoolDistrict')
     level = request.form.get('schoolLevel')
-    school = School(name=name, state=state, level=level)
+    school = School(name=name, district=district, level=level)
     db.session.add(school)
     db.session.commit()
-    return "Submitted"
+    return redirect(url_for('schools'))
 
-@app.route("/add-presenter", methods=["POST"])
-def add_presenter():
-    name = request.form.get('presenterName')
-    email = request.form.get('presenterEmail')
-    phone = request.form.get('presenterPhone')
-    organization = request.form.get('presenterOrganization')  # Directly get the organization name from the form
-
-    # Create a new Presenter instance with the form data
-    presenter = Presenter(name=name, email=email, phone=phone, organization=organization)
-
-    # Add and commit the new presenter to the database
-    db.session.add(presenter)
+@app.route("/add-volunteer", methods=["POST"])
+def add_volunteer():
+    first_name = request.form.get('firstName')
+    last_name = request.form.get('lastName')
+    email = request.form.get('email')
+    organization_id = request.form.get('organizationId')
+    volunteer = Volunteer(first_name=first_name, last_name=last_name, email=email, primary_affiliation_id=organization_id)
+    db.session.add(volunteer)
     db.session.commit()
-
-    return "Submitted"
+    return redirect(url_for('volunteers'))
 
 @app.route("/filter-sessions", methods=["GET"])
 def filter_sessions():
@@ -270,7 +238,7 @@ def filter_sessions():
     else:
         sessions = Session.query.filter_by(status=status_filter).all()
 
-    return render_template("/tables/session_table.html", sessions=sessions)
+    return render_template("/sessions/session_table.html", sessions=sessions)
 
 @app.route("/filter-sessions-by-date", methods=["GET"])
 def filter_sessions_by_date():
@@ -282,7 +250,16 @@ def filter_sessions_by_date():
     else:
         sessions = Session.query.all()
 
-    return render_template("/tables/session_table.html", sessions=sessions)
+    return render_template("/sessions/session_table.html", sessions=sessions)
+
+@app.route('/session_details/<int:session_id>')
+def session_details(session_id):
+    session = Session.query.get_or_404(session_id)
+    return render_template('/sessions/session_details.html', session=session)
+
+@app.route('/clear-details-pane')
+def clear_details_pane():
+    return '<div id="detailsPane"></div>'
 
 
 @app.route('/add-session', methods=['POST'])
@@ -290,44 +267,74 @@ def add_session():
     # Get form data
     session_date_str = request.form.get('sessionDate')
     session_time_str = request.form.get('sessionTime')
+    end_time_str = request.form.get('sessionEndTime')
     session_title = request.form.get('sessionTitle')
+    session_status = request.form.get('sessionStatus')
+    session_type = request.form.get('sessionType')
+    session_topic = request.form.get('sessionTopic')
+    volunteers_needed = request.form.get('volunteersNeeded')
 
     # Convert date and time strings to datetime objects
-    session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()  # Adjust the format if needed
-    session_time = datetime.strptime(session_time_str, '%H:%M').time()  # Adjust the format if needed
+    session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()
+    session_time = datetime.strptime(session_time_str, '%H:%M').time()
+    end_time = datetime.strptime(end_time_str, '%H:%M').time()
 
-    # Create a new session object
-    new_session = Session(date=session_date, start_time=session_time, title=session_title, status="Pending")
-    
-    # Add the teacher to the session's teachers list
-    teacher_ids = request.form.getlist('teacherIds[]')  # Get the list of teacher IDs
+    # Create a new session object with default values
+    new_session = Session(
+        start_date=session_date,
+        start_time=session_time,
+        end_time=end_time,
+        name=session_title,
+        status=session_status,
+        type=session_type,
+        topic=session_topic,
+        volunteers_needed=volunteers_needed,
+        manual_student_count=0,  # Set default student count
+        skills_needed=None,  # Assuming skills_needed can be nullable
+    )
+
+    # Optionally add teachers to the session's teachers list
+    teacher_ids = request.form.getlist('teacherIds[]')
     for teacher_id in teacher_ids:
-        teacher = Teacher.query.get(teacher_id)  # Use `get` for ID lookup
+        teacher = Teacher.query.get(teacher_id)
         if teacher:
             new_session.teachers.append(teacher)
 
-    # Add the organizations to the session's organizations list
-    organization_ids = request.form.getlist('organizationIds[]')  # Get the list of organization IDs
-    for organization_id in organization_ids:
-        organization = Organization.query.get(organization_id)  # Use `get` for ID lookup
-        if organization:
-            new_session.organizations.append(organization)
+    # Optionally add volunteers to the session's volunteers list
+    volunteer_ids = request.form.getlist('volunteerIds[]')
+    for volunteer_id in volunteer_ids:
+        volunteer = Volunteer.query.get(volunteer_id)
+        if volunteer:
+            new_session.volunteers.append(volunteer)
 
     # Add the new session to the DB session and commit
     db.session.add(new_session)
     db.session.commit()
 
     # Redirect or return a response
-    return redirect(url_for('sessions_list'))
+    return redirect(url_for('sessions'))
 
-@app.route('/edit-session', methods=['GET'])
-def edit_session():
-    session_id = request.args.get('session_id')
-    session = Session.query.filter_by(id=session_id).first()
-    if session:
-        return render_template('/forms/edit_session_form.html', session=session)
-    else:
-        return 'Session not found', 404
+@app.route('/edit-session/<int:session_id>', methods=['GET', 'POST'])
+def edit_session(session_id):
+    session = Session.query.get_or_404(session_id)
+    if request.method == 'POST':
+        session.name = request.form.get('sessionTitle')
+        session.start_date = datetime.strptime(request.form.get('sessionDate'), '%Y-%m-%d').date()
+        session.start_time = datetime.strptime(request.form.get('sessionTime'), '%H:%M').time()
+        session.end_time = datetime.strptime(request.form.get('sessionEndTime'), '%H:%M').time()
+        session.status = request.form.get('sessionStatus')
+        session.type = request.form.get('sessionType')
+        session.manual_student_count = request.form.get('manualStudentCount')
+        session.pathway = request.form.get('pathway')
+        session.skills_needed = request.form.get('skillsNeeded')
+        session.topic = request.form.get('sessionTopic')
+        session.volunteers_needed = request.form.get('volunteersNeeded')
+        db.session.commit()
+
+        return redirect(url_for('sessions'))
+
+    return render_template('/sessions/edit_session_form.html', session=session, session_types=session_types)
+
     
 @app.route('/edit-organization', methods=['GET'])
 def edit_organization():
@@ -343,110 +350,86 @@ def edit_teacher():
     teacher_id = request.args.get('teacher_id')
     teacher = Teacher.query.filter_by(id=teacher_id).first()
     if teacher:
-        return render_template('/forms/edit_teacher.html', teacher=teacher)
+        return render_template('/teachers/edit_teacher.html', teacher=teacher, person=teacher)
     else:
         return 'Teacher not found', 404
     
-@app.route('/edit-presenter', methods=['GET'])
-def edit_presenter():
-    presenter_id = request.args.get('presenter_id')
-    presenter = Presenter.query.filter_by(id=presenter_id).first()
-    if presenter:
-        return render_template('/forms/edit_presenter.html', presenter=presenter)
+@app.route('/edit-volunteer', methods=['GET'])
+def edit_volunteer():
+    volunteer_id = request.args.get('volunteer_id')
+    volunteer = Volunteer.query.filter_by(id=volunteer_id).first()
+    if volunteer:
+        return render_template('/volunteers/edit_Volunteer.html', volunteer=volunteer, person=volunteer)
     else:
-        return 'Presenter not found', 404
+        return 'volunteer not found', 404
     
 @app.route('/edit-school', methods=['GET'])
 def edit_school():
     school_id = request.args.get('school_id')
     school = School.query.filter_by(id=school_id).first()
     if school:
-        return render_template('/forms/edit_school.html', school=school)
+        return render_template('/schools/edit_school.html', school=school)
     else:
         return 'School not found', 404
 
-@app.route("/update-teacher", methods=["POST"])
-def update_teacher():
-    teacher_id = request.form.get('teacher_id')
-    teacher_name = request.form.get('teacherName')
-    school_id = request.form.get('schoolId')
+def update_person_data(person, form):
+    person.first_name = form.get('firstName')
+    person.last_name = form.get('lastName')
+    person.middle_name = form.get('middleName')
+    person.suffix = form.get('suffix')
+    person.email = form.get('email')
+    person.address = form.get('address')
+    person.primary_phone = form.get('primaryPhone')
+    person.secondary_phone = form.get('secondaryPhone')
+    person.active = form.get('active') == 'true'
+    person.birthday = datetime.strptime(form.get('birthday'), '%Y-%m-%d').date() if form.get('birthday') else None
+    person.connector_account_id = form.get('connectorAccountId')
+    person.gender = form.get('gender')
+    person.contact_type = form.get('contactType')
 
-    # Fetch the teacher object by ID
-    teacher = Teacher.query.get(teacher_id)
+@app.route("/update-teacher/<int:teacher_id>", methods=["POST"])
+def update_teacher(teacher_id):
+    teacher = Teacher.query.get_or_404(teacher_id)
+    update_person_data(teacher, request.form)
 
-    if not teacher:
-        # Handle the case where the teacher does not exist
-        return "Teacher not found", 404
+    # Teacher fields
+    teacher.primary_affiliation_id = request.form.get('schoolId')
+    teacher.type = request.form.get('type')
 
-    # Update the teacher's attributes
-    teacher.name = teacher_name
-    if school_id:
-        school = School.query.get(school_id)
-        if school:
-            teacher.school_name = school.name
-    # Commit the changes to the database
     db.session.commit()
 
-    # Redirect to the teachers list or return a success message
     return redirect(url_for('teachers'))
 
-@app.route('/update-presenter', methods=['POST'])
-def update_presenter():
-    presenter_id = request.form.get('presenter_id')
-    name = request.form.get('presenterName')
-    email = request.form.get('presenterEmail')
-    phone = request.form.get('presenterPhone')
-    organization = request.form.get('presenterOrganization')
+@app.route('/update-volunteer/<int:volunteer_id>', methods=['POST'])
+def update_volunteer(volunteer_id):
+    volunteer = Volunteer.query.get_or_404(volunteer_id)
+    update_person_data(volunteer, request.form)
 
-    presenter = Presenter.query.get(presenter_id)
-    if not presenter:
-        return "Presenter not found", 404
-
-    presenter.name = name
-    presenter.email = email
-    presenter.phone = phone
-    presenter.organization = organization
+    # Volunteer fields
+    volunteer.title = request.form.get('title')
+    volunteer.primary_affiliation_id = request.form.get('organizationId')
+    volunteer.education_background = request.form.get('educationBackground')
+    volunteer.last_mailchimp_email_date = datetime.strptime(request.form.get('lastMailchimpEmailDate'), '%Y-%m-%dT%H:%M:%S') if request.form.get('lastMailchimpEmailDate') else None
+    volunteer.last_volunteer_date = datetime.strptime(request.form.get('lastVolunteerDate'), '%Y-%m-%dT%H:%M:%S') if request.form.get('lastVolunteerDate') else None
 
     db.session.commit()
 
-    return redirect(url_for('presenters'))
+    return redirect(url_for('volunteers'))
 
-@app.route('/update-organization', methods=['POST'])
-def update_organization():
-    organization_id = request.form.get('organization_id')
-    name = request.form.get('organizationName')
-    email = request.form.get('organizationEmail')
-    phone = request.form.get('organizationPhone')
-    address = request.form.get('organizationAddress')
-
-    organization = Organization.query.get(organization_id)
-    if not organization:
-        return "Organization not found", 404
-
-    organization.name = name
-    organization.email = email
-    organization.phone = phone
-    organization.address = address
-
+@app.route('/update-organization/<int:organization_id>', methods=['POST'])
+def update_organization(organization_id):
+    organization = Organization.query.get_or_404(organization_id)
+    organization.name = request.form.get('organizationName')
     db.session.commit()
 
     return redirect(url_for('organizations'))
 
-@app.route('/update-school', methods=['POST'])
-def update_school():
-    school_id = request.form.get('school_id')
-    name = request.form.get('schoolName')
-    state = request.form.get('schoolState')
-    level = request.form.get('schoolLevel')
-
-    school = School.query.get(school_id)
-    if not school:
-        return "School not found", 404
-
-    school.name = name
-    school.state = state
-    school.level = level
-
+@app.route('/update-school/<int:school_id>', methods=['POST'])
+def update_school(school_id):
+    school = School.query.get_or_404(school_id)
+    school.name = request.form.get('schoolName')
+    school.district = request.form.get('schoolDistrict')
+    school.level = request.form.get('schoolLevel')
     db.session.commit()
 
     return redirect(url_for('schools'))
@@ -491,12 +474,12 @@ def delete_teacher():
         db.session.commit()
         return '', 200
     
-@app.route('/delete-presenter', methods=['DELETE'])
-def delete_presenter():
-    presenter_id = request.args.get('presenter_id')
-    presenter = Presenter.query.filter_by(id=presenter_id).first()
-    if presenter:
-        db.session.delete(presenter)
+@app.route('/delete-volunteer', methods=['DELETE'])
+def delete_volunteer():
+    volunteer_id = request.args.get('volunteer_id')
+    volunteer = Volunteer.query.filter_by(id=volunteer_id).first()
+    if volunteer:
+        db.session.delete(volunteer)
         db.session.commit()
         return '', 200
 
@@ -504,64 +487,64 @@ def delete_presenter():
 def clear_edit_pane():
     return '<div id="editPane" class="edit-pane"></div>'  # Returns an empty response to clear the pane
 
-@app.route('/update-session', methods=['POST'])
-def update_session():
-    session_id = request.form.get('session_id')
-    session = Session.query.filter_by(id=session_id).first()
+# @app.route('/update-session', methods=['POST'])
+# def update_session():
+#     session_id = request.form.get('session_id')
+#     session = Session.query.filter_by(id=session_id).first()
 
-    if not session:
-        return redirect(url_for('sessions_list'))
+#     if not session:
+#         return redirect(url_for('sessions_list'))
 
-    try:
-        session.title = request.form.get('title', session.title)
-        session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d') if request.form.get('date') else session.date
-        session.status = request.form.get('status', session.status)
+#     try:
+#         session.title = request.form.get('title', session.title)
+#         session.date = datetime.strptime(request.form.get('date'), '%Y-%m-%d') if request.form.get('date') else session.date
+#         session.status = request.form.get('status', session.status)
 
-        teacher_ids = request.form.getlist('teacherIds[]')
-        session.teachers = [Teacher.query.get(teacher_id) for teacher_id in teacher_ids if Teacher.query.get(teacher_id)]
+#         teacher_ids = request.form.getlist('teacherIds[]')
+#         session.teachers = [Teacher.query.get(teacher_id) for teacher_id in teacher_ids if Teacher.query.get(teacher_id)]
 
-        presenter_ids = request.form.getlist('presenterIds[]')
-        session.presenters = [Presenter.query.get(presenter_id) for presenter_id in presenter_ids if Presenter.query.get(presenter_id)]
+#         volunteer_ids = request.form.getlist('volunteerIds[]')
+#         session.volunteers = [Volunteer.query.get(volunteer_id) for volunteer_id in volunteer_ids if Volunteer.query.get(volunteer_id)]
 
-        db.session.commit()
+#         db.session.commit()
         
-        updated_row = render_template('/tables/session_row.html', session=session)
+#         updated_row = render_template('/sessions/session_row.html', session=session)
         
-        # Script to clear the edit pane
-        clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
+#         # Script to clear the edit pane
+#         clear_script = "<script>document.getElementById('editPane').innerHTML = '';</script>"
 
-        # Combine the updated row and script
-        combined_response = updated_row + clear_script
+#         # Combine the updated row and script
+#         combined_response = updated_row + clear_script
 
-        return combined_response
+#         return combined_response
 
-    except Exception as e:
-        db.session.rollback()
-        return redirect(url_for('edit_session', session_id=session_id))
+#     except Exception as e:
+#         db.session.rollback()
+#         return redirect(url_for('edit_session', session_id=session_id))
 
 @app.route("/teachers", methods=["GET"])
 def teachers():
-    return render_template("teachers.html")
+    return render_template("/teachers/teachers.html")
 
 @app.route("/load-teacher-table", methods=["GET"])
 def load_teacher_table():
     teachers = Teacher.query.all()
-    return render_template("/tables/teacher_table.html", teachers=teachers)
+    return render_template("/teachers/teacher_table.html", teachers=teachers)
 
 @app.route("/schools", methods=["GET"])
 def schools():
-    return render_template("schools.html")
+    return render_template("/schools/schools.html")
 
 @app.route("/load-school-table", methods=["GET"])
 def load_school_table():
     schools = School.query.all()
-    return render_template("/tables/school_table.html", schools=schools)
+    return render_template("/schools/school_table.html", schools=schools)
 
-@app.route("/presenters", methods=["GET"])
-def presenters():
-    return render_template("presenters.html")
+@app.route("/volunteers", methods=["GET"])
+def volunteers():
+    return render_template("/volunteers/volunteers.html")
 
-@app.route("/load-presenter-table", methods=["GET"])
-def load_presenter_table():
-    presenters = Presenter.query.all()
-    return render_template("/tables/presenter_table.html", presenters=presenters)
+@app.route("/load-volunteer-table", methods=["GET"])
+def load_volunteer_table():
+    volunteers = Volunteer.query.all()
+    return render_template("/volunteers/volunteer_table.html", volunteers=volunteers)
