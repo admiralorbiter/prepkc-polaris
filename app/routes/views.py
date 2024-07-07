@@ -147,7 +147,7 @@ def sessions():
 def get_add_session():
     return render_template('/sessions/add_session.html', session_types=session_types)
 
-@app.route("/get-add-organization", methods=["GET"])
+@app.route("/add-organization", methods=["GET"])
 def get_add_organization():
     return render_template("/organizations/add_organization.html")
 
@@ -206,7 +206,7 @@ def add_organization():
     organization = Organization(name=organization_name)
     db.session.add(organization)
     db.session.commit()
-    return "Submitted"
+    return redirect(url_for('organizations'))
 
 @app.route("/add-school", methods=["POST"])
 def add_school():
