@@ -272,6 +272,7 @@ def add_session():
     session_status = request.form.get('sessionStatus')
     session_type = request.form.get('sessionType')
     session_topic = request.form.get('sessionTopic')
+    volunteers_needed = request.form.get('volunteersNeeded')
 
     # Convert date and time strings to datetime objects
     session_date = datetime.strptime(session_date_str, '%Y-%m-%d').date()
@@ -287,6 +288,7 @@ def add_session():
         status=session_status,
         type=session_type,
         topic=session_topic,
+        volunteers_needed=volunteers_needed,
         manual_student_count=0,  # Set default student count
         skills_needed=None,  # Assuming skills_needed can be nullable
     )
@@ -326,7 +328,7 @@ def edit_session(session_id):
         session.pathway = request.form.get('pathway')
         session.skills_needed = request.form.get('skillsNeeded')
         session.topic = request.form.get('sessionTopic')
-
+        session.volunteers_needed = request.form.get('volunteersNeeded')
         db.session.commit()
 
         return redirect(url_for('sessions'))

@@ -24,6 +24,10 @@
     </select>
 </div>
 <div class="mb-3">
+    <label for="volunteersNeeded" class="form-label">Volunteers Needed</label>
+    <input type="number" class="form-control" id="volunteersNeeded" name="volunteersNeeded" value="{{ session.volunteers_needed if session else '' }}" required>
+</div>
+<div class="mb-3">
     <label for="sessionTopic" class="form-label">Session Topic</label>
     <input type="text" class="form-control" id="sessionTopic" name="sessionTopic" value="{{ session.topic if session else '' }}">
 </div>

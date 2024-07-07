@@ -64,6 +64,7 @@ class Session(Base):
     manual_student_count = db.Column(db.Integer, nullable=True)
     skills_needed = db.Column(db.String, nullable=True)
     pathway = db.Column(db.String, nullable=True)
+    volunteers_needed = db.Column(db.Integer, nullable=False)
 
     teachers = db.relationship('Teacher', secondary=session_teachers_association, back_populates='sessions', overlaps="historical_affiliation,sessions")
     schools = db.relationship('School', secondary=session_schools, back_populates='sessions')
