@@ -346,7 +346,7 @@ def edit_teacher():
     teacher_id = request.args.get('teacher_id')
     teacher = Teacher.query.filter_by(id=teacher_id).first()
     if teacher:
-        return render_template('/teachers/edit_teacher.html', teacher=teacher)
+        return render_template('/teachers/edit_teacher.html', teacher=teacher, person=teacher)
     else:
         return 'Teacher not found', 404
     
@@ -355,7 +355,7 @@ def edit_volunteer():
     volunteer_id = request.args.get('volunteer_id')
     volunteer = Volunteer.query.filter_by(id=volunteer_id).first()
     if volunteer:
-        return render_template('/volunteers/edit_Volunteer.html', volunteer=volunteer)
+        return render_template('/volunteers/edit_Volunteer.html', volunteer=volunteer, person=volunteer)
     else:
         return 'volunteer not found', 404
     
@@ -368,22 +368,25 @@ def edit_school():
     else:
         return 'School not found', 404
 
+def update_person_data(person, form):
+    person.first_name = form.get('firstName')
+    person.last_name = form.get('lastName')
+    person.middle_name = form.get('middleName')
+    person.suffix = form.get('suffix')
+    person.email = form.get('email')
+    person.address = form.get('address')
+    person.primary_phone = form.get('primaryPhone')
+    person.secondary_phone = form.get('secondaryPhone')
+    person.active = form.get('active') == 'true'
+    person.birthday = datetime.strptime(form.get('birthday'), '%Y-%m-%d').date() if form.get('birthday') else None
+    person.connector_account_id = form.get('connectorAccountId')
+    person.gender = form.get('gender')
+    person.contact_type = form.get('contactType')
+
 @app.route("/update-teacher/<int:teacher_id>", methods=["POST"])
 def update_teacher(teacher_id):
     teacher = Teacher.query.get_or_404(teacher_id)
-    teacher.first_name = request.form.get('firstName')
-    teacher.last_name = request.form.get('lastName')
-    teacher.middle_name = request.form.get('middleName')
-    teacher.suffix = request.form.get('suffix')
-    teacher.email = request.form.get('email')
-    teacher.address = request.form.get('address')
-    teacher.primary_phone = request.form.get('primaryPhone')
-    teacher.secondary_phone = request.form.get('secondaryPhone')
-    teacher.active = request.form.get('active') == 'true'
-    teacher.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date() if request.form.get('birthday') else None
-    teacher.connector_account_id = request.form.get('connectorAccountId')
-    teacher.gender = request.form.get('gender')
-    teacher.contact_type = request.form.get('contactType')
+    update_person_data(teacher, request.form)
 
     # Teacher fields
     teacher.primary_affiliation_id = request.form.get('schoolId')
@@ -396,20 +399,7 @@ def update_teacher(teacher_id):
 @app.route('/update-volunteer/<int:volunteer_id>', methods=['POST'])
 def update_volunteer(volunteer_id):
     volunteer = Volunteer.query.get_or_404(volunteer_id)
-    # PersonBase fields
-    volunteer.first_name = request.form.get('firstName')
-    volunteer.last_name = request.form.get('lastName')
-    volunteer.middle_name = request.form.get('middleName')
-    volunteer.suffix = request.form.get('suffix')
-    volunteer.email = request.form.get('email')
-    volunteer.address = request.form.get('address')
-    volunteer.primary_phone = request.form.get('primaryPhone')
-    volunteer.secondary_phone = request.form.get('secondaryPhone')
-    volunteer.active = request.form.get('active') == 'true'
-    volunteer.birthday = datetime.strptime(request.form.get('birthday'), '%Y-%m-%d').date() if request.form.get('birthday') else None
-    volunteer.connector_account_id = request.form.get('connectorAccountId')
-    volunteer.gender = request.form.get('gender')
-    volunteer.contact_type = request.form.get('contactType')
+    update_person_data(volunteer, request.form)
 
     # Volunteer fields
     volunteer.title = request.form.get('title')
