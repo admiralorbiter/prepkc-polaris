@@ -8,6 +8,7 @@
     <td>{{ session.start_date.strftime('%m/%d/%Y') if session.start_date else 'Date not set' }}</td>
     <td>{{ session.start_time.strftime('%H:%M') if session.start_time else 'Time not set' }}</td>
     <td>{{ session.status }}</td>
+    <td>{{ session.volunteers_needed_count }}</td>
     <td>{{ session.type }}</td>
     <td>
         {% if session.teachers %}
@@ -39,7 +40,7 @@
             {% endfor %}
             {{ volunteer_names|join(', ') }}
         {% else %}
-            volunteer not set
+            Volunteer not set
         {% endif %}
     </td>
     <td>

@@ -73,6 +73,10 @@ class Session(Base):
     students = db.relationship('Student', secondary=session_students_association, back_populates='sessions')
 
     @hybrid_property
+    def volunteers_needed_count(self):
+        return max(self.volunteers_needed - len(self.volunteers), 0)
+
+    @hybrid_property
     def volunteer_count(self):
         return len(self.volunteers)
 
