@@ -101,6 +101,10 @@ class Session(Base):
     skills_needed =db.Column(String, nullable=True)
     pathway =db.Column(String, nullable=True)
     volunteers_needed =db.Column(Integer, nullable=False)
+    location =db.Column(String, nullable=True)
+    address =db.Column(String, nullable=True)
+    other_info =db.Column(String, nullable=True)
+    notes =db.Column(String, nullable=True)
 
     teachers = relationship('Teacher', secondary='session_teachers_association', back_populates='sessions', overlaps="historical_affiliation,sessions")
     schools = relationship('School', secondary='session_schools', back_populates='sessions')

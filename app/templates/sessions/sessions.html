@@ -6,9 +6,7 @@
     <h1>Sessions List</h1>
 
     <a href="{{ url_for('add_session') }}" class="btn btn-primary">Add Session</a>
-   
-    <div id="detailsPane"></div>
-    
+    <div id="detailsPane" class="m-3"></div>
     {% set filter_id = 'statusFilter' %}
     {% set filter_name = 'statusFilter' %}
     {% set label = 'Filter by Status:' %}
@@ -29,7 +27,7 @@
             </div>
         </div>
     </form>
-    
+    <br />
     <div id="sessionsTable" hx-get="/load-sessions-table" hx-trigger="load">
         <!-- session_table.html content will be loaded here -->
         Loading Data Please Wait...
