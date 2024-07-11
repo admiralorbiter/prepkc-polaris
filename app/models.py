@@ -105,6 +105,7 @@ class Session(Base):
     address =db.Column(String, nullable=True)
     other_info =db.Column(String, nullable=True)
     notes =db.Column(String, nullable=True)
+    description =db.Column(String, nullable=True)
 
     teachers = relationship('Teacher', secondary='session_teachers_association', back_populates='sessions', overlaps="historical_affiliation,sessions")
     schools = relationship('School', secondary='session_schools', back_populates='sessions')

@@ -15,3 +15,19 @@
     <label for="skillsNeeded" class="form-label">Skills Needed</label>
     <input type="text" class="form-control" id="skillsNeeded" name="skillsNeeded" value="{{ session.skills_needed if session else '' }}">
 </div>
+<div class="mb-3">
+    <label for="sessionDescription" class="form-label">Session Description</label>
+    <textarea class="form-control" id="sessionDescription" name="sessionDescription" rows="3">{{ session.description if session else '' }}</textarea>
+</div>
+<div class="mb-3">
+    <label for="sessionNotes" class="form-label">Session Notes</label>
+    <textarea class="form-control" id="sessionNotes" name="sessionNotes" rows="3">{{ session.notes if session else '' }}</textarea>
+</div>
+<div class="mb-3">
+   <label for="sessionLocation" class="form-label">Session Location</label>
+    <input type="text" class="form-control" id="sessionLocation" name="sessionLocation" value="{{ session.location if session else '' }}">
+</div>
+<div class="mb-3">
+    <label for="sessionOtherInfo" class="form-label">Other Information</label>
+    <textarea class="form-control" id="sessionOtherInfo" name="sessionOtherInfo" rows="3">{{ session.other_info if session else '' }}</textarea>
+</div>
