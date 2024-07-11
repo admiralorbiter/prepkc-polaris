@@ -168,6 +168,10 @@ class Session(Base):
             (cls.end_time > cls.start_time, (func.strftime('%s', cls.end_time) - func.strftime('%s', cls.start_time)) / 3600),
             else_=(func.strftime('%s', cls.end_time) - func.strftime('%s', cls.start_time)) / 3600,
         ).label('delivery_hours')
+    
+    @hybrid_property
+    def volunteers_needed_count(self):
+        return max(self.volunteers_needed - len(self.volunteers), 0)
 
 class Teacher(Person):
     __tablename__ = 'teachers'
@@ -188,6 +192,19 @@ class Teacher(Person):
     __mapper_args__ = {
         'polymorphic_identity': 'teacher',
     }
+
+    @hybrid_property
+    def primary_affiliation_name(self):
+        return self.primary_affiliation.name
+
+    @primary_affiliation_name.expression
+    def primary_affiliation_name(cls):
+        SchoolAlias = aliased(School)
+        return (
+            select([SchoolAlias.name])
+            .where(SchoolAlias.id == cls.primary_affiliation_id)
+            .as_scalar()
+        )
 
 class Student(Person):
     __tablename__ = 'students'
@@ -226,6 +243,20 @@ class Volunteer(Person):
     __mapper_args__ = {
         'polymorphic_identity': 'volunteer',
     }
+
+    @hybrid_property
+    def primary_affiliation_name(self):
+        organization = next((org for org in self.organizations if org.id == self.primary_affiliation_id), None)
+        return organization.name if organization else None
+
+    @primary_affiliation_name.expression
+    def primary_affiliation_name(cls):
+        OrganizationAlias = aliased(Organization)
+        return (
+            select([OrganizationAlias.name])
+            .where(OrganizationAlias.id == cls.primary_affiliation_id)
+            .as_scalar()
+        )
 
 class Organization(Base):
     __tablename__ = 'organizations'

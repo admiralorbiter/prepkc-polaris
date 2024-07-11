@@ -1,7 +1,6 @@
 <!-- session_row.html -->
 
 <tr id="id{{ session.id }}">
-    <td>{{ session.id }}</td>
     <td><a href="{{ url_for('session_details', session_id=session.id) }}" hx-get="{{ url_for('session_details', session_id=session.id) }}" hx-target="#detailsPane" hx-swap="innerHTML">
         {{ session.name }}
     </a></td>
