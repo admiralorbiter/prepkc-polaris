@@ -3,9 +3,12 @@
 {% block title %}Polaris: Our North Star{% endblock %}
 
 {% block content %}
-    <h1>Sessions List</h1>
-
-    <a href="{{ url_for('add_session') }}" class="btn btn-primary">Add Session</a>
+    <div class="row">
+        <h1 class="col-3">Sessions List</h1>
+        <div class="col">
+            <a href="{{ url_for('add_session') }}" class="btn btn-primary m-3">Add Session</a>
+        </div>
+    </div>
     <div id="detailsPane" class="m-3"></div>
     {% set filter_id = 'statusFilter' %}
     {% set filter_name = 'statusFilter' %}
