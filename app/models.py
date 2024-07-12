@@ -63,6 +63,41 @@ class Person(Base):
     gender =db.Column(String(10), nullable=True)
     contact_type =db.Column(String(50), nullable=True)
 
+    h_salesforce_id = db.Column(db.String(100), nullable=True)
+    h_salesforce_account_id = db.Column(db.String(100), nullable=True)
+    secondary_email = db.Column(db.String(100), nullable=True)
+    home_email = db.Column(db.String(100), nullable=True)
+    work_email = db.Column(db.String(100), nullable=True)
+    prefered_email = db.Column(db.String(100), nullable=True)
+    country_code = db.Column(db.String(10), nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    state = db.Column(db.String(100), nullable=True)
+    postal_code = db.Column(db.String(10), nullable=True)
+    preferred_phone = db.Column(db.String(15), nullable=True)
+    h_owner_id = db.Column(db.String(100), nullable=True)
+    opt_out_email = db.Column(db.Boolean, default=False)
+    opt_out_phone = db.Column(db.Boolean, default=False)
+    h_created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    h_salesforce_primary_aff = db.Column(db.String(100), nullable=True)
+    h_org_name = db.Column(db.String(100), nullable=True)
+    age_group = db.Column(db.String(50), nullable=True)
+    do_not_contact = db.Column(db.Boolean, default=False)
+    h_connector_join_date = db.Column(db.DateTime, default=datetime.utcnow)
+    h_connector_last_login_date = db.Column(db.DateTime, default=datetime.utcnow)
+    h_connecotr_join_date = db.Column(db.DateTime, default=datetime.utcnow)
+    h_connector_id = db.Column(db.String(100), nullable=True)
+    h_first_volunteer_date = db.Column(db.DateTime, default=datetime.utcnow)
+    h_num_of_attended_sessions = db.Column(db.Integer, default=0)
+    h_num_of_noshow_sessions = db.Column(db.Integer, default=0)
+    h_org_name_reported = db.Column(db.String(100), nullable=True)
+    person_of_color = db.Column(db.Boolean, default=False)
+    racial_ethnic_background = db.Column(db.String(100), nullable=True)
+    status = db.Column(db.String(100), nullable=True)
+    h_last_email_message = db.Column(db.String(100), nullable=True)
+    h_connector_last_update = db.Column(db.DateTime, default=datetime.utcnow)
+    h_connector_signup_role = db.Column(db.String(100), nullable=True)
+    h_last_completed_task = db.Column(db.DateTime, nullable=True)
+
     __mapper_args__ = {
         'polymorphic_identity': 'person',
         'polymorphic_on': contact_type
@@ -239,6 +274,10 @@ class Volunteer(Person):
     last_volunteer_date = db.Column(db.DateTime, default=datetime.utcnow)
     organizations = db.relationship('Organization', secondary=volunteer_organizations, back_populates='volunteers')
     sessions = db.relationship('Session', secondary=volunteer_sessions, back_populates='volunteers')
+
+    h_interests = db.Column(db.String(100), nullable=True)
+    h_skills_text = db.Column(db.String(100), nullable=True)
+    h_skills = db.Column(db.String(100), nullable=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'volunteer',
