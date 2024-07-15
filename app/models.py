@@ -48,7 +48,7 @@ class Base(db.Model):
 
 class Person(Base):
     __tablename__ = 'persons'
-    id =db.Column(Integer, primary_key=True)
+    id =db.Column(Integer, primary_key=True, autoincrement=True)
     first_name =db.Column(String(50), nullable=False)
     last_name =db.Column(String(50), nullable=False)
     middle_name =db.Column(String(50), nullable=True)
@@ -62,6 +62,7 @@ class Person(Base):
     connector_account_id =db.Column(Integer, ForeignKey('connector_accounts.id'), nullable=True)
     gender =db.Column(String(10), nullable=True)
     contact_type =db.Column(String(50), nullable=True)
+    do_not_call =db.Column(Boolean, default=False)
 
     h_salesforce_id = db.Column(db.String(100), nullable=True)
     h_salesforce_account_id = db.Column(db.String(100), nullable=True)
@@ -97,6 +98,7 @@ class Person(Base):
     h_connector_last_update = db.Column(db.DateTime, default=datetime.utcnow)
     h_connector_signup_role = db.Column(db.String(100), nullable=True)
     h_last_completed_task = db.Column(db.DateTime, nullable=True)
+    connector_active_subscription = db.Column(db.Boolean, default=False)
 
     __mapper_args__ = {
         'polymorphic_identity': 'person',
