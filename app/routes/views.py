@@ -203,7 +203,10 @@ def add_teacher():
 @app.route("/add-organization", methods=["POST"])
 def add_organization():
     organization_name = request.form.get('organizationName')
-    organization = Organization(name=organization_name)
+    abbreviation = request.form.get('abbreviation')
+    organization_type = request.form.get('organizationType')
+    
+    organization = Organization(name=organization_name, abbr=abbreviation, type=organization_type)
     db.session.add(organization)
     db.session.commit()
     return redirect(url_for('organizations'))
@@ -427,9 +430,12 @@ def update_volunteer(volunteer_id):
 def update_organization(organization_id):
     organization = Organization.query.get_or_404(organization_id)
     organization.name = request.form.get('organizationName')
+    organization.abbr = request.form.get('abbreviation')
+    organization.type = request.form.get('organizationType')
     db.session.commit()
 
     return redirect(url_for('organizations'))
+
 
 @app.route('/update-school/<int:school_id>', methods=['POST'])
 def update_school(school_id):

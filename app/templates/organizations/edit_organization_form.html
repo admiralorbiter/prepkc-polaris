@@ -2,3 +2,21 @@
     <label for="organizationName" class="form-label">Name</label>
     <input type="text" class="form-control" id="organizationName" name="organizationName" required>
 </div>
+<div class="mb-3">
+    <label for="abbreviation" class="form-label">Abbreviation</label>
+    <input type="text" class="form-control" id="abbreviation" name="abbreviation">
+</div>
+<div class="mb-3">
+    <label for="organizationType" class="form-label">Type</label>
+    <select class="form-control" id="organizationType" name="organizationType" required>
+        <option value="" disabled selected>Select type</option>
+        <option value="non-profit">Non-Profit</option>
+        <option value="government">Government</option>
+        <option value="education institution">Education Institution</option>
+        <option value="healthcare">Healthcare</option>
+        <option value="corporate">Corporate</option>
+        <option value="community org">Community Org</option>
+        <option value="religious">Religious</option>
+        <option value="research">Research</option>
+    </select>
+</div>
