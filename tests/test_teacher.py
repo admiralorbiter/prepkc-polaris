@@ -1,6 +1,6 @@
 import unittest
 from app import app, db
-from app.models import Teacher, School
+from app.models.models import Teacher, School
 
 class TestTeacherModel(unittest.TestCase):
 

@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
 from app import db, app
-from app.models import Session, Teacher, volunteer, School
+from app.models.models import Session, Teacher, volunteer, School
 import re
 
 def get_or_create(model, defaults=None, **kwargs):

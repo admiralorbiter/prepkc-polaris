@@ -2,7 +2,7 @@ import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
-from app.models import Person, Volunteer, Base  # Make sure your models file is correctly imported
+from app.models.models import Person, Volunteer, Base  # Make sure your models file is correctly imported
 
 # Database setup
 engine = create_engine('sqlite:///volunteers.db')

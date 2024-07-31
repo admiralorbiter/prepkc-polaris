@@ -1,6 +1,6 @@
 import unittest
 from app import app, db
-from app.models import Organization
+from app.models.models import Organization
 
 class TestOrganizationModel(unittest.TestCase):
 

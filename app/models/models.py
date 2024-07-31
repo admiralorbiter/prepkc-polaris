@@ -4,7 +4,10 @@ from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from sqlalchemy import Boolean, Date, DateTime, ForeignKey, Integer, String, Time, case, func, select
 from datetime import datetime, timedelta
 from sqlalchemy.orm import aliased, relationship, backref
-from . import db
+from .. import db
+from .address_mixin import AddressMixin
+from .organization import Organization
+from .base import Base
 
 # Association tables
 session_teachers_association = db.Table('session_teachers_association',
@@ -38,13 +41,6 @@ session_organizations_association = db.Table('session_organizations_association'
     db.Column('session_id', db.Integer, db.ForeignKey('sessions.id')),
     db.Column('organization_id', db.Integer, db.ForeignKey('organizations.id'))
 )
-
-# Base Class
-class Base(db.Model):
-    __abstract__ = True
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    deleted_at = db.Column(db.DateTime, nullable=True, index=True)
 
 class Person(Base):
     __tablename__ = 'persons'
@@ -298,13 +294,6 @@ class Volunteer(Person):
             .where(OrganizationAlias.id == cls.primary_affiliation_id)
             .as_scalar()
         )
-
-class Organization(Base):
-    __tablename__ = 'organizations'
-    id =db.Column(Integer, primary_key=True)
-    name =db.Column(String(100), nullable=False, unique=True)
-    volunteers = relationship('Volunteer', back_populates='primary_affiliation')
-    sessions = relationship('Session', secondary='session_organizations_association', back_populates='organizations')
 
 # Connector Account Table
 class ConnectorAccount(Base):

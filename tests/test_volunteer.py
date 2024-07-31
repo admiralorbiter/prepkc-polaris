@@ -1,6 +1,6 @@
 import unittest
 from app import app, db
-from app.models import Volunteer, Organization
+from app.models.models import Volunteer, Organization
 
 class TestVolunteerModel(unittest.TestCase):
 

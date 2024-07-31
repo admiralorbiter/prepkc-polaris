@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from app.routes import views
-from app import models
+from app.models import models
 
 def run_tests():
     tests = unittest.TestLoader().discover('tests')

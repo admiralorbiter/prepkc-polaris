@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-from app.models import db, Volunteer, Base
+from app.models.models import db, Volunteer, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

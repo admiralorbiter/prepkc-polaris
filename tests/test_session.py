@@ -1,7 +1,7 @@
 import unittest
 from datetime import date, time
 from app import app, db
-from app.models import Session
+from app.models.models import Session
 
 class TestSessionModel(unittest.TestCase):
 

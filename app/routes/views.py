@@ -1,6 +1,6 @@
 from flask import flash, redirect, render_template, request, url_for
 from app import app, db
-from app.models import School, Session, Teacher, session_schools, Volunteer, Organization
+from app.models.models import School, Session, Teacher, session_schools, Volunteer, Organization
 from datetime import datetime, timedelta
 from flask import session
 from sqlalchemy import func, or_, and_, case
