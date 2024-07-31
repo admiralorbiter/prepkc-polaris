@@ -24,6 +24,6 @@ def run_tests():
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
 
-run_tests()
+# run_tests()
 with app.app_context():
     db.create_all()
